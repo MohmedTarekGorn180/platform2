@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-font-scale="1">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2b6b">
+<title>تسجيل الدخول | منصة أقدر</title>
+
+<style>
+/* ============================================================
+   أقدر | AQDAR — صفحة تسجيل الدخول الموحّدة
+   ============================================================ */
+:root{
+  --blue-900:#0b2b6b; --blue-800:#0e3490; --blue-700:#1248b8; --blue-600:#1b5fd9;
+  --cyan-500:#12b6d8; --cyan-400:#2ad4e8; --yellow-500:#ffb020; --yellow-300:#ffd86b;
+  --purple-600:#5b3bb5; --green-500:#16a34a; --green-400:#22c55e;
+  --red-500:#dc2626; --red-400:#ef4444; --orange-500:#f97316;
+  --bg:#eef4ff; --surface:#ffffff; --surface-soft:#f7faff;
+  --border:#d5e1f5; --border-strong:#a8c1e8;
+  --ink:#0d2350; --ink-soft:#4a6ba8; --ink-mute:#7b93bd;
+  --field-bg:#ffffff; --field-border:#c5d5ef; --field-focus:#1248b8;
+  --field-error:#dc2626; --field-success:#16a34a;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px; --radius-xl:20px; --radius-2xl:28px;
+  --shadow-sm:0 2px 8px rgba(18,72,184,.06);
+  --shadow-md:0 6px 20px rgba(18,72,184,.10);
+  --shadow-lg:0 24px 60px rgba(11,43,107,.18);
+  --ease:cubic-bezier(.22,.9,.28,1);
+  --ease-bounce:cubic-bezier(.34,1.56,.64,1);
+  --ease-smooth:cubic-bezier(.4,0,.2,1);
+  --focus-ring:0 0 0 3px rgba(18,72,184,.35);
+  --dur-fast:.18s; --dur:.28s;
+}
+[data-theme="dark"]{
+  --bg:#060f26; --surface:#0f2150; --surface-soft:#152a5e;
+  --border:#28477f; --border-strong:#3d5fa0;
+  --ink:#eef3ff; --ink-soft:#b8c9e8; --ink-mute:#8098c4;
+  --field-bg:#0e2148; --field-border:#2f5199;
+}
+[data-theme="dark"] body{ background:#060f26; }
+[data-contrast="high"]{ --ink:#000; --ink-soft:#1a2a4a; --border:#000; --border-strong:#000; --field-border:#000; --field-focus:#000; }
+[data-theme="dark"][data-contrast="high"]{ --ink:#fff; --ink-soft:#e6eeff; --bg:#000; --surface:#0a0a0a; --border:#fff; }
+[data-no-motion="true"] *, [data-no-motion="true"] *::before, [data-no-motion="true"] *::after{
+  animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;
+}
+*{ box-sizing:border-box; }
+html{ font-size:calc(16px * var(--font-scale, 1)); transition:font-size .3s var(--ease); scroll-behavior:smooth; }
+html, body{ margin:0; padding:0; min-height:100%; }
+body{
+  font-family:"Cairo","Tajawal","Noto Sans Arabic","Segoe UI",Tahoma,system-ui,-apple-system,sans-serif;
+  color:var(--ink); background:var(--bg); font-size:1rem; line-height:1.7;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  min-height:100vh; min-height:100dvh; overflow-x:hidden;
+}
+.page-progress{ position:fixed; top:0; right:0; left:0; height:3px; z-index:100; pointer-events:none; }
+.page-progress__bar{ height:100%; width:0%; background:linear-gradient(90deg,var(--blue-700),var(--cyan-500),var(--yellow-500)); transition:width .15s var(--ease-smooth); box-shadow:0 0 12px rgba(18,72,184,.5); }
+.skip-link{ position:absolute; top:-100px; right:12px; z-index:9999; padding:12px 20px; background:var(--blue-700); color:#fff; border-radius:0 0 var(--radius-md) var(--radius-md); text-decoration:none; font-weight:700; transition:top .2s var(--ease); }
+.skip-link:focus{ top:0; outline:3px solid var(--cyan-500); outline-offset:2px; }
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.app{ min-height:100vh; min-height:100dvh; display:grid; place-items:center; padding:clamp(10px, 2vmin, 28px); }
+.split{
+  width:100%; max-width:1280px; display:flex; flex-direction:row;
+  height:calc(100dvh - clamp(20px, 4vmin, 56px)); max-height:860px; min-height:640px;
+  background:var(--surface); border-radius:var(--radius-2xl); overflow:hidden;
+  box-shadow:var(--shadow-lg); position:relative; animation:splitIn .7s var(--ease) both;
+}
+@keyframes splitIn{ from{ opacity:0; transform:translateY(20px) scale(.985); } to{ opacity:1; transform:translateY(0) scale(1); } }
+.split::before{
+  content:""; position:absolute; top:0; right:0; left:0; height:4px; z-index:5;
+  background:linear-gradient(90deg, var(--blue-700) 0%, var(--cyan-500) 35%, var(--yellow-500) 70%, var(--purple-600) 100%);
+  background-size:200% 100%; animation:gradientShift 8s linear infinite;
+}
+@keyframes gradientShift{ 0%{ background-position:0% 50%; } 100%{ background-position:200% 50%; } }
+.panel--form{
+  flex:1 1 56%; min-width:0; display:flex; flex-direction:column;
+  overflow-y:auto; overflow-x:hidden;
+  padding:clamp(22px, 3.4vmin, 44px) clamp(22px, 3.6vmin, 52px) 0;
+  scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;
+}
+.panel--form::-webkit-scrollbar{ width:8px; }
+.panel--form::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:8px; }
+.form-panel{ display:flex; flex-direction:column; gap:clamp(16px, 2.4vmin, 22px); width:100%; max-width:480px; margin:0 auto; flex:1; }
+.brand{ display:flex; align-items:center; gap:14px; padding:6px 0 4px; animation:brandIn .7s var(--ease-bounce) both; }
+@keyframes brandIn{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
+.brand__logo{ width:58px; height:58px; flex-shrink:0; filter:drop-shadow(0 8px 20px rgba(18,72,184,.22)); animation:logoPulse 5s ease-in-out infinite; }
+@keyframes logoPulse{ 0%,100%{ transform:translateY(0) rotate(0deg); } 50%{ transform:translateY(-3px) rotate(-1.5deg); } }
+.brand__text{ display:flex; flex-direction:column; line-height:1.05; text-align:right; }
+.brand__ar{ font-size:1.45rem; font-weight:800; color:var(--blue-700); letter-spacing:-.01em; }
+[data-theme="dark"] .brand__ar{ color:var(--cyan-400); }
+.brand__en{ font-size:.68rem; font-weight:700; letter-spacing:.32em; color:var(--ink-soft); direction:ltr; text-align:right; }
+.brand__tag{ margin-inline-start:auto; font-size:.72rem; font-weight:800; color:var(--blue-700); background:rgba(18,72,184,.08); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+[data-theme="dark"] .brand__tag{ color:var(--cyan-400); background:rgba(42,212,232,.14); }
+@media (max-width:520px){ .brand__tag{ display:none; } .brand__logo{ width:50px; height:50px; } .brand__ar{ font-size:1.25rem; } }
+.view{ display:flex; flex-direction:column; gap:clamp(14px, 2.2vmin, 20px); }
+.view[hidden]{ display:none; }
+.view--enter{ animation:viewIn .45s var(--ease) both; }
+@keyframes viewIn{ from{ opacity:0; transform:translateX(-24px); } to{ opacity:1; transform:translateX(0); } }
+.head{ display:flex; flex-direction:column; gap:5px; text-align:right; }
+.head__title{ margin:0; font-size:clamp(1.35rem, 2.5vmin, 1.6rem); font-weight:800; color:var(--ink); line-height:1.35; outline:none; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.head__title .wave{ display:inline-block; animation:wave 2.4s ease-in-out infinite; transform-origin:70% 70%; }
+@keyframes wave{ 0%,60%,100%{ transform:rotate(0deg); } 10%,30%{ transform:rotate(14deg); } 20%{ transform:rotate(-8deg); } }
+.head__subtitle{ margin:0; font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
+.form{ display:flex; flex-direction:column; gap:clamp(12px, 1.8vmin, 18px); }
+.field{ display:flex; flex-direction:column; gap:5px; position:relative; }
+.field__label{ font-size:.85rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:8px; cursor:pointer; transition:color var(--dur) var(--ease); flex-wrap:wrap; }
+.field:focus-within .field__label{ color:var(--blue-700); }
+[data-theme="dark"] .field:focus-within .field__label{ color:var(--cyan-400); }
+.field__required{ font-size:.64rem; font-weight:700; color:var(--red-500); background:rgba(220,38,38,.10); padding:2px 7px; border-radius:999px; }
+[data-theme="dark"] .field__required{ color:#ffb8b8; background:rgba(220,38,38,.20); }
+.field__optional{ font-size:.64rem; font-weight:700; color:var(--ink-soft); background:rgba(75,107,168,.10); padding:2px 7px; border-radius:999px; }
+.field__hint{ font-size:.74rem; color:var(--ink-soft); margin:0; line-height:1.5; }
+.field__wrap{ position:relative; display:flex; align-items:center; }
+.field__icon{ position:absolute; inset-inline-end:14px; top:50%; transform:translateY(-50%); width:19px; height:19px; color:var(--ink-mute); pointer-events:none; flex-shrink:0; transition:color var(--dur) var(--ease), transform var(--dur) var(--ease-bounce); z-index:1; }
+.field:focus-within .field__icon{ color:var(--blue-700); transform:translateY(-50%) scale(1.12); }
+[data-theme="dark"] .field:focus-within .field__icon{ color:var(--cyan-400); }
+.field--error .field__icon{ color:var(--red-500); }
+.field--valid .field__icon{ color:var(--green-500); }
+.field__input{
+  width:100%;
+  padding:12px 50px 12px 42px;
+  font-family:inherit; font-size:.94rem; font-weight:500; line-height:1.5;
+  color:var(--ink); background:var(--field-bg); border:1.5px solid var(--field-border);
+  border-radius:var(--radius-md);
+  transition:border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+  min-height:48px;
+}
+.field:not(:has(.field__toggle)) .field__input{
+  padding-inline-start:14px;
+  padding-inline-end:42px;
+}
+.field__input::placeholder{ color:var(--ink-mute); opacity:.85; }
+.field__input:hover:not(:disabled):not(:focus){ border-color:var(--border-strong); }
+.field__input:focus{ outline:none; border-color:var(--field-focus); box-shadow:var(--focus-ring); background:var(--surface); transform:translateY(-1px); }
+.field__input:disabled{ opacity:.6; cursor:not-allowed; }
+.field--error .field__input{ border-color:var(--field-error); background:rgba(220,38,38,.04); animation:shake .4s var(--ease); }
+@keyframes shake{ 0%,100%{ transform:translateX(0); } 20%{ transform:translateX(-6px); } 40%{ transform:translateX(6px); } 60%{ transform:translateX(-3px); } 80%{ transform:translateX(3px); } }
+.field--error .field__input:focus{ box-shadow:0 0 0 3px rgba(220,38,38,.30); }
+[data-theme="dark"] .field--error .field__input{ background:rgba(220,38,38,.12); }
+.field--valid .field__input{ border-color:var(--field-success); }
+.field__toggle{
+  position:absolute;
+  inset-inline-start:6px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:42px; height:42px;
+  border:1px solid rgba(18,72,184,.18);
+  background:rgba(18,72,184,.08);
+  color:var(--blue-700);
+  cursor:pointer;
+  border-radius:10px;
+  z-index:2;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease-bounce), border-color var(--dur) var(--ease);
+}
+.field__toggle:hover{
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  color:#fff;
+  border-color:transparent;
+  transform:translateY(-50%) scale(1.06);
+}
+.field__toggle:active{ transform:translateY(-50%) scale(.96); }
+.field__toggle:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:2px; }
+.field__toggle svg{ width:20px; height:20px; pointer-events:none; flex-shrink:0; }
+.field__toggle[aria-pressed="true"] .icon-eye{ display:none; }
+.field__toggle[aria-pressed="false"] .icon-eye-off{ display:none; }
+[data-theme="dark"] .field__toggle{
+  background:rgba(42,212,232,.12);
+  color:var(--cyan-400);
+  border-color:rgba(42,212,232,.25);
+}
+[data-theme="dark"] .field__toggle:hover{
+  background:linear-gradient(135deg, var(--cyan-500), var(--blue-700));
+  color:#fff;
+}
+.field__error{ display:flex; align-items:flex-start; gap:8px; font-size:.78rem; font-weight:700; color:var(--red-500); line-height:1.5; min-height:0; max-height:0; overflow:hidden; opacity:0; transform:translateY(-4px); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease), max-height var(--dur) var(--ease); }
+.field--error .field__error{ opacity:1; transform:translateY(0); max-height:80px; min-height:20px; }
+[data-theme="dark"] .field__error{ color:#ffb8b8; }
+.field__error svg{ width:15px; height:15px; flex-shrink:0; margin-top:2px; }
+.check{ display:flex; align-items:flex-start; gap:12px; cursor:pointer; padding:2px 0; user-select:none; }
+.check__box{ position:relative; flex-shrink:0; width:22px; height:22px; margin-top:3px; }
+.check__box input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; z-index:2; margin:0; }
+.check__box .visual{ position:absolute; inset:0; border:2px solid var(--field-border); border-radius:6px; background:var(--field-bg); display:grid; place-items:center; transition:all var(--dur) var(--ease-bounce); }
+.check__box .visual svg{ width:15px; height:15px; color:#fff; opacity:0; transform:scale(.4); transition:all var(--dur) var(--ease-bounce); }
+.check__box input:checked ~ .visual{ background:var(--blue-700); border-color:var(--blue-700); transform:scale(1.05); }
+.check__box input:checked ~ .visual svg{ opacity:1; transform:scale(1); }
+.check__box input:focus-visible ~ .visual{ box-shadow:var(--focus-ring); border-color:var(--field-focus); }
+.check__text{ flex:1; font-size:.85rem; color:var(--ink); line-height:1.6; }
+.check__text strong{ font-weight:800; }
+.check__text a{ color:var(--blue-700); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+.check__text a:hover{ color:var(--cyan-500); }
+[data-theme="dark"] .check__text a{ color:var(--cyan-400); }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:13px 22px; font-family:inherit; font-size:.94rem; font-weight:800; line-height:1; border-radius:var(--radius-md); border:1.5px solid transparent; cursor:pointer; text-decoration:none; min-height:48px; transition:all var(--dur) var(--ease); position:relative; overflow:hidden; isolation:isolate; }
+.btn:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:3px; }
+.btn:disabled{ cursor:not-allowed; opacity:.7; }
+.btn--primary{ color:#fff; background:linear-gradient(135deg, var(--blue-700), var(--blue-600) 50%, var(--cyan-500)); background-size:180% 180%; box-shadow:0 10px 24px rgba(18,72,184,.28); width:100%; animation:gradientBg 5s ease infinite; }
+@keyframes gradientBg{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+.btn--primary:hover:not(:disabled){ transform:translateY(-2px); box-shadow:0 14px 32px rgba(18,72,184,.38); }
+.btn--primary:active:not(:disabled){ transform:translateY(0) scale(.98); }
+.btn--ghost{ color:var(--ink); background:var(--surface); border-color:var(--border); }
+.btn--ghost:hover:not(:disabled){ border-color:var(--blue-700); color:var(--blue-700); background:rgba(18,72,184,.04); transform:translateY(-1px); }
+.btn--switch{ width:100%; color:var(--ink); background:var(--surface); border:1.5px solid var(--border); font-size:.94rem; font-weight:800; gap:10px; }
+.btn--switch:hover:not(:disabled){ border-color:var(--blue-700); color:var(--blue-700); background:rgba(18,72,184,.04); transform:translateY(-2px); box-shadow:0 8px 20px rgba(18,72,184,.12); }
+[data-theme="dark"] .btn--switch{ background:var(--surface-soft); border-color:var(--border); color:var(--ink); }
+[data-theme="dark"] .btn--switch:hover{ border-color:var(--cyan-400); color:var(--cyan-400); background:rgba(42,212,232,.08); }
+.btn--switch svg{ width:18px; height:18px; flex-shrink:0; transition:transform var(--dur) var(--ease); }
+.btn--switch:hover svg{ transform:translateX(-4px); }
+.btn__spinner{ display:none; width:20px; height:20px; border-radius:50%; border:2.5px solid rgba(255,255,255,.35); border-top-color:#fff; animation:spin .8s linear infinite; }
+.btn--loading .btn__spinner{ display:inline-block; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.forgot-row{ display:flex; justify-content:flex-start; margin-top:-4px; }
+.forgot-btn{ background:none; border:none; font-family:inherit; font-size:.85rem; font-weight:700; color:var(--blue-700); cursor:pointer; padding:4px 2px; text-decoration:underline; text-underline-offset:3px; border-radius:4px; display:inline-flex; align-items:center; gap:6px; transition:color var(--dur) var(--ease); }
+.forgot-btn:hover{ color:var(--cyan-500); }
+.forgot-btn:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:2px; }
+.forgot-btn svg{ width:14px; height:14px; }
+[data-theme="dark"] .forgot-btn{ color:var(--cyan-400); }
+.divider{ display:flex; align-items:center; gap:12px; color:var(--ink-mute); font-size:.76rem; font-weight:700; letter-spacing:.02em; }
+.divider::before, .divider::after{ content:""; flex:1; height:1px; background:var(--border); }
+.switch-block{ display:flex; flex-direction:column; gap:10px; margin-top:2px; }
+.tips{ position:relative; display:flex; flex-direction:column; gap:12px; padding:16px 16px 14px; border-radius:var(--radius-lg); background:linear-gradient(135deg, rgba(255,176,32,.06), rgba(18,72,184,.05) 55%, rgba(42,212,232,.07)); border:1.5px solid rgba(255,176,32,.22); overflow:hidden; animation:fadeSlideUp .5s var(--ease) both; }
+[data-theme="dark"] .tips{ background:linear-gradient(135deg, rgba(255,176,32,.10), rgba(18,72,184,.14) 55%, rgba(42,212,232,.12)); border-color:rgba(255,176,32,.35); }
+.tips__head{ display:flex; align-items:center; gap:10px; }
+.tips__head-icon{ flex-shrink:0; display:grid; place-items:center; width:36px; height:36px; border-radius:11px; background:linear-gradient(135deg, var(--yellow-500), var(--yellow-300)); color:#fff; box-shadow:0 8px 18px rgba(255,176,32,.32); }
+.tips__head-icon svg{ width:19px; height:19px; }
+.tips__title{ margin:0; font-size:.94rem; font-weight:800; color:var(--ink); line-height:1.2; }
+.tips__title small{ display:block; font-size:.72rem; font-weight:600; color:var(--ink-soft); margin-top:2px; line-height:1.3; }
+.tips__list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+.tips__item{ display:flex; align-items:flex-start; gap:10px; font-size:.84rem; color:var(--ink-soft); line-height:1.55; }
+.tips__item-icon{ flex-shrink:0; display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--surface); color:var(--blue-700); border:1px solid rgba(18,72,184,.15); margin-top:1px; box-shadow:0 2px 6px rgba(18,72,184,.06); }
+.tips__item-icon svg{ width:12px; height:12px; }
+.tips__item strong{ color:var(--ink); font-weight:800; }
+[data-theme="dark"] .tips__item-icon{ background:var(--surface-soft); color:var(--cyan-400); border-color:rgba(42,212,232,.2); }
+@keyframes fadeSlideUp{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+.foot{ text-align:center; font-size:.76rem; color:var(--ink-mute); padding:16px 0 18px; margin-top:auto; }
+.foot a{ color:var(--ink-soft); text-decoration:none; font-weight:600; transition:color var(--dur) var(--ease); }
+.foot a:hover{ color:var(--blue-700); text-decoration:underline; }
+.kbd-hint{ display:inline-flex; align-items:center; justify-content:center; gap:4px; font-size:.7rem; color:var(--ink-mute); font-weight:700; }
+.kbd{ display:inline-grid; place-items:center; min-width:20px; height:20px; padding:0 6px; background:var(--surface-soft); border:1px solid var(--border); border-bottom-width:2px; border-radius:5px; font-size:.68rem; font-family:ui-monospace, Menlo, Consolas, monospace; }
+.panel--hero{
+  flex:1 1 44%; min-width:0; position:relative; overflow:hidden; color:#fff;
+  background:
+    radial-gradient(1200px 800px at 100% 0%, rgba(42,212,232,.18), transparent 60%),
+    radial-gradient(900px 700px at 0% 100%, rgba(255,176,32,.14), transparent 55%),
+    linear-gradient(135deg, #0b2b6b 0%, #0e3490 45%, #103a9c 100%);
+  display:flex; flex-direction:column;
+}
+.hero__grid{ position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size:44px 44px; mask-image:radial-gradient(ellipse at 50% 40%, #000 40%, transparent 78%); -webkit-mask-image:radial-gradient(ellipse at 50% 40%, #000 40%, transparent 78%); pointer-events:none; }
+.hero__orb{ position:absolute; border-radius:50%; filter:blur(60px); opacity:.55; pointer-events:none; animation:heroFloat 20s ease-in-out infinite; }
+.hero__orb--1{ width:340px; height:340px; top:-90px; right:-80px; background:radial-gradient(circle, rgba(42,212,232,.7), transparent 70%); }
+.hero__orb--2{ width:380px; height:380px; bottom:-120px; left:-110px; background:radial-gradient(circle, rgba(255,176,32,.5), transparent 70%); animation-delay:-7s; }
+.hero__orb--3{ width:280px; height:280px; top:35%; left:40%; background:radial-gradient(circle, rgba(91,59,181,.55), transparent 70%); animation-delay:-13s; }
+@keyframes heroFloat{ 0%,100%{ transform:translate(0,0) scale(1); } 33%{ transform:translate(30px,-40px) scale(1.08); } 66%{ transform:translate(-25px,30px) scale(.95); } }
+.hero__inner{ position:relative; z-index:2; display:flex; flex-direction:column; justify-content:space-between; gap:24px; padding:clamp(32px, 4vmin, 56px); height:100%; }
+.hero__brand{ display:flex; align-items:center; gap:14px; animation:brandIn .8s var(--ease-bounce) both; }
+.hero__logo{ width:60px; height:60px; flex-shrink:0; filter:drop-shadow(0 8px 24px rgba(0,0,0,.35)); }
+.hero__brand-text{ display:flex; flex-direction:column; line-height:1.05; text-align:right; }
+.hero__brand-ar{ font-size:1.6rem; font-weight:800; background:linear-gradient(135deg, #ffffff 0%, #b8e8ff 60%, #ffd86b 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hero__brand-en{ font-size:.7rem; font-weight:700; letter-spacing:.32em; color:rgba(255,255,255,.65); direction:ltr; text-align:right; }
+.hero__main{ display:flex; flex-direction:column; gap:16px; margin:auto 0; }
+.hero__badge{ display:inline-flex; align-items:center; gap:8px; align-self:flex-start; padding:6px 14px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:999px; font-size:.78rem; font-weight:700; color:#e8f4ff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); animation:fadeSlideUp .7s var(--ease) both .15s; }
+.hero__badge svg{ width:14px; height:14px; color:var(--yellow-300); }
+.hero__title{ margin:0; font-size:clamp(1.8rem, 3.4vmin, 2.5rem); font-weight:800; line-height:1.2; color:#fff; letter-spacing:-.015em; animation:fadeSlideUp .7s var(--ease) both .25s; }
+.hero__title-accent{ display:block; background:linear-gradient(135deg, var(--cyan-400) 0%, var(--yellow-300) 100%); -webkit-background-clip:text; background-clip:text; color:transparent; position:relative; }
+.hero__title-accent::after{ content:""; position:absolute; bottom:-4px; right:0; width:56%; height:3px; border-radius:3px; background:linear-gradient(90deg, var(--cyan-400), transparent); opacity:.7; }
+.hero__desc{ margin:0; font-size:.98rem; color:rgba(255,255,255,.78); line-height:1.75; max-width:44ch; animation:fadeSlideUp .7s var(--ease) both .35s; }
+.hero__features{ list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:12px; }
+.hero__feature{ display:flex; align-items:center; gap:14px; animation:fadeSlideUp .7s var(--ease) both; animation-delay:calc(.42s + var(--i, 0) * .1s); }
+.hero__feature-icon{ flex-shrink:0; display:grid; place-items:center; width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg, rgba(42,212,232,.28), rgba(18,72,184,.35)); border:1px solid rgba(255,255,255,.18); color:var(--cyan-400); box-shadow:inset 0 1px 0 rgba(255,255,255,.15), 0 6px 20px rgba(0,0,0,.18); }
+.hero__feature-icon svg{ width:21px; height:21px; }
+.hero__feature-text{ display:flex; flex-direction:column; line-height:1.35; }
+.hero__feature-text strong{ font-size:.96rem; font-weight:800; color:#fff; }
+.hero__feature-text span{ font-size:.82rem; color:rgba(255,255,255,.7); }
+.toast-stack{ position:fixed; top:20px; inset-inline-end:20px; z-index:70; display:flex; flex-direction:column; gap:10px; max-width:min(360px, calc(100vw - 40px)); pointer-events:none; }
+.toast{ pointer-events:auto; display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); color:var(--ink); font-size:.88rem; line-height:1.55; animation:toastIn .4s var(--ease-bounce) both; position:relative; overflow:hidden; }
+.toast.is-leaving{ animation:toastOut .3s var(--ease) forwards; }
+@keyframes toastIn{ from{ opacity:0; transform:translateX(40px) scale(.9); } to{ opacity:1; transform:translateX(0) scale(1); } }
+@keyframes toastOut{ to{ opacity:0; transform:translateX(40px) scale(.9); } }
+.toast__icon{ flex-shrink:0; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; color:#fff; }
+.toast__icon svg{ width:17px; height:17px; }
+.toast--info .toast__icon{ background:linear-gradient(135deg, var(--blue-700), var(--cyan-500)); }
+.toast--success .toast__icon{ background:linear-gradient(135deg, var(--green-500), var(--green-400)); }
+.toast--error .toast__icon{ background:linear-gradient(135deg, var(--red-500), var(--red-400)); }
+.toast--warning .toast__icon{ background:linear-gradient(135deg, var(--orange-500), var(--yellow-500)); }
+.toast__body{ flex:1; }
+.toast__title{ font-weight:800; margin:0 0 2px; font-size:.92rem; }
+.toast__msg{ margin:0; color:var(--ink-soft); font-size:.82rem; }
+.toast__close{ background:transparent; border:none; color:var(--ink-mute); cursor:pointer; padding:4px; border-radius:6px; transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.toast__close:hover{ background:rgba(0,0,0,.05); color:var(--ink); }
+.toast__close svg{ width:14px; height:14px; display:block; }
+.a11y-btn{ position:fixed; bottom:20px; inset-inline-start:20px; z-index:40; display:grid; place-items:center; width:54px; height:54px; border-radius:50%; border:none; cursor:pointer; color:#fff; background:linear-gradient(135deg, var(--blue-700), var(--cyan-500)); box-shadow:0 12px 28px rgba(18,72,184,.32); transition:transform var(--dur) var(--ease); animation:a11yPulse 3s ease-in-out infinite; }
+@keyframes a11yPulse{ 0%,100%{ box-shadow:0 12px 28px rgba(18,72,184,.32), 0 0 0 0 rgba(18,72,184,.45); } 50%{ box-shadow:0 12px 28px rgba(18,72,184,.32), 0 0 0 14px rgba(18,72,184,0); } }
+.a11y-btn:hover{ transform:translateY(-3px) rotate(6deg); }
+.a11y-btn:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:4px; }
+.a11y-btn svg{ width:26px; height:26px; transition:transform var(--dur) var(--ease-bounce); }
+.a11y-btn[aria-expanded="true"]{ background:linear-gradient(135deg, var(--cyan-500), var(--blue-700)); }
+.a11y-btn[aria-expanded="true"] svg{ transform:rotate(90deg); }
+.a11y-panel{ position:fixed; bottom:86px; inset-inline-start:20px; z-index:41; width:min(360px, calc(100vw - 32px)); max-height:calc(100dvh - 108px); overflow-y:auto; padding:18px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-xl); box-shadow:var(--shadow-lg); display:flex; flex-direction:column; gap:16px; opacity:0; visibility:hidden; transform:translateY(14px) scale(.95); transition:all var(--dur) var(--ease); transform-origin:bottom right; }
+.a11y-panel.is-visible{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+.a11y-panel__head{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+.a11y-panel__title-wrap{ display:flex; align-items:center; gap:10px; }
+.a11y-panel__title-icon{ flex-shrink:0; width:36px; height:36px; border-radius:11px; display:grid; place-items:center; background:linear-gradient(135deg, rgba(18,72,184,.12), rgba(42,212,232,.18)); color:var(--blue-700); border:1px solid rgba(18,72,184,.12); }
+.a11y-panel__title-icon svg{ width:19px; height:19px; }
+[data-theme="dark"] .a11y-panel__title-icon{ color:var(--cyan-400); }
+.a11y-panel__title{ margin:0; font-size:.98rem; font-weight:800; color:var(--ink); line-height:1.2; }
+.a11y-panel__close{ flex-shrink:0; display:grid; place-items:center; width:32px; height:32px; border:none; border-radius:50%; background:transparent; color:var(--ink-soft); cursor:pointer; transition:background var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.a11y-panel__close:hover{ background:rgba(18,72,184,.08); transform:rotate(90deg); }
+.a11y-panel__close svg{ width:17px; height:17px; }
+.a11y-group{ display:flex; flex-direction:column; gap:10px; }
+.a11y-group__head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.a11y-group__label{ font-size:.78rem; font-weight:800; color:var(--ink-soft); letter-spacing:.02em; }
+.a11y-group__value{ font-size:.72rem; font-weight:800; color:var(--blue-700); padding:2px 9px; background:rgba(18,72,184,.08); border-radius:999px; }
+[data-theme="dark"] .a11y-group__value{ color:var(--cyan-400); background:rgba(42,212,232,.14); }
+.a11y-options{ display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+.a11y-option{ display:grid; place-items:center; aspect-ratio:1; min-height:54px; font-family:inherit; color:var(--ink-soft); background:var(--surface-soft); border:1.5px solid var(--border); border-radius:var(--radius-md); cursor:pointer; transition:all var(--dur) var(--ease); }
+.a11y-option:hover{ border-color:var(--blue-700); color:var(--blue-700); transform:translateY(-2px); }
+.a11y-option.is-active{ background:linear-gradient(135deg, var(--blue-700), var(--cyan-500)); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(18,72,184,.30); }
+.a11y-option:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:2px; }
+.a11y-divider{ height:1px; background:var(--border); margin:2px 0; border-radius:2px; }
+.a11y-toggles{ display:flex; flex-direction:column; gap:8px; }
+.a11y-toggle{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; background:var(--surface-soft); border:1.5px solid var(--border); border-radius:var(--radius-md); cursor:pointer; font-family:inherit; color:var(--ink); text-align:start; transition:all var(--dur) var(--ease); min-height:56px; }
+.a11y-toggle:hover{ border-color:var(--blue-700); background:var(--surface); }
+.a11y-toggle:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:2px; }
+.a11y-toggle__info{ display:flex; align-items:center; gap:10px; flex:1; }
+.a11y-toggle__icon{ flex-shrink:0; width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:var(--surface); border:1px solid var(--border); color:var(--ink-soft); transition:all var(--dur) var(--ease); }
+.a11y-toggle__icon svg{ width:17px; height:17px; }
+.a11y-toggle[aria-pressed="true"] .a11y-toggle__icon{ background:linear-gradient(135deg, var(--blue-700), var(--cyan-500)); color:#fff; border-color:transparent; box-shadow:0 4px 10px rgba(18,72,184,.30); }
+.a11y-toggle__text{ display:flex; flex-direction:column; gap:1px; }
+.a11y-toggle__text strong{ font-size:.86rem; font-weight:800; color:var(--ink); line-height:1.25; }
+.a11y-toggle__text small{ font-size:.7rem; font-weight:600; color:var(--ink-mute); line-height:1.3; }
+.a11y-toggle__switch{ position:relative; flex-shrink:0; width:42px; height:24px; background:var(--border-strong); border-radius:999px; transition:background var(--dur) var(--ease); }
+.a11y-toggle__switch::after{ content:""; position:absolute; top:3px; inset-inline-end:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:transform var(--dur) var(--ease-bounce); box-shadow:0 1px 4px rgba(0,0,0,.22); }
+.a11y-toggle[aria-pressed="true"] .a11y-toggle__switch{ background:var(--blue-700); }
+.a11y-toggle[aria-pressed="true"] .a11y-toggle__switch::after{ transform:translateX(-18px); }
+.modal{ position:fixed; inset:0; z-index:60; display:grid; place-items:center; padding:20px; background:rgba(10,30,70,.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); opacity:0; visibility:hidden; transition:all var(--dur) var(--ease); }
+.modal.is-visible{ opacity:1; visibility:visible; }
+.modal__card{ width:min(480px, 100%); background:var(--surface); border-radius:var(--radius-2xl); box-shadow:var(--shadow-lg); padding:clamp(24px, 4vmin, 32px); display:flex; flex-direction:column; gap:16px; transform:scale(.94) translateY(10px); transition:transform .35s var(--ease-bounce); }
+.modal.is-visible .modal__card{ transform:scale(1) translateY(0); }
+.modal__head{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.modal__title{ margin:0; font-size:1.15rem; font-weight:800; color:var(--ink); line-height:1.4; }
+.modal__text{ margin:0; color:var(--ink-soft); line-height:1.7; font-size:.92rem; }
+.modal__actions{ display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:8px; }
+.modal__actions .btn{ width:auto; min-width:120px; }
+@media (max-width:1000px){
+  .split{ max-width:760px; }
+  .panel--hero{ flex:1 1 38%; }
+  .panel--form{ flex:1 1 62%; }
+  .hero__inner{ padding:26px; }
+  .hero__title{ font-size:clamp(1.4rem, 2.4vmin, 1.75rem); }
+  .hero__desc{ font-size:.86rem; }
+  .hero__feature-icon{ width:34px; height:34px; border-radius:12px; }
+  .hero__feature-icon svg{ width:17px; height:17px; }
+  .hero__feature-text strong{ font-size:.84rem; }
+  .hero__feature-text span{ font-size:.72rem; }
+}
+@media (max-width:760px){
+  .app{ padding:0; place-items:stretch; }
+  .split{ flex-direction:column; height:auto; max-height:none; min-height:100dvh; border-radius:0; box-shadow:none; max-width:100%; }
+  .panel--hero{ flex:0 0 auto; min-height:auto; padding:28px 22px 24px; order:2; }
+  .panel--form{ flex:1 1 auto; order:1; padding:18px 16px 0; overflow-y:visible; }
+  .hero__inner{ padding:0; gap:14px; }
+  .hero__brand{ display:none; }
+  .hero__title{ font-size:1.35rem; }
+  .hero__features{ display:none; }
+  .form-panel{ max-width:100%; }
+  .a11y-btn{ bottom:14px; inset-inline-start:14px; width:50px; height:50px; }
+  .a11y-panel{ bottom:76px; inset-inline-start:14px; width:calc(100vw - 28px); padding:16px; }
+  .toast-stack{ top:12px; inset-inline-end:12px; max-width:calc(100vw - 24px); }
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  .hero__orb, .a11y-btn, .brand__logo{ animation:none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-progress" aria-hidden="true">
+  <div class="page-progress__bar" id="page-progress-bar"></div>
+</div>
+
+<a href="#main-content" class="skip-link">تجاوز إلى المحتوى الرئيسي</a>
+
+<div id="live-region" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="live-region-urgent" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+<div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+<div class="app">
+  <div class="split">
+
+    <section class="panel panel--form" id="main-content" tabindex="-1">
+      <div class="form-panel">
+
+        <div class="brand" role="banner">
+          <svg class="brand__logo" viewBox="0 0 240 240" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoShirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A7CEC"/><stop offset="100%" stop-color="#2457D6"/></linearGradient>
+              <linearGradient id="logoStar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE066"/><stop offset="100%" stop-color="#F5A623"/></linearGradient>
+              <radialGradient id="logoInner"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eaf3ff"/></radialGradient>
+            </defs>
+            <circle cx="120" cy="120" r="108" fill="url(#logoInner)"/>
+            <circle cx="120" cy="120" r="108" fill="none" stroke="#1248b8" stroke-width="1.6" stroke-dasharray="3 10" opacity=".28"/>
+            <path d="M92 158 Q84 180 82 196" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <circle cx="82" cy="198" r="6" fill="#FFD3AE"/>
+            <rect x="114" y="138" width="12" height="22" rx="6" fill="#FFD3AE"/>
+            <path d="M92 168 Q92 152 110 150 L130 150 Q148 152 148 168 L148 200 Q148 212 138 212 L102 212 Q92 212 92 200 Z" fill="url(#logoShirt)"/>
+            <path d="M148 168 Q170 148 184 122" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <path d="M94 204 h52 v32 q0 6 -6 6 h-6 q-6 0 -6 -6 v-10 l-4 -6 l-4 6 v10 q0 6 -6 6 h-6 q-6 0 -6 -6 Z" fill="#17315F"/>
+            <ellipse cx="106" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+            <ellipse cx="134" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+            <circle cx="120" cy="120" r="28" fill="#FFD3AE"/>
+            <path d="M92 120 Q90 94 112 88 Q134 84 148 96 Q156 108 148 124 Q142 110 130 104 Q112 96 100 106 Q94 112 92 120 Z" fill="#1A2B4C"/>
+            <path d="M108 122 Q112 118 116 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M126 122 Q130 118 134 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M110 132 Q120 142 130 132" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M196 36 L203 58 L226 60 L208 74 L213 96 L196 84 L179 96 L184 74 L166 60 L189 58 Z" fill="url(#logoStar)"/>
+          </svg>
+          <div class="brand__text">
+            <span class="brand__ar">أقدر</span>
+            <span class="brand__en">AQDAR</span>
+          </div>
+          <span class="brand__tag">منصة التعلّم</span>
+        </div>
+
+        <!-- ============ VIEW: LOGIN ============ -->
+        <section class="view view--enter" id="view-login" aria-labelledby="login-title">
+          <header class="head">
+            <h1 class="head__title" id="login-title" tabindex="-1">أهلًا بك من جديد! <span class="wave" aria-hidden="true">👋</span></h1>
+            <p class="head__subtitle">سجّل دخولك عشان تكمل رحلتك في منصة أقدر.</p>
+          </header>
+
+          <form class="form" id="login-form" novalidate autocomplete="on">
+            <div class="field" data-field="login-identifier">
+              <label class="field__label" for="login-identifier">
+                <span>اسم المستخدم أو البريد الإلكتروني</span>
+                <span class="field__required">مطلوب</span>
+              </label>
+              <div class="field__wrap">
+                <input type="text" id="login-identifier" name="identifier" class="field__input" placeholder="اكتب اسم المستخدم أو البريد"
+                       autocomplete="username" inputmode="text" spellcheck="false" required aria-required="true" aria-describedby="login-identifier-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 21 V19 A6 6 0 0 1 10 13 H14 A6 6 0 0 1 20 19 V21"/>
+                </svg>
+              </div>
+              <p class="field__error" id="login-identifier-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="login-password">
+              <label class="field__label" for="login-password">
+                <span>كلمة المرور</span>
+                <span class="field__required">مطلوب</span>
+              </label>
+              <div class="field__wrap">
+                <input type="password" id="login-password" name="password" class="field__input" placeholder="اكتب كلمة المرور"
+                       autocomplete="current-password" required aria-required="true" aria-describedby="login-password-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11 V8 A4 4 0 0 1 16 8 V11"/>
+                </svg>
+                <button type="button" class="field__toggle" id="login-password-toggle"
+                        aria-label="إظهار كلمة المرور" aria-pressed="false" aria-controls="login-password">
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z"/><circle cx="12" cy="12" r="3"/>
+                    <line x1="4" y1="4" x2="20" y2="20"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="field__error" id="login-password-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <label class="check" for="login-remember">
+              <span class="check__box">
+                <input type="checkbox" id="login-remember" name="remember">
+                <span class="visual" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>
+                </span>
+              </span>
+              <span class="check__text"><strong>تذكّرني على هذا الجهاز</strong></span>
+            </label>
+
+            <div class="forgot-row">
+              <button type="button" class="forgot-btn" id="forgot-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5" fill="currentColor"/>
+                </svg>
+                نسيت كلمة المرور؟
+              </button>
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="login-submit">
+              <span class="btn__spinner" aria-hidden="true"></span>
+              <span class="btn__label">تسجيل الدخول</span>
+            </button>
+
+            <div class="kbd-hint">اضغط <span class="kbd">Enter</span> للإرسال السريع</div>
+          </form>
+
+          <aside class="tips" aria-label="نصائح سريعة">
+            <div class="tips__head">
+              <span class="tips__head-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18 H15"/><path d="M10 22 H14"/><path d="M12 2 A7 7 0 0 0 7 13 L7 15 H17 L17 13 A7 7 0 0 0 12 2 Z"/></svg>
+              </span>
+              <h3 class="tips__title">نصائح سريعة<small>قبل ما تسجّل دخولك</small></h3>
+            </div>
+            <ul class="tips__list">
+              <li class="tips__item"><span class="tips__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span><strong>اكتب بياناتك بشكل صحيح:</strong> اسم المستخدم أو البريد الإلكتروني.</span></li>
+              <li class="tips__item"><span class="tips__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span><strong>بياناتك محمية:</strong> كل المعلومات بتتنقل بتشفير كامل.</span></li>
+              <li class="tips__item"><span class="tips__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span><strong>مش لاقي حسابك؟</strong> اضغط "إنشاء حساب جديد" تحت.</span></li>
+            </ul>
+          </aside>
+
+          <div class="switch-block">
+            <div class="divider">ليس لديك حساب؟</div>
+            <button type="button" class="btn btn--switch" id="go-to-register" aria-controls="view-register">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21 V19 A4 4 0 0 0 12 15 H6 A4 4 0 0 0 2 19 V21"/><circle cx="9" cy="7" r="4"/><path d="M19 8 V14"/><path d="M22 11 H16"/>
+              </svg>
+              <span>إنشاء حساب جديد</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ============ VIEW: REGISTER ============ -->
+        <section class="view" id="view-register" aria-labelledby="register-title" hidden>
+          <header class="head">
+            <h1 class="head__title" id="register-title" tabindex="-1">يلا نعمل حساب جديد! <span class="wave" aria-hidden="true">🚀</span></h1>
+            <p class="head__subtitle">املأ البيانات دي عشان تبدأ رحلتك في منصة أقدر.</p>
+          </header>
+
+          <form class="form" id="register-form" novalidate autocomplete="on">
+            <div class="field" data-field="reg-firstname">
+              <label class="field__label" for="reg-firstname"><span>الاسم الأول</span><span class="field__required">مطلوب</span></label>
+              <div class="field__wrap">
+                <input type="text" id="reg-firstname" name="firstName" class="field__input" placeholder="مثال: أحمد"
+                       autocomplete="given-name" required aria-required="true" aria-describedby="reg-firstname-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 21 V19 A6 6 0 0 1 10 13 H14 A6 6 0 0 1 20 19 V21"/>
+                </svg>
+              </div>
+              <p class="field__error" id="reg-firstname-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="reg-lastname">
+              <label class="field__label" for="reg-lastname"><span>اسم العائلة</span><span class="field__required">مطلوب</span></label>
+              <div class="field__wrap">
+                <input type="text" id="reg-lastname" name="lastName" class="field__input" placeholder="مثال: محمد"
+                       autocomplete="family-name" required aria-required="true" aria-describedby="reg-lastname-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 21 V19 A6 6 0 0 1 10 13 H14 A6 6 0 0 1 20 19 V21"/>
+                </svg>
+              </div>
+              <p class="field__error" id="reg-lastname-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="reg-username">
+              <label class="field__label" for="reg-username"><span>اسم المستخدم</span><span class="field__required">مطلوب</span></label>
+              <div class="field__wrap">
+                <input type="text" id="reg-username" name="username" class="field__input" placeholder="مثال: ahmed2025"
+                       autocomplete="username" inputmode="text" spellcheck="false" required aria-required="true"
+                       aria-describedby="reg-username-hint reg-username-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 21 V19 A6 6 0 0 1 10 13 H14 A6 6 0 0 1 20 19 V21"/>
+                </svg>
+              </div>
+              <p class="field__hint" id="reg-username-hint">
+                من 3 لـ 50 حرف، حروف إنجليزية وأرقام بس (بدون <strong>@</strong> أو مسافات).
+              </p>
+              <p class="field__error" id="reg-username-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="reg-email">
+              <label class="field__label" for="reg-email"><span>البريد الإلكتروني</span><span class="field__optional">اختياري</span></label>
+              <div class="field__wrap">
+                <input type="email" id="reg-email" name="email" class="field__input" placeholder="مثال: ahmed@example.com"
+                       autocomplete="email" inputmode="email" spellcheck="false" aria-describedby="reg-email-hint reg-email-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7 L12 13 L21 7"/>
+                </svg>
+              </div>
+              <p class="field__hint" id="reg-email-hint">
+                لو مش معاك إيميل، سيبه فاضي — هنسجل باسم المستخدم تلقائيًا.
+              </p>
+              <p class="field__error" id="reg-email-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="reg-password">
+              <label class="field__label" for="reg-password"><span>كلمة المرور</span><span class="field__required">مطلوب</span></label>
+              <div class="field__wrap">
+                <input type="password" id="reg-password" name="password" class="field__input" placeholder="اكتب كلمة مرور قوية"
+                       autocomplete="new-password" required aria-required="true" aria-describedby="reg-password-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11 V8 A4 4 0 0 1 16 8 V11"/>
+                </svg>
+                <button type="button" class="field__toggle" id="reg-password-toggle"
+                        aria-label="إظهار كلمة المرور" aria-pressed="false" aria-controls="reg-password">
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z"/><circle cx="12" cy="12" r="3"/>
+                    <line x1="4" y1="4" x2="20" y2="20"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="field__error" id="reg-password-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="reg-confirm">
+              <label class="field__label" for="reg-confirm"><span>تأكيد كلمة المرور</span><span class="field__required">مطلوب</span></label>
+              <div class="field__wrap">
+                <input type="password" id="reg-confirm" name="confirmPassword" class="field__input" placeholder="اكتب كلمة المرور مرة تانية"
+                       autocomplete="new-password" required aria-required="true" aria-describedby="reg-confirm-error">
+                <svg class="field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11 V8 A4 4 0 0 1 16 8 V11"/>
+                </svg>
+                <button type="button" class="field__toggle" id="reg-confirm-toggle"
+                        aria-label="إظهار تأكيد كلمة المرور" aria-pressed="false" aria-controls="reg-confirm">
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z"/><circle cx="12" cy="12" r="3"/>
+                    <line x1="4" y1="4" x2="20" y2="20"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="field__error" id="reg-confirm-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <div class="field" data-field="reg-consent">
+              <label class="check" for="reg-consent">
+                <span class="check__box">
+                  <input type="checkbox" id="reg-consent" name="consent" required aria-required="true" aria-describedby="reg-consent-error">
+                  <span class="visual" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>
+                  </span>
+                </span>
+                <span class="check__text">
+                  أوافق على <a href="#" id="privacy-link">سياسة الخصوصية</a> و <a href="#" id="terms-link">شروط الاستخدام</a>.
+                </span>
+              </label>
+              <p class="field__error" id="reg-consent-error" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>
+                <span class="field__error-text"></span>
+              </p>
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="register-submit">
+              <span class="btn__spinner" aria-hidden="true"></span>
+              <span class="btn__label">إنشاء الحساب</span>
+            </button>
+          </form>
+
+          <div class="switch-block">
+            <div class="divider">لديك حساب بالفعل؟</div>
+            <button type="button" class="btn btn--switch" id="back-to-login" aria-controls="view-login">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 3 H19 A2 2 0 0 1 21 5 V19 A2 2 0 0 1 19 21 H15"/><path d="M10 17 L15 12 L10 7"/><path d="M15 12 H3"/>
+              </svg>
+              <span>تسجيل الدخول</span>
+            </button>
+          </div>
+        </section>
+
+        <footer class="foot">
+          © <span id="year">2025</span> منصة أقدر التعليمية.
+        </footer>
+
+      </div>
+    </section>
+
+    <aside class="panel panel--hero" aria-hidden="true">
+      <div class="hero__grid"></div>
+      <span class="hero__orb hero__orb--1"></span>
+      <span class="hero__orb hero__orb--2"></span>
+      <span class="hero__orb hero__orb--3"></span>
+
+      <div class="hero__inner">
+        <div class="hero__brand">
+          <svg class="hero__logo" viewBox="0 0 240 240">
+            <defs>
+              <linearGradient id="hShirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A7CEC"/><stop offset="100%" stop-color="#2457D6"/></linearGradient>
+              <linearGradient id="hStar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE066"/><stop offset="100%" stop-color="#F5A623"/></linearGradient>
+              <radialGradient id="hInner"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eaf3ff"/></radialGradient>
+            </defs>
+            <circle cx="120" cy="120" r="108" fill="url(#hInner)"/>
+            <circle cx="120" cy="120" r="108" fill="none" stroke="#1248b8" stroke-width="1.6" stroke-dasharray="3 10" opacity=".28"/>
+            <path d="M92 158 Q84 180 82 196" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <circle cx="82" cy="198" r="6" fill="#FFD3AE"/>
+            <rect x="114" y="138" width="12" height="22" rx="6" fill="#FFD3AE"/>
+            <path d="M92 168 Q92 152 110 150 L130 150 Q148 152 148 168 L148 200 Q148 212 138 212 L102 212 Q92 212 92 200 Z" fill="url(#hShirt)"/>
+            <path d="M148 168 Q170 148 184 122" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <path d="M94 204 h52 v32 q0 6 -6 6 h-6 q-6 0 -6 -6 v-10 l-4 -6 l-4 6 v10 q0 6 -6 6 h-6 q-6 0 -6 -6 Z" fill="#17315F"/>
+            <ellipse cx="106" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+            <ellipse cx="134" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+            <circle cx="120" cy="120" r="28" fill="#FFD3AE"/>
+            <path d="M92 120 Q90 94 112 88 Q134 84 148 96 Q156 108 148 124 Q142 110 130 104 Q112 96 100 106 Q94 112 92 120 Z" fill="#1A2B4C"/>
+            <path d="M108 122 Q112 118 116 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M126 122 Q130 118 134 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M110 132 Q120 142 130 132" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M196 36 L203 58 L226 60 L208 74 L213 96 L196 84 L179 96 L184 74 L166 60 L189 58 Z" fill="url(#hStar)"/>
+          </svg>
+          <div class="hero__brand-text">
+            <span class="hero__brand-ar">أقدر</span>
+            <span class="hero__brand-en">AQDAR</span>
+          </div>
+        </div>
+
+        <div class="hero__main">
+          <span class="hero__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L14 8 L20 10 L14 12 L12 18 L10 12 L4 10 L10 8 Z"/></svg>
+            منصة تعليمية متكاملة
+          </span>
+          <h2 class="hero__title">رحلتك التعليمية<span class="hero__title-accent">تبدأ من هنا</span></h2>
+          <p class="hero__desc">انضم لأكبر منصة تعليمية تفاعلية، وتعلّم بأساليب ممتعة مع أفضل المعلمين.</p>
+          <ul class="hero__features">
+            <li class="hero__feature" style="--i:0">
+              <span class="hero__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8 L16 12 L10 16 Z" fill="currentColor"/></svg></span>
+              <div class="hero__feature-text"><strong>محتوى تفاعلي</strong><span>دروس ممتعة وسهلة الفهم</span></div>
+            </li>
+            <li class="hero__feature" style="--i:1">
+              <span class="hero__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21 V11"/><path d="M9 21 V5"/><path d="M15 21 V13"/><path d="M21 21 V8"/></svg></span>
+              <div class="hero__feature-text"><strong>متابعة مستمرة</strong><span>تقارير تفصيلية لتقدمك</span></div>
+            </li>
+            <li class="hero__feature" style="--i:2">
+              <span class="hero__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14 L7 22 L12 19 L17 22 L15 14"/></svg></span>
+              <div class="hero__feature-text"><strong>شهادات معتمدة</strong><span>عند إتمام كل دورة</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button type="button" class="a11y-btn" id="a11y-toggle" aria-label="فتح خيارات الوصول" aria-expanded="false" aria-controls="a11y-panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/>
+  </svg>
+</button>
+
+<aside class="a11y-panel" id="a11y-panel" role="dialog" aria-label="خيارات الوصول" aria-hidden="true">
+  <div class="a11y-panel__head">
+    <div class="a11y-panel__title-wrap">
+      <span class="a11y-panel__title-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/></svg>
+      </span>
+      <h2 class="a11y-panel__title">خيارات الوصول</h2>
+    </div>
+    <button type="button" class="a11y-panel__close" id="a11y-close" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+    </button>
+  </div>
+  <div class="a11y-group">
+    <div class="a11y-group__head">
+      <span class="a11y-group__label">حجم الخط</span>
+      <span class="a11y-group__value" id="a11y-font-value">متوسط</span>
+    </div>
+    <div class="a11y-options" role="group">
+      <button type="button" class="a11y-option" data-font="0.9" aria-pressed="false" aria-label="صغير"><span style="font-size:0.85rem;font-weight:800">أ</span></button>
+      <button type="button" class="a11y-option is-active" data-font="1" aria-pressed="true" aria-label="متوسط"><span style="font-size:1.05rem;font-weight:800">أ</span></button>
+      <button type="button" class="a11y-option" data-font="1.15" aria-pressed="false" aria-label="كبير"><span style="font-size:1.28rem;font-weight:800">أ</span></button>
+      <button type="button" class="a11y-option" data-font="1.3" aria-pressed="false" aria-label="أكبر"><span style="font-size:1.5rem;font-weight:800">أ</span></button>
+    </div>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-toggles">
+    <button type="button" class="a11y-toggle" id="a11y-motion" aria-pressed="false">
+      <span class="a11y-toggle__info">
+        <span class="a11y-toggle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 V6"/><path d="M12 18 V21"/><path d="M4.2 4.2 L6.3 6.3"/><path d="M17.7 17.7 L19.8 19.8"/><path d="M3 12 H6"/><path d="M18 12 H21"/><path d="M4.2 19.8 L6.3 17.7"/><path d="M17.7 6.3 L19.8 4.2"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="a11y-toggle__text"><strong>تقليل الحركة</strong><small>إيقاف الرسوم المتحركة</small></span>
+      </span>
+      <span class="a11y-toggle__switch" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="a11y-toggle" id="a11y-contrast" aria-pressed="false">
+      <span class="a11y-toggle__info">
+        <span class="a11y-toggle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3 V21 A9 9 0 0 0 12 3 Z" fill="currentColor" opacity=".9"/></svg></span>
+        <span class="a11y-toggle__text"><strong>تباين عالٍ</strong><small>ألوان أوضح للقراءة</small></span>
+      </span>
+      <span class="a11y-toggle__switch" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="a11y-toggle" id="a11y-theme" aria-pressed="false">
+      <span class="a11y-toggle__info">
+        <span class="a11y-toggle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5 A8 8 0 0 1 9.5 4 A8 8 0 1 0 20 14.5 Z"/></svg></span>
+        <span class="a11y-toggle__text"><strong>الوضع الليلي</strong><small>مريح للعين ليلًا</small></span>
+      </span>
+      <span class="a11y-toggle__switch" aria-hidden="true"></span>
+    </button>
+  </div>
+</aside>
+
+<div class="modal" id="forgot-modal" role="dialog" aria-modal="true" aria-labelledby="forgot-title" aria-hidden="true">
+  <div class="modal__card">
+    <header class="modal__head">
+      <h2 class="modal__title" id="forgot-title">استعادة كلمة المرور</h2>
+      <button type="button" class="a11y-panel__close" id="forgot-close" aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+      </button>
+    </header>
+    <p class="modal__text">لاستعادة كلمة المرور، تواصل مع إدارة المدرسة أو فريق الدعم الفني.</p>
+    <p class="modal__text" style="font-weight:700; color:var(--ink);">📞 فريق الدعم: 01005252256</p>
+    <div class="modal__actions">
+      <a class="btn btn--primary" href="tel:01005252256" style="width:auto;">اتصل بالدعم</a>
+      <button type="button" class="btn btn--ghost" id="forgot-cancel">تمام، فهمت</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+
+<script>
+/* ============================================================
+   أقدر | AQDAR — منطق صفحة تسجيل الدخول الموحّدة
+   Flow: splash.html → login.html → (نجاح) → index.html
+   ⚠️ ملاحظة: لو المستخدم رجع لصفحة الدخول (refresh/back) — يبقى في صفحة الدخول
+   ============================================================ */
+(function () {
+  'use strict';
+
+  const SCHOOL_EMAIL_DOMAIN = 'aqdar.school';
+  const AFTER_LOGIN_URL = 'index.html';
+
+  const STORAGE = {
+    font: 'aqdar_login_font_scale',
+    motion: 'aqdar_login_reduce_motion',
+    contrast: 'aqdar_login_high_contrast',
+    theme: 'aqdar_login_theme',
+    remember: 'aqdar_login_remember_user'
+  };
+
+  const $ = (id) => document.getElementById(id);
+  let currentView = 'login';
+
+  /* ============================================================
+     1) Supabase
+     ============================================================ */
+  function getSupabase() {
+    if (window.supabaseClient) return window.supabaseClient;
+    console.error('[AQDAR] supabase-client.js غير محمّل — تأكد من وجوده في js/');
+    return null;
+  }
+
+  function isSupabaseReady() {
+    return !!getSupabase();
+  }
+
+  /* ============================================================
+     2) أدوات مساعدة
+     ============================================================ */
+  function toAuthEmail(identifier) {
+    const v = String(identifier || '').trim();
+    if (!v) return '';
+    return v.includes('@') ? v.toLowerCase() : (v.toLowerCase() + '@' + SCHOOL_EMAIL_DOMAIN);
+  }
+
+  function translateAuthError(err) {
+    if (!isSupabaseReady()) return 'إعدادات قاعدة البيانات مش مظبوطة. تواصل مع المطور.';
+    const raw = String((err && (err.message || err.error_description || err)) || '');
+    const lower = raw.toLowerCase();
+    if (lower.includes('failed to fetch') || lower.includes('networkerror')) return 'مش قادر يوصل للسيرفر. اتأكد من الاتصال.';
+    if (lower.includes('invalid login credentials')) return 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+    if (lower.includes('email not confirmed')) return 'لازم تأكد بريدك الإلكتروني الأول.';
+    if (lower.includes('user already registered') || lower.includes('already registered')) return 'البريد الإلكتروني أو اسم المستخدم مسجل بالفعل.';
+    if (lower.includes('password should be at least')) return 'كلمة المرور قصيرة جدًا (6 أحرف على الأقل).';
+    if (lower.includes('rate limit') || lower.includes('too many')) return 'محاولات كتير. جرّب بعد شوية.';
+    return raw || 'حدث خطأ غير متوقع.';
+  }
+
+  function announce(message, urgent) {
+    const region = urgent ? $('live-region-urgent') : $('live-region');
+    if (!region) return;
+    region.textContent = '';
+    setTimeout(() => { region.textContent = message; }, 50);
+  }
+
+  function setFieldError(fieldName, message) {
+    const wrapper = document.querySelector('[data-field="' + fieldName + '"]');
+    if (!wrapper) return;
+    wrapper.classList.add('field--error');
+    wrapper.classList.remove('field--valid');
+    const errorText = wrapper.querySelector('.field__error-text');
+    if (errorText) errorText.textContent = message;
+    const input = wrapper.querySelector('.field__input');
+    if (input) input.setAttribute('aria-invalid', 'true');
+  }
+
+  function markFieldValid(fieldName) {
+    const wrapper = document.querySelector('[data-field="' + fieldName + '"]');
+    if (!wrapper) return;
+    wrapper.classList.add('field--valid');
+    wrapper.classList.remove('field--error');
+  }
+
+  function clearAllErrors(formId) {
+    const form = $(formId);
+    if (!form) return;
+    form.querySelectorAll('.field--error').forEach((f) => {
+      f.classList.remove('field--error');
+      const txt = f.querySelector('.field__error-text');
+      if (txt) txt.textContent = '';
+      const inp = f.querySelector('.field__input');
+      if (inp) inp.removeAttribute('aria-invalid');
+    });
+  }
+
+  function setLoading(button, isLoading, labelLoading) {
+    if (!button) return;
+    const label = button.querySelector('.btn__label');
+    if (isLoading) {
+      button.classList.add('btn--loading');
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      if (label && labelLoading) label.textContent = labelLoading;
+    } else {
+      button.classList.remove('btn--loading');
+      button.disabled = false;
+      button.removeAttribute('aria-busy');
+      if (label && labelLoading) label.textContent = labelLoading;
+    }
+  }
+
+  /* ============================================================
+     3) Toasts
+     ============================================================ */
+  const TOAST_ICONS = {
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>',
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>',
+    error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>',
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L22 20 H2 Z"/><path d="M12 10 V14"/><circle cx="12" cy="17.5" r=".5" fill="currentColor"/></svg>'
+  };
+
+  function showToast(type, title, message, duration) {
+    const stack = $('toast-stack');
+    if (!stack) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast toast--' + type;
+    toast.innerHTML =
+      '<div class="toast__icon" aria-hidden="true">' + (TOAST_ICONS[type] || TOAST_ICONS.info) + '</div>' +
+      '<div class="toast__body"><p class="toast__title">' + title + '</p>' +
+      (message ? '<p class="toast__msg">' + message + '</p>' : '') + '</div>' +
+      '<button type="button" class="toast__close" aria-label="إغلاق الإشعار">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg></button>';
+    stack.appendChild(toast);
+    announce(title + (message ? '. ' + message : ''));
+    const remove = () => {
+      if (!toast.isConnected) return;
+      toast.classList.add('is-leaving');
+      setTimeout(() => toast.remove(), 320);
+    };
+    toast.querySelector('.toast__close').addEventListener('click', remove);
+    setTimeout(remove, duration || 6000);
+  }
+
+  /* ============================================================
+     4) View switching
+     ============================================================ */
+  function goToView(view, pushHistory) {
+    const views = { login: $('view-login'), register: $('view-register') };
+    Object.keys(views).forEach((name) => {
+      const el = views[name];
+      if (!el) return;
+      el.hidden = name !== view;
+    });
+    const active = views[view];
+    if (active) {
+      active.classList.remove('view--enter');
+      void active.offsetWidth;
+      active.classList.add('view--enter');
+    }
+    currentView = view;
+    if (pushHistory) {
+      try { history.pushState({ view: view }, '', '#' + view); } catch (e) {}
+    }
+    setTimeout(() => {
+      const t = $(view === 'login' ? 'login-title' : 'register-title');
+      if (t) t.focus();
+    }, 80);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ============================================================
+     5) Password toggle
+     ============================================================ */
+  function setupPasswordToggle(buttonId, inputId) {
+    const btn = $(buttonId);
+    const input = $(inputId);
+    if (!btn || !input) return;
+    btn.addEventListener('click', () => {
+      const isPressed = btn.getAttribute('aria-pressed') === 'true';
+      const nextPressed = !isPressed;
+      input.type = nextPressed ? 'text' : 'password';
+      btn.setAttribute('aria-pressed', String(nextPressed));
+      btn.setAttribute('aria-label', nextPressed ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
+      const pos = input.value.length;
+      try { input.setSelectionRange(pos, pos); } catch (e) {}
+      input.focus();
+    });
+  }
+
+  /* ============================================================
+     6) Validation
+     ============================================================ */
+  function validateLoginForm() {
+    let valid = true;
+    clearAllErrors('login-form');
+    const identifier = $('login-identifier').value.trim();
+    const password = $('login-password').value;
+    if (!identifier) { setFieldError('login-identifier', 'من فضلك اكتب اسم المستخدم أو البريد الإلكتروني.'); valid = false; }
+    else if (identifier.length < 3) { setFieldError('login-identifier', 'الاسم قصير جدًا. اكتب 3 أحرف على الأقل.'); valid = false; }
+    else { markFieldValid('login-identifier'); }
+    if (!password) { setFieldError('login-password', 'من فضلك اكتب كلمة المرور.'); valid = false; }
+    else { markFieldValid('login-password'); }
+    return valid;
+  }
+
+  function validateRegisterForm() {
+    let valid = true;
+    clearAllErrors('register-form');
+
+    const firstName = $('reg-firstname').value.trim();
+    if (!firstName) { setFieldError('reg-firstname', 'اكتب الاسم الأول.'); valid = false; }
+    else if (firstName.length < 2) { setFieldError('reg-firstname', 'الاسم قصير جدًا.'); valid = false; }
+    else { markFieldValid('reg-firstname'); }
+
+    const lastName = $('reg-lastname').value.trim();
+    if (!lastName) { setFieldError('reg-lastname', 'اكتب اسم العائلة.'); valid = false; }
+    else if (lastName.length < 2) { setFieldError('reg-lastname', 'الاسم قصير جدًا.'); valid = false; }
+    else { markFieldValid('reg-lastname'); }
+
+    const username = $('reg-username').value.trim();
+    if (!username) {
+      setFieldError('reg-username', 'اكتب اسم المستخدم.'); valid = false;
+    } else if (!/^[A-Za-z0-9._]{3,50}$/.test(username)) {
+      setFieldError('reg-username', 'من 3 لـ 50 حرف إنجليزي/أرقام/نقطة، بدون مسافات أو @.');
+      valid = false;
+    } else { markFieldValid('reg-username'); }
+
+    const email = $('reg-email').value.trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      setFieldError('reg-email', 'صيغة البريد غير صحيحة.'); valid = false;
+    } else if (email) { markFieldValid('reg-email'); }
+
+    const password = $('reg-password').value;
+    if (!password) { setFieldError('reg-password', 'اكتب كلمة المرور.'); valid = false; }
+    else if (password.length < 8) { setFieldError('reg-password', 'كلمة المرور لازم تكون 8 أحرف على الأقل.'); valid = false; }
+    else if (!/[A-Za-z\u0600-\u06FF]/.test(password) || !/[0-9]/.test(password)) {
+      setFieldError('reg-password', 'كلمة المرور لازم تحتوي على حرف ورقم على الأقل.'); valid = false;
+    } else { markFieldValid('reg-password'); }
+
+    const confirm = $('reg-confirm').value;
+    if (!confirm) { setFieldError('reg-confirm', 'أكد كلمة المرور.'); valid = false; }
+    else if (confirm !== password) { setFieldError('reg-confirm', 'كلمتا المرور غير متطابقتين.'); valid = false; }
+    else { markFieldValid('reg-confirm'); }
+
+    if (!$('reg-consent').checked) { setFieldError('reg-consent', 'لازم توافق على الشروط.'); valid = false; }
+    return valid;
+  }
+
+  /* ============================================================
+     7) تسجيل الدخول — تحويل إلى index.html عند النجاح
+     ============================================================ */
+  async function submitLogin(event) {
+    event.preventDefault();
+    if (!validateLoginForm()) {
+      announce('فيه أخطاء. راجع الحقول.', true);
+      const firstError = document.querySelector('#login-form .field--error .field__input');
+      if (firstError) firstError.focus();
+      return;
+    }
+    if (!isSupabaseReady()) {
+      showToast('error', 'إعدادات ناقصة', 'Supabase مش مظبوط. شوف الـ Console.', 8000);
+      return;
+    }
+
+    const submitBtn = $('login-submit');
+    setLoading(submitBtn, true, 'جاري تسجيل الدخول...');
+
+    const identifier = $('login-identifier').value.trim();
+    const password = $('login-password').value;
+    const email = toAuthEmail(identifier);
+
+    try {
+      const client = getSupabase();
+
+      // 1) تسجيل الدخول
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      if (!data || !data.user) throw new Error('لم يتم العثور على بيانات المستخدم.');
+
+      // 2) التحقق من وجود بروفايل
+      const { data: profile, error: profErr } = await client
+        .from('profiles')
+        .select('id, username, display_name, role, status')
+        .eq('id', data.user.id)
+        .single();
+
+      if (profErr || !profile) {
+        await client.auth.signOut();
+        throw new Error('لم يتم العثور على ملفك الشخصي. تواصل مع الدعم.');
+      }
+
+      // 3) التحقق من حالة الحساب
+      if (profile.status && profile.status !== 'active') {
+        await client.auth.signOut();
+        throw new Error('الحساب غير مفعّل. تواصل مع الدعم.');
+      }
+
+      // 4) حفظ "تذكرني"
+      try {
+        if ($('login-remember').checked) localStorage.setItem(STORAGE.remember, identifier);
+        else localStorage.removeItem(STORAGE.remember);
+      } catch (e) {}
+
+      // 5) نجاح → عرض رسالة ثم تحويل
+      showToast('success', 'تم تسجيل الدخول', 'أهلًا بيك في منصة أقدر! جاري تحويلك...');
+      announce('تم تسجيل الدخول بنجاح، جاري تحويلك.');
+
+      setTimeout(() => {
+        window.location.href = AFTER_LOGIN_URL;
+      }, 900);
+
+    } catch (err) {
+      console.error('[AQDAR] Login error:', err);
+      const msg = translateAuthError(err);
+      showToast('error', 'فشل تسجيل الدخول', msg, 8000);
+      announce(msg, true);
+      setFieldError('login-password', msg);
+      const pw = $('login-password');
+      if (pw) pw.focus();
+      setLoading(submitBtn, false, 'تسجيل الدخول');
+    }
+  }
+
+  /* ============================================================
+     8) إنشاء حساب
+     ============================================================ */
+  async function submitRegister(event) {
+    event.preventDefault();
+    if (!validateRegisterForm()) {
+      announce('فيه أخطاء. راجع الحقول.', true);
+      const firstError = document.querySelector('#register-form .field--error .field__input, #register-form .field--error input[type="checkbox"]');
+      if (firstError) firstError.focus();
+      return;
+    }
+    if (!isSupabaseReady()) {
+      showToast('error', 'إعدادات ناقصة', 'Supabase مش مظبوط.', 10000);
+      return;
+    }
+
+    const submitBtn = $('register-submit');
+    setLoading(submitBtn, true, 'جاري إنشاء الحساب...');
+
+    const firstName = $('reg-firstname').value.trim();
+    const lastName = $('reg-lastname').value.trim();
+    const username = $('reg-username').value.trim().toLowerCase();
+    const emailInput = $('reg-email').value.trim();
+    const email = emailInput || (username + '@' + SCHOOL_EMAIL_DOMAIN);
+    const password = $('reg-password').value;
+
+    try {
+      const client = getSupabase();
+
+      const { data, error } = await client.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+            display_name: firstName + ' ' + lastName
+          }
+        }
+      });
+      if (error) throw error;
+
+      // لو تم تسجيل الدخول تلقائيًا، نخرج
+      if (data && data.session) {
+        try { await client.auth.signOut(); } catch (e) {}
+      }
+
+      showToast('success', 'تم إنشاء الحساب', 'دلوقتي سجل دخولك.', 7000);
+      announce('تم إنشاء الحساب. جاري تحويلك لصفحة الدخول.');
+
+      $('register-form').reset();
+      $('login-identifier').value = emailInput ? emailInput : username;
+      $('login-password').value = '';
+
+      goToView('login', true);
+      setTimeout(() => { $('login-password').focus(); }, 300);
+
+    } catch (err) {
+      console.error('[AQDAR] Register error:', err);
+      const msg = translateAuthError(err);
+      showToast('error', 'فشل إنشاء الحساب', msg, 10000);
+      announce(msg, true);
+      if (String(err?.message || '').toLowerCase().includes('already')) {
+        setFieldError('reg-email', msg);
+      }
+    } finally {
+      setLoading(submitBtn, false, 'إنشاء الحساب');
+    }
+  }
+
+  /* ============================================================
+     9) التحقق من الجلسة
+     ⚠️ ملاحظة مهمة: لا نُحوّل تلقائيًا — المستخدم يبقى في صفحة الدخول
+     حتى لو عنده جلسة نشطة، عشان يقدر يسجل دخول بحساب آخر
+     ============================================================ */
+  async function checkSession() {
+    if (!isSupabaseReady()) return false;
+    try {
+      const { data, error } = await getSupabase().auth.getSession();
+      if (error) throw error;
+      return !!(data && data.session && data.session.user);
+    } catch (e) {
+      console.error('[AQDAR] Session check error:', e);
+      return false;
+    }
+  }
+
+  /* ============================================================
+     10) A11y
+     ============================================================ */
+  const FONT_LABELS = { '0.9': 'صغير', '1': 'متوسط', '1.15': 'كبير', '1.3': 'أكبر' };
+  function applyFontScale(scale) {
+    document.documentElement.style.setProperty('--font-scale', String(scale));
+    try { localStorage.setItem(STORAGE.font, String(scale)); } catch (e) {}
+    document.querySelectorAll('.a11y-option[data-font]').forEach((btn) => {
+      const active = parseFloat(btn.getAttribute('data-font')) === parseFloat(scale);
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    const label = $('a11y-font-value');
+    if (label) label.textContent = FONT_LABELS[String(scale)] || 'متوسط';
+  }
+  function applyMotion(reduce) {
+    document.documentElement.setAttribute('data-no-motion', reduce ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.motion, reduce ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-motion'); if (btn) btn.setAttribute('aria-pressed', String(reduce));
+  }
+  function applyContrast(high) {
+    document.documentElement.setAttribute('data-contrast', high ? 'high' : 'normal');
+    try { localStorage.setItem(STORAGE.contrast, high ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-contrast'); if (btn) btn.setAttribute('aria-pressed', String(high));
+  }
+  function applyTheme(dark) {
+    if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+    try { localStorage.setItem(STORAGE.theme, dark ? 'dark' : 'light'); } catch (e) {}
+    const btn = $('a11y-theme'); if (btn) btn.setAttribute('aria-pressed', String(dark));
+  }
+  function restoreA11y() {
+    let scale = '1', motion = '0', contrast = '0', theme = 'light';
+    try { scale = localStorage.getItem(STORAGE.font) || '1'; } catch (e) {}
+    try { motion = localStorage.getItem(STORAGE.motion) || '0'; } catch (e) {}
+    try { contrast = localStorage.getItem(STORAGE.contrast) || '0'; } catch (e) {}
+    try { theme = localStorage.getItem(STORAGE.theme) || 'light'; } catch (e) {}
+    if (!localStorage.getItem(STORAGE.motion) && window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) { motion = '1'; }
+    applyFontScale(parseFloat(scale));
+    applyMotion(motion === '1');
+    applyContrast(contrast === '1');
+    applyTheme(theme === 'dark');
+  }
+
+  function setupA11yPanel() {
+    const toggle = $('a11y-toggle');
+    const panel = $('a11y-panel');
+    const close = $('a11y-close');
+    function openPanel() {
+      panel.classList.add('is-visible');
+      panel.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function closePanel() {
+      panel.classList.remove('is-visible');
+      panel.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+    if (toggle && panel) {
+      toggle.addEventListener('click', () => {
+        if (panel.classList.contains('is-visible')) closePanel(); else openPanel();
+      });
+    }
+    if (close) close.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel && panel.classList.contains('is-visible')) closePanel();
+    });
+    document.querySelectorAll('.a11y-option[data-font]').forEach((btn) => {
+      btn.addEventListener('click', () => applyFontScale(parseFloat(btn.getAttribute('data-font'))));
+    });
+    const motionBtn = $('a11y-motion');
+    if (motionBtn) motionBtn.addEventListener('click', () => applyMotion(!(motionBtn.getAttribute('aria-pressed') === 'true')));
+    const contrastBtn = $('a11y-contrast');
+    if (contrastBtn) contrastBtn.addEventListener('click', () => applyContrast(!(contrastBtn.getAttribute('aria-pressed') === 'true')));
+    const themeBtn = $('a11y-theme');
+    if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(!(themeBtn.getAttribute('aria-pressed') === 'true')));
+  }
+
+  function setupForgotModal() {
+    const openBtn = $('forgot-btn');
+    const modal = $('forgot-modal');
+    const closeBtn = $('forgot-close');
+    const cancelBtn = $('forgot-cancel');
+    if (!openBtn || !modal) return;
+    let lastFocused = null;
+    function open() {
+      lastFocused = document.activeElement;
+      modal.classList.add('is-visible');
+      modal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { const t = $('forgot-title'); if (t) t.focus(); }, 100);
+    }
+    function close() {
+      modal.classList.remove('is-visible');
+      modal.setAttribute('aria-hidden', 'true');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+    openBtn.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (cancelBtn) cancelBtn.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-visible')) close();
+    });
+  }
+
+  /* ============================================================
+     11) Init
+     ============================================================ */
+  async function init() {
+    const yearEl = $('year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    restoreA11y();
+    setupA11yPanel();
+    setupForgotModal();
+
+    const goReg = $('go-to-register');
+    const backLog = $('back-to-login');
+    if (goReg) goReg.addEventListener('click', () => goToView('register', true));
+    if (backLog) backLog.addEventListener('click', () => goToView('login', true));
+
+    setupPasswordToggle('login-password-toggle', 'login-password');
+    setupPasswordToggle('reg-password-toggle', 'reg-password');
+    setupPasswordToggle('reg-confirm-toggle', 'reg-confirm');
+
+    const loginForm = $('login-form');
+    if (loginForm) loginForm.addEventListener('submit', submitLogin);
+    const registerForm = $('register-form');
+    if (registerForm) registerForm.addEventListener('submit', submitRegister);
+
+    document.querySelectorAll('.field__input').forEach((input) => {
+      input.addEventListener('input', () => {
+        const wrapper = input.closest('.field');
+        if (wrapper && wrapper.classList.contains('field--error')) {
+          wrapper.classList.remove('field--error');
+          input.removeAttribute('aria-invalid');
+          const txt = wrapper.querySelector('.field__error-text');
+          if (txt) txt.textContent = '';
+        }
+      });
+    });
+
+    const consent = $('reg-consent');
+    if (consent) {
+      consent.addEventListener('change', () => {
+        if (consent.checked) {
+          const wrapper = consent.closest('.field');
+          if (wrapper) wrapper.classList.remove('field--error');
+          const txt = wrapper && wrapper.querySelector('.field__error-text');
+          if (txt) txt.textContent = '';
+        }
+      });
+    }
+
+    try {
+      const saved = localStorage.getItem(STORAGE.remember);
+      if (saved && $('login-identifier')) {
+        $('login-identifier').value = saved;
+        if ($('login-remember')) $('login-remember').checked = true;
+      }
+    } catch (e) {}
+
+    ['privacy-link', 'terms-link'].forEach((id) => {
+      const link = $(id);
+      if (link) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          showToast('info', 'قريبًا', 'هيتم فتح الصفحة في تحديث قادم.');
+        });
+      }
+    });
+
+    /* ★ التعديل المهم:
+       لا يوجد تحويل تلقائي لـ index.html — حتى لو المستخدم عنده جلسة نشطة
+       نعرض صفحة الدخول دائمًا عشان يقدر يسجل دخول بحساب آخر أو نفسه */
+    if (location.hash === '#register') {
+      goToView('register', false);
+    } else {
+      try { history.replaceState({ view: 'login' }, '', '#login'); } catch (e) {}
+      goToView('login', false);
+    }
+
+    window.addEventListener('popstate', (e) => {
+      const view = (e.state && e.state.view) || (location.hash.replace('#','') || 'login');
+      if (view === 'register') goToView('register', false);
+      else goToView('login', false);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>

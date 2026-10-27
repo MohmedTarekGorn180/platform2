@@ -1,0 +1,1722 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light" data-font-scale="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2b6b">
+<title>مكتبة أقدر التعليمية | 65+ مصدرًا موثوقًا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AQDAR Library — Sidebar Edition
+   ============================================================ */
+:root {
+  --navy:#0b2b6b; --blue:#1b5fd9; --blue-dark:#1248b8;
+  --cyan:#12b6d8; --purple:#5b3bb5; --green:#16a34a;
+  --gold:#f5a623; --pink:#ec4899; --red:#dc2626; --teal:#0e8fb0;
+
+  --bg:#f4f7fd; --bg-alt:#e9f0fb;
+  --surface:#ffffff; --surface-alt:#f7faff;
+  --border:#dbe5f5; --border-strong:#c2d4ec;
+  --ink:#0d2350; --ink-soft:#3d4f7a; --muted:#7a8db0;
+
+  --shadow-sm:0 1px 3px rgba(13,35,80,.06);
+  --shadow:0 4px 16px rgba(13,35,80,.08);
+  --shadow-lg:0 12px 32px rgba(13,35,80,.12);
+  --shadow-xl:0 24px 64px rgba(13,35,80,.16);
+
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px; --r-2xl:28px; --r-pill:999px;
+  --ease:cubic-bezier(.22,.9,.28,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+
+  --grad-brand:linear-gradient(135deg,#1248b8 0%,#1b5fd9 45%,#12b6d8 100%);
+  --grad-hero:linear-gradient(135deg,#0b2b6b 0%,#1248b8 50%,#0e8fb0 100%);
+
+  --font-scale:1; --line-height:1.65;
+}
+
+[data-theme="dark"] {
+  --bg:#0a1430; --bg-alt:#0d1c3e;
+  --surface:#122550; --surface-alt:#172d5c;
+  --border:#1f3d75; --border-strong:#2d4f8c;
+  --ink:#ecf2ff; --ink-soft:#b8c9e8; --muted:#7d94bf;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.3);
+  --shadow:0 4px 16px rgba(0,0,0,.35);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.45);
+  --shadow-xl:0 24px 64px rgba(0,0,0,.55);
+}
+[data-theme="sepia"] {
+  --bg:#f6eedb; --bg-alt:#ede2c8;
+  --surface:#fbf5e7; --surface-alt:#f2e8d3;
+  --border:#d9c9a8; --border-strong:#c0af88;
+  --ink:#3d2f1f; --ink-soft:#5d4a30; --muted:#8a7560;
+}
+[data-contrast="high"] { --ink:#000; --ink-soft:#1a2a4a; --border:#666; --border-strong:#000; }
+[data-theme="dark"][data-contrast="high"] { --ink:#fff; --ink-soft:#e6eeff; --bg:#000; --surface:#0a0a0a; --border:#fff; --border-strong:#fff; }
+[data-font-dyslexia="true"] body { font-family:"Lexend","Cairo",system-ui,sans-serif; }
+[data-no-motion="true"] *, [data-no-motion="true"] *::before, [data-no-motion="true"] *::after {
+  animation-duration:.001ms!important; animation-iteration-count:1!important;
+  transition-duration:.001ms!important; scroll-behavior:auto!important;
+}
+
+*,*::before,*::after { box-sizing:border-box; }
+html { font-size:calc(16px * var(--font-scale)); scroll-behavior:smooth; transition:font-size .3s var(--ease); }
+body {
+  margin:0; min-height:100vh;
+  font-family:"Cairo", system-ui, sans-serif;
+  line-height:var(--line-height); color:var(--ink); background:var(--bg);
+  transition:background .3s, color .3s; overflow-x:hidden;
+}
+button, input, select, textarea { font:inherit; color:inherit; }
+button { cursor:pointer; border:none; background:none; }
+a { color:inherit; text-decoration:none; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline:3px solid var(--cyan); outline-offset:3px; border-radius:6px;
+}
+
+.skip-link {
+  position:fixed; top:-100px; left:12px; z-index:9999;
+  padding:12px 20px; background:var(--grad-brand); color:#fff;
+  border-radius:var(--r-md); font-weight:800; transition:top .3s;
+}
+.skip-link:focus { top:12px; }
+
+::-webkit-scrollbar { width:10px; height:10px; }
+::-webkit-scrollbar-track { background:var(--surface-alt); }
+::-webkit-scrollbar-thumb { background:var(--border-strong); border-radius:8px; border:2px solid var(--surface-alt); }
+::-webkit-scrollbar-thumb:hover { background:var(--blue); }
+
+.scroll-progress {
+  position:fixed; top:0; left:0; right:0; height:3px; z-index:999;
+  background:var(--grad-brand); transform-origin:right; transform:scaleX(0);
+  transition:transform .1s linear;
+}
+.bg-layer {
+  position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(42,212,232,.08), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(91,59,181,.06), transparent 45%);
+}
+
+/* TOPBAR */
+.topbar {
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  padding:14px max(20px, calc((100vw - 1320px) / 2));
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; position:sticky; top:0; z-index:100;
+}
+[data-theme="dark"] .topbar { background:rgba(18,37,80,.88); }
+[data-theme="sepia"] .topbar { background:rgba(251,245,231,.92); }
+.topbar::before {
+  content:""; position:absolute; top:0; right:0; left:0; height:2px;
+  background:var(--grad-brand);
+}
+.brand {
+  display:flex; align-items:center; gap:12px;
+  border-radius:var(--r-md); padding:4px; transition:transform .3s var(--spring);
+}
+.brand:hover { transform:translateY(-1px); }
+.brand-logo {
+  width:48px; height:48px; flex-shrink:0;
+  filter:drop-shadow(0 4px 12px rgba(18,72,184,.20));
+  transition:transform .5s var(--spring);
+}
+.brand:hover .brand-logo { transform:rotate(-6deg) scale(1.06); }
+.brand-text { display:flex; flex-direction:column; line-height:1.1; }
+.brand-text h1 {
+  margin:0; font-size:1.15rem; font-weight:900;
+  background:linear-gradient(135deg, var(--blue-dark), var(--cyan));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+[data-theme="dark"] .brand-text h1 {
+  background:linear-gradient(135deg, var(--cyan), #6ec4e8);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.brand-text p { margin:3px 0 0; font-size:.7rem; font-weight:700; color:var(--muted); }
+
+.back-btn {
+  position:relative; display:inline-flex; align-items:center; gap:8px;
+  padding:10px 20px 10px 16px;
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:var(--r-pill);
+  font-weight:800; font-size:.86rem; color:var(--ink-soft);
+  overflow:hidden; transition:all .3s var(--ease);
+  box-shadow:var(--shadow-sm);
+}
+.back-btn__bg {
+  position:absolute; inset:0; background:var(--grad-brand);
+  opacity:0; transition:opacity .3s; z-index:0;
+}
+.back-btn > * { position:relative; z-index:1; }
+.back-btn svg { width:16px; height:16px; transition:transform .35s var(--spring); }
+.back-btn:hover {
+  border-color:transparent; color:#fff; transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(18,72,184,.30);
+}
+.back-btn:hover .back-btn__bg { opacity:1; }
+.back-btn:hover svg { transform:translateX(-4px); }
+
+.wrap { width:min(1320px, calc(100% - 32px)); margin:28px auto 100px; }
+
+/* HERO */
+.hero {
+  position:relative; background:var(--grad-hero);
+  border-radius:var(--r-2xl); padding:clamp(32px, 5vw, 56px);
+  color:#fff; overflow:hidden; margin-bottom:24px;
+  box-shadow:var(--shadow-xl);
+}
+.hero::before {
+  content:""; position:absolute; inset:0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,.08), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.06), transparent 40%);
+  pointer-events:none;
+}
+.hero::after {
+  content:""; position:absolute; top:-40%; left:-10%;
+  width:60%; height:180%;
+  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%);
+  transform:rotate(-15deg); pointer-events:none;
+}
+.hero-content {
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:1.35fr 1fr;
+  gap:40px; align-items:center;
+}
+@media(max-width:880px) { .hero-content { grid-template-columns:1fr; } }
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:7px 16px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:var(--r-pill);
+  font-size:.76rem; font-weight:800; color:#e8f4ff;
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  margin-bottom:18px;
+}
+.hero-badge svg { width:14px; height:14px; color:#ffd86b; }
+
+.hero h2 {
+  margin:0 0 16px;
+  font-size:clamp(1.7rem, 4vw, 2.6rem);
+  line-height:1.2; font-weight:900; letter-spacing:-.02em;
+}
+.hero h2 em {
+  font-style:normal;
+  background:linear-gradient(135deg, #2ad4e8 0%, #ffd86b 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero p {
+  margin:0 0 28px; font-size:1rem; color:rgba(255,255,255,.82);
+  max-width:52ch; line-height:1.75;
+}
+.hero-cta { display:flex; gap:10px; flex-wrap:wrap; }
+.hero-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 24px; border-radius:var(--r-lg);
+  font-weight:800; font-size:.9rem;
+  transition:all .3s var(--spring); text-decoration:none;
+}
+.hero-btn--primary {
+  background:#fff; color:var(--blue-dark);
+  box-shadow:0 8px 24px rgba(0,0,0,.20);
+}
+.hero-btn--primary:hover {
+  transform:translateY(-3px);
+  box-shadow:0 14px 32px rgba(0,0,0,.28);
+}
+.hero-btn svg { width:16px; height:16px; }
+
+.hero-stats {
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+  position:relative; z-index:1;
+}
+.hero-stat {
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:var(--r-lg); padding:16px;
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  transition:all .3s var(--ease);
+  display:flex; flex-direction:column; gap:6px;
+}
+.hero-stat:hover {
+  background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.30);
+  transform:translateY(-3px);
+}
+.hero-stat-icon {
+  width:34px; height:34px; border-radius:10px;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.16); color:#fff;
+  margin-bottom:4px;
+}
+.hero-stat-icon svg { width:17px; height:17px; }
+.hero-stat-value {
+  font-size:1.7rem; font-weight:900; color:#fff;
+  line-height:1; font-variant-numeric:tabular-nums;
+}
+.hero-stat-label {
+  font-size:.7rem; color:rgba(255,255,255,.72); font-weight:700;
+}
+
+/* ============ MAIN LAYOUT (SIDEBAR + CONTENT) ============ */
+.layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 90px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-title svg { width: 20px; height: 20px; fill: var(--blue); }
+.clear-filters {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--red);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.clear-filters:hover { background: rgba(220, 38, 38, 0.08); }
+
+/* Filter Groups */
+.filter-group { margin-bottom: 24px; }
+.filter-group:last-child { margin-bottom: 0; }
+.filter-title {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-title svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* Custom Checkboxes */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.checkbox-label input[type="checkbox"] {
+  display: none;
+}
+.checkbox-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-strong);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s var(--ease);
+  flex-shrink: 0;
+}
+.checkbox-box::after {
+  content: '✓';
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s var(--ease);
+}
+.checkbox-label input:checked + .checkbox-box {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.checkbox-label input:checked + .checkbox-box::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.checkbox-label input:checked ~ span {
+  color: var(--blue);
+  font-weight: 800;
+}
+.checkbox-label:hover .checkbox-box {
+  border-color: var(--blue);
+}
+
+/* Sidebar Info Box */
+.sidebar-info {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 24px;
+}
+.sidebar-info strong { color: var(--blue); }
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* TOOLBAR (Search & Sort) */
+.toolbar {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r-xl); padding:16px;
+  box-shadow:var(--shadow-sm); margin-bottom:16px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.search-row { position:relative; }
+.search-icon {
+  position:absolute; inset-inline-start:16px; top:50%;
+  transform:translateY(-50%); width:18px; height:18px;
+  color:var(--muted); pointer-events:none; transition:color .2s;
+}
+.search-row:focus-within .search-icon { color:var(--blue); }
+.search-input {
+  width:100%; padding:14px 48px 14px 18px;
+  border:1.5px solid var(--border); border-radius:var(--r-md);
+  background:var(--surface-alt); color:var(--ink);
+  font-size:.92rem; font-weight:600; transition:all .25s var(--ease);
+}
+.search-input::placeholder { color:var(--muted); font-weight:500; }
+.search-input:focus {
+  outline:none; border-color:var(--blue); background:var(--surface);
+  box-shadow:0 0 0 4px rgba(27,95,217,.10);
+}
+.search-clear {
+  position:absolute; inset-inline-end:12px; top:50%;
+  transform:translateY(-50%);
+  width:30px; height:30px; border-radius:50%;
+  background:var(--surface); border:1px solid var(--border);
+  color:var(--muted); display:none; place-items:center; transition:all .2s;
+}
+.search-clear.visible { display:grid; }
+.search-clear:hover { background:var(--red); color:#fff; border-color:var(--red); }
+.search-clear svg { width:13px; height:13px; }
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sort-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sort-label { font-size: 0.8rem; font-weight: 800; color: var(--muted); }
+.filter-select {
+  padding:8px 30px 8px 14px;
+  border:1.5px solid var(--border); border-radius:var(--r-sm);
+  background:var(--surface-alt); color:var(--ink);
+  font-size:.82rem; font-weight:700; cursor:pointer; transition:all .2s;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a8db0' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 9 L12 15 L18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:left 10px center;
+}
+.filter-select:hover { border-color:var(--border-strong); }
+.filter-select:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(27,95,217,.10); }
+
+.view-toggle {
+  display:inline-flex; gap:2px; padding:3px;
+  background:var(--surface-alt); border:1.5px solid var(--border);
+  border-radius:var(--r-sm);
+}
+.view-btn {
+  padding:6px 10px; border-radius:6px;
+  color:var(--muted); font-weight:700; transition:all .2s;
+  display:inline-flex; align-items:center;
+}
+.view-btn.is-active { background:var(--surface); color:var(--blue); box-shadow:var(--shadow-sm); }
+.view-btn svg { width:15px; height:15px; }
+
+/* SECTIONS NAV */
+.sections-nav {
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:10px; margin-bottom:20px;
+}
+.section-card {
+  padding:12px;
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:var(--r-md);
+  display:flex; align-items:center; gap:10px;
+  cursor:pointer; transition:all .25s var(--ease); text-align:start;
+}
+.section-card:hover { border-color:var(--blue); transform:translateY(-2px); box-shadow:var(--shadow); }
+.section-card.is-active {
+  border-color:transparent; background:var(--grad-brand); color:#fff;
+  box-shadow:0 8px 20px rgba(27,95,217,.28);
+}
+.section-card__icon {
+  width:34px; height:34px; border-radius:var(--r-sm);
+  background:var(--surface-alt); display:grid; place-items:center;
+  font-size:1.1rem; flex-shrink:0; transition:all .2s;
+}
+.section-card.is-active .section-card__icon { background:rgba(255,255,255,.20); }
+.section-card__body { display:flex; flex-direction:column; gap:2px; min-width:0; }
+.section-card__title { font-size:.78rem; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.section-card__count { font-size:.65rem; font-weight:700; color:var(--muted); }
+.section-card.is-active .section-card__count { color:rgba(255,255,255,.75); }
+
+/* SECTION HEADER */
+.section-header {
+  display:flex; align-items:flex-start; gap:14px;
+  margin:8px 0 18px; padding:16px 20px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r-xl); box-shadow:var(--shadow-sm);
+}
+.section-header__icon {
+  width:48px; height:48px; border-radius:var(--r-md);
+  display:grid; place-items:center; font-size:1.5rem; flex-shrink:0;
+  background:linear-gradient(135deg, rgba(27,95,217,.10), rgba(42,212,232,.10));
+}
+.section-header__text h3 { margin:0 0 4px; font-size:1.1rem; font-weight:900; }
+.section-header__text p { margin:0; font-size:.8rem; color:var(--muted); line-height:1.6; }
+
+/* RESULTS */
+.results-row {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:14px;
+}
+.results-count {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 14px; border-radius:var(--r-pill);
+  background:rgba(27,95,217,.08); color:var(--blue);
+  font-size:.78rem; font-weight:900;
+}
+[data-theme="dark"] .results-count { background:rgba(42,212,232,.12); color:var(--cyan); }
+
+/* GRID */
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px; }
+.grid[data-view="list"] { grid-template-columns:1fr; }
+
+.card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r-xl); overflow:hidden;
+  display:flex; flex-direction:column; transition:all .3s var(--ease);
+  position:relative;
+}
+.card:hover { transform:translateY(-5px); border-color:var(--border-strong); box-shadow:var(--shadow-lg); }
+.card--featured { border-color:rgba(245,166,35,.4); }
+.grid[data-view="list"] .card { flex-direction:row; }
+.grid[data-view="list"] .card__thumb { width:180px; flex-shrink:0; }
+.grid[data-view="list"] .card__body { flex:1; }
+
+.card__thumb {
+  position:relative; aspect-ratio:16/9;
+  display:grid; place-items:center; overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.grid[data-view="list"] .card__thumb { aspect-ratio:1; }
+.card__thumb::before {
+  content:""; position:absolute; inset:0;
+  background-image:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.15), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,.08), transparent 50%);
+  pointer-events:none;
+}
+.card__logo-bg {
+  width:80px; height:80px; border-radius:var(--r-lg);
+  background:#fff; padding:10px;
+  display:grid; place-items:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.20);
+  position:relative; z-index:1;
+  transition:transform .4s var(--spring);
+}
+.card:hover .card__logo-bg { transform:scale(1.08) rotate(-2deg); }
+.card__logo { width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 2px 6px rgba(0,0,0,.10)); }
+
+.card__badges { position:absolute; top:10px; inset-inline-start:10px; display:flex; gap:5px; flex-wrap:wrap; z-index:2; }
+.badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:var(--r-pill); font-size:.6rem; font-weight:900; backdrop-filter:blur(6px); }
+.badge--trusted { background:rgba(22,163,74,.92); color:#fff; }
+.badge--free { background:rgba(255,255,255,.94); color:#16a34a; }
+[data-theme="dark"] .badge--free { background:rgba(34,197,94,.2); color:#4ade80; }
+.badge--paid { background:rgba(255,255,255,.94); color:#b8740a; }
+[data-theme="dark"] .badge--paid { background:rgba(245,166,35,.2); color:#f5c060; }
+.badge--freemium { background:rgba(255,255,255,.94); color:var(--blue); }
+[data-theme="dark"] .badge--freemium { background:rgba(27,95,217,.25); color:#6ec4e8; }
+.badge--featured { background:var(--gold); color:#fff; }
+
+.card__fav {
+  position:absolute; top:10px; inset-inline-end:10px;
+  width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.94); color:var(--muted);
+  transition:all .25s var(--spring); z-index:2;
+  box-shadow:0 2px 8px rgba(0,0,0,.10);
+}
+[data-theme="dark"] .card__fav { background:rgba(18,37,80,.94); }
+.card__fav:hover { transform:scale(1.12); color:var(--gold); }
+.card__fav.is-fav { background:var(--gold); color:#fff; box-shadow:0 3px 12px rgba(245,166,35,.45); }
+.card__fav svg { width:17px; height:17px; }
+
+.card__body { padding:16px; display:flex; flex-direction:column; gap:10px; flex:1; }
+.card__cat { display:inline-flex; align-items:center; gap:5px; font-size:.64rem; font-weight:900; text-transform:uppercase; letter-spacing:.03em; color:var(--blue); }
+[data-theme="dark"] .card__cat { color:var(--cyan); }
+.card__title { margin:0; font-size:.95rem; font-weight:900; line-height:1.4; color:var(--ink); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.card__desc { margin:0; font-size:.78rem; color:var(--muted); line-height:1.55; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+.card__what-why {
+  display:flex; flex-direction:column; gap:6px;
+  padding:10px 12px;
+  background:var(--surface-alt); border:1px solid var(--border);
+  border-radius:var(--r-sm); font-size:.74rem; line-height:1.5;
+}
+.card__what-why strong { font-weight:900; color:var(--ink); display:inline; }
+.card__what-why .what { color:var(--ink-soft); margin-bottom:4px; }
+.card__what-why .why { color:var(--blue); }
+[data-theme="dark"] .card__what-why .why { color:var(--cyan); }
+
+.card__meta { display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; }
+.pill { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:var(--r-pill); font-size:.64rem; font-weight:800; background:var(--surface-alt); border:1px solid var(--border); color:var(--ink-soft); }
+
+.card__stats { display:flex; gap:14px; align-items:center; font-size:.72rem; color:var(--muted); font-weight:700; padding-top:8px; border-top:1px dashed var(--border); }
+.card__stats span { display:inline-flex; align-items:center; gap:4px; }
+.card__stats .stat-views { color:var(--ink-soft); }
+.card__stats .stat-rating { color:var(--gold); }
+
+.card__actions { display:flex; gap:8px; padding-top:10px; }
+.card__btn {
+  flex:1; padding:9px 14px; border-radius:var(--r-sm);
+  font-size:.8rem; font-weight:800; transition:all .2s;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  border:1.5px solid var(--border);
+  background:var(--surface-alt); color:var(--ink-soft);
+}
+.card__btn:hover { border-color:var(--blue); color:var(--blue); }
+.card__btn--primary { background:var(--grad-brand); color:#fff; border-color:transparent; box-shadow:0 4px 12px rgba(27,95,217,.22); }
+.card__btn--primary:hover { color:#fff; transform:translateY(-1px); box-shadow:0 8px 20px rgba(27,95,217,.32); }
+.card__btn svg { width:14px; height:14px; }
+
+/* EMPTY */
+.empty-state { grid-column:1/-1; padding:60px 24px; text-align:center; border:2px dashed var(--border); border-radius:var(--r-xl); background:var(--surface); }
+.empty-icon { width:80px; height:80px; margin:0 auto 16px; border-radius:50%; background:linear-gradient(135deg, rgba(27,95,217,.10), rgba(42,212,232,.10)); display:grid; place-items:center; color:var(--blue); }
+.empty-icon svg { width:38px; height:38px; }
+.empty-state strong { display:block; font-size:1.05rem; font-weight:900; color:var(--ink); margin-bottom:6px; }
+.empty-state p { margin:0; color:var(--muted); font-size:.88rem; max-width:44ch; margin-inline:auto; }
+
+/* MODAL */
+.backdrop { position:fixed; inset:0; z-index:200; background:rgba(8,20,48,.65); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:16px; }
+.backdrop.open { display:flex; }
+.modal { width:min(680px, 100%); max-height:min(90vh, 880px); overflow-y:auto; background:var(--surface); border-radius:var(--r-xl); box-shadow:0 30px 80px rgba(0,0,0,.40); animation:modalIn .35s var(--spring); position:relative; }
+@keyframes modalIn { from { opacity:0; transform:scale(.94) translateY(16px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal-head { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 22px; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:2; background:var(--surface); }
+.modal-head h2 { margin:0; font-size:1.1rem; font-weight:900; }
+.modal-close { width:34px; height:34px; border-radius:50%; background:var(--surface-alt); color:var(--muted); display:grid; place-items:center; transition:all .2s; }
+.modal-close:hover { background:rgba(220,38,38,.12); color:var(--red); transform:rotate(90deg); }
+.modal-close svg { width:16px; height:16px; }
+
+.detail-hero { position:relative; height:180px; display:grid; place-items:center; overflow:hidden; border-bottom:1px solid var(--border); }
+.detail-hero::before { content:""; position:absolute; inset:0; background-image:radial-gradient(circle at 30% 20%, rgba(255,255,255,.15), transparent 60%), radial-gradient(circle at 80% 80%, rgba(255,255,255,.08), transparent 50%); }
+.detail-logo-bg { width:100px; height:100px; border-radius:var(--r-lg); background:#fff; padding:14px; display:grid; place-items:center; box-shadow:0 10px 32px rgba(0,0,0,.20); position:relative; z-index:1; }
+.detail-logo { width:100%; height:100%; object-fit:contain; }
+
+.detail-body { padding:22px; display:flex; flex-direction:column; gap:14px; }
+.detail-title { font-size:1.2rem; font-weight:900; margin:0; line-height:1.35; }
+.detail-desc { font-size:.86rem; color:var(--muted); font-weight:600; margin:0; line-height:1.7; }
+
+.detail-what-why { display:flex; flex-direction:column; gap:10px; padding:14px 16px; background:var(--surface-alt); border:1px solid var(--border); border-radius:var(--r-md); font-size:.84rem; line-height:1.7; }
+.detail-what-why strong { font-weight:900; color:var(--ink); }
+.detail-what-why .what { color:var(--ink-soft); margin-bottom:6px; }
+.detail-what-why .why { color:var(--blue); }
+
+.detail-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; }
+@media(max-width:600px) { .detail-grid { grid-template-columns:1fr; } }
+.detail-item { padding:10px 12px; background:var(--surface-alt); border:1px solid var(--border); border-radius:var(--r-sm); display:flex; flex-direction:column; gap:3px; }
+.detail-item__label { font-size:.66rem; font-weight:900; color:var(--muted); text-transform:uppercase; letter-spacing:.03em; }
+.detail-item__value { font-size:.85rem; font-weight:800; color:var(--ink); word-break:break-word; }
+.detail-actions { display:flex; gap:10px; padding-top:14px; border-top:1px solid var(--border); }
+
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:11px 20px; border-radius:var(--r-md); font-weight:800; font-size:.86rem; transition:all .25s var(--ease); min-height:44px; }
+.btn svg { width:15px; height:15px; }
+.btn--primary { background:var(--grad-brand); color:#fff; box-shadow:0 6px 18px rgba(27,95,217,.25); }
+.btn--primary:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(27,95,217,.35); }
+.btn--ghost { background:var(--surface-alt); color:var(--ink-soft); border:1.5px solid var(--border); }
+.btn--ghost:hover { border-color:var(--blue); color:var(--blue); }
+
+/* TOAST */
+.toast { position:fixed; bottom:24px; inset-inline-start:24px; z-index:400; max-width:min(400px, calc(100vw - 48px)); background:var(--surface); border:1px solid var(--border); border-inline-start:4px solid var(--blue); border-radius:var(--r-md); padding:12px 16px; box-shadow:0 16px 40px rgba(0,0,0,.20); font-weight:800; font-size:.86rem; display:none; align-items:center; gap:10px; animation:toastIn .35s var(--spring); }
+@keyframes toastIn { from { opacity:0; transform:translateX(-30px); } to { opacity:1; transform:translateX(0); } }
+.toast.show { display:flex; }
+.toast.success { border-inline-start-color:var(--green); }
+.toast.error { border-inline-start-color:var(--red); }
+.toast-icon { width:30px; height:30px; flex-shrink:0; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:900; background:var(--grad-brand); font-size:.92rem; }
+.toast.success .toast-icon { background:linear-gradient(135deg, #16a34a, #22c55e); }
+.toast.error .toast-icon { background:linear-gradient(135deg, #dc2626, #ef4444); }
+
+/* A11Y */
+.a11y-fab { position:fixed; bottom:20px; left:20px; z-index:90; width:54px; height:54px; border-radius:50%; background:var(--grad-brand); color:#fff; display:grid; place-items:center; box-shadow:0 10px 28px rgba(27,95,217,.35); transition:all .3s var(--spring); }
+.a11y-fab:hover { transform:translateY(-3px) rotate(6deg); box-shadow:0 16px 36px rgba(27,95,217,.45); }
+.a11y-fab svg { width:24px; height:24px; }
+
+.a11y-panel { position:fixed; bottom:86px; left:20px; z-index:91; width:min(360px, calc(100vw - 40px)); max-height:calc(100vh - 130px); overflow-y:auto; padding:18px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); box-shadow:var(--shadow-xl); display:flex; flex-direction:column; gap:14px; opacity:0; visibility:hidden; transform:translateY(12px) scale(.95); transition:all .3s var(--ease); transform-origin:bottom left; }
+.a11y-panel.is-visible { opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+.a11y-head { display:flex; justify-content:space-between; align-items:center; gap:10px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+.a11y-title { margin:0; font-size:.94rem; font-weight:900; display:flex; align-items:center; gap:7px; }
+.a11y-title svg { width:18px; height:18px; color:var(--blue); }
+.a11y-close { width:30px; height:30px; border-radius:50%; background:var(--surface-alt); color:var(--muted); display:grid; place-items:center; transition:all .2s; }
+.a11y-close:hover { background:rgba(220,38,38,.12); color:var(--red); transform:rotate(90deg); }
+.a11y-close svg { width:14px; height:14px; }
+
+.a11y-section { display:flex; flex-direction:column; gap:7px; }
+.a11y-label { font-size:.7rem; font-weight:900; color:var(--muted); text-transform:uppercase; letter-spacing:.03em; }
+.a11y-options { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; }
+.a11y-options--4 { grid-template-columns:repeat(4, 1fr); }
+.a11y-option { padding:8px 4px; border:1.5px solid var(--border); background:var(--surface-alt); color:var(--ink-soft); border-radius:var(--r-sm); font-size:.72rem; font-weight:800; transition:all .2s; text-align:center; }
+.a11y-option:hover { border-color:var(--blue); color:var(--blue); }
+.a11y-option.is-active { background:var(--grad-brand); color:#fff; border-color:transparent; box-shadow:0 3px 10px rgba(27,95,217,.22); }
+
+.a11y-toggles { display:flex; flex-direction:column; gap:6px; }
+.a11y-toggle { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 12px; background:var(--surface-alt); border:1.5px solid var(--border); border-radius:var(--r-sm); font-size:.82rem; font-weight:800; color:var(--ink); transition:all .2s; text-align:start; }
+.a11y-toggle:hover { border-color:var(--blue); }
+.a11y-toggle[aria-pressed="true"] { background:rgba(27,95,217,.08); border-color:var(--blue); color:var(--blue); }
+.a11y-switch { width:36px; height:20px; border-radius:var(--r-pill); background:var(--border-strong); position:relative; flex-shrink:0; transition:background .25s; }
+.a11y-switch::after { content:""; position:absolute; top:2px; right:2px; width:16px; height:16px; background:#fff; border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,.20); transition:transform .3s var(--spring); }
+.a11y-toggle[aria-pressed="true"] .a11y-switch { background:var(--blue); }
+.a11y-toggle[aria-pressed="true"] .a11y-switch::after { transform:translateX(-16px); }
+
+/* RESPONSIVE */
+@media(max-width:992px) {
+  .layout { flex-direction: column; }
+  .sidebar { width: 100%; position: relative; top: 0; margin-bottom: 20px; }
+  .hero-stats { grid-template-columns:repeat(2, 1fr); }
+}
+@media(max-width:720px) {
+  .wrap { width:calc(100% - 20px); margin-top:16px; }
+  .topbar { padding:10px 14px; }
+  .brand-logo { width:42px; height:42px; }
+  .brand-text h1 { font-size:1rem; }
+  .brand-text p { font-size:.66rem; }
+  .back-btn { padding:9px 14px; font-size:.8rem; }
+  .hero { padding:24px 18px; border-radius:var(--r-xl); }
+  .hero h2 { font-size:1.5rem; }
+  .sections-nav { grid-template-columns:repeat(2, 1fr); gap:8px; }
+  .section-card { padding:10px; gap:8px; }
+  .section-card__icon { width:30px; height:30px; font-size:1rem; }
+  .section-card__title { font-size:.72rem; }
+  .grid[data-view="list"] .card { flex-direction:column; }
+  .grid[data-view="list"] .card__thumb { width:100%; aspect-ratio:16/9; }
+  .detail-grid { grid-template-columns:1fr; }
+  .toast { inset-inline-start:16px; inset-inline-end:16px; bottom:16px; max-width:none; }
+  .a11y-fab { bottom:16px; left:16px; width:48px; height:48px; }
+  .a11y-fab svg { width:22px; height:22px; }
+  .a11y-panel { bottom:76px; left:16px; width:calc(100vw - 32px); }
+}
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after { animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; }
+}
+</style>
+</head>
+<body>
+
+<a href="#resources" class="skip-link">تخطّي إلى المحتوى</a>
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+<div class="bg-layer" aria-hidden="true"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="index.html" class="brand" aria-label="أقدر AQDAR — الرئيسية">
+    <svg class="brand-logo" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <linearGradient id="lgRim" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#12b6d8"/><stop offset="100%" stop-color="#5b3bb5"/>
+        </linearGradient>
+        <linearGradient id="lgShirt" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4A7CEC"/><stop offset="100%" stop-color="#2457D6"/>
+        </linearGradient>
+        <linearGradient id="lgStar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFE066"/><stop offset="100%" stop-color="#F5A623"/>
+        </linearGradient>
+        <radialGradient id="lgInner">
+          <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eaf3ff"/>
+        </radialGradient>
+      </defs>
+      <circle cx="120" cy="120" r="112" fill="url(#lgRim)"/>
+      <circle cx="120" cy="120" r="104" fill="url(#lgInner)"/>
+      <circle cx="120" cy="120" r="104" fill="none" stroke="#1248b8" stroke-width="1.4" stroke-dasharray="3 10" opacity=".24"/>
+      <path d="M92 168 Q92 152 110 150 L130 150 Q148 152 148 168 L148 200 Q148 212 138 212 L102 212 Q92 212 92 200 Z" fill="url(#lgShirt)"/>
+      <circle cx="120" cy="120" r="28" fill="#FFD3AE"/>
+      <path d="M92 120 Q90 94 112 88 Q134 84 148 96 Q156 108 148 124 Q142 110 130 104 Q112 96 100 106 Q94 112 92 120 Z" fill="#1A2B4C"/>
+      <path d="M196 36 L203 58 L226 60 L208 74 L213 96 L196 84 L179 96 L184 74 L166 60 L189 58 Z" fill="url(#lgStar)"/>
+    </svg>
+    <div class="brand-text">
+      <h1>أقدر | AQDAR</h1>
+      <p>مكتبة المصادر التعليمية</p>
+    </div>
+  </a>
+
+  <button class="back-btn" id="btn-back" type="button" aria-label="العودة">
+    <span class="back-btn__bg" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+      <path d="M12 5 L5 12 L12 19"/><path d="M5 12 H19"/>
+    </svg>
+    <span>العودة</span>
+  </button>
+</header>
+
+<!-- MAIN -->
+<main class="wrap" id="main-content">
+
+  <!-- HERO -->
+  <section class="hero reveal">
+    <div class="hero-content">
+      <div>
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>
+          65+ مصدرًا تعليميًا موثوقًا · مشروح بالكامل
+        </span>
+        <h2>كل أداة تعليمية <em>مشروحة</em><br>ماذا تفعل ولماذا يستخدمها المعلم</h2>
+        <p>مكتبة شاملة بـ 65+ أداة ومصدر موثوق، مقسمة إلى 7 أقسام، مع نبذة واضحة عن وظيفة كل أداة وكيف يستفيد منها المعلم والطالب في الفصل والمنزل.</p>
+        <div class="hero-cta">
+          <a href="#resources" class="hero-btn hero-btn--primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5 V19"/><path d="M5 12 H19"/></svg>
+            استكشف المكتبة
+          </a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5 V6 A2 2 0 0 1 6 4 H20 V20 H6 A2 2 0 0 1 4 18"/><path d="M8 8 H16"/></svg>
+          </div>
+          <span class="hero-stat-value" id="stat-resources">0</span>
+          <span class="hero-stat-label">مصدر تعليمي</span>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7 H5 L7 17 H17 L19 9 H6"/><circle cx="8" cy="20" r="1.4"/><circle cx="16" cy="20" r="1.4"/></svg>
+          </div>
+          <span class="hero-stat-value" id="stat-categories">0</span>
+          <span class="hero-stat-label">قسم رئيسي</span>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>
+          </div>
+          <span class="hero-stat-value" id="stat-favorites">0</span>
+          <span class="hero-stat-label">مفضلتك</span>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12 Q5 5 12 5 Q19 5 23 12 Q19 19 12 19 Q5 19 1 12 Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <span class="hero-stat-value" id="stat-views"></span>
+          <span class="hero-stat-label">مشاهدة</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN LAYOUT WITH SIDEBAR -->
+  <div class="layout">
+    
+    <!-- SIDEBAR (الفلاتر والقائمة الجانبية) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3 class="sidebar-title">
+          <svg viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+          تصفية النتائج
+        </h3>
+        <button class="clear-filters" id="btn-clear-all">مسح الكل</button>
+      </div>
+
+      <!-- Filter: Type -->
+      <div class="filter-group">
+        <h4 class="filter-title">نوع المصدر</h4>
+        <div class="checkbox-group" id="filter-type-group">
+          <label class="checkbox-label">
+            <input type="checkbox" value="video" class="filter-cb" data-filter="type">
+            <div class="checkbox-box"></div>
+            <span>فيديو 🎬</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="interactive" class="filter-cb" data-filter="type">
+            <div class="checkbox-box"></div>
+            <span>تفاعلي ✨</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="course" class="filter-cb" data-filter="type">
+            <div class="checkbox-box"></div>
+            <span>دورة تدريبية 🎓</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Filter: Language -->
+      <div class="filter-group">
+        <h4 class="filter-title">اللغة</h4>
+        <div class="checkbox-group" id="filter-lang-group">
+          <label class="checkbox-label">
+            <input type="checkbox" value="العربية" class="filter-cb" data-filter="lang">
+            <div class="checkbox-box"></div>
+            <span>العربية</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="الإنجليزية" class="filter-cb" data-filter="lang">
+            <div class="checkbox-box"></div>
+            <span>الإنجليزية</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="ثنائي اللغة" class="filter-cb" data-filter="lang">
+            <div class="checkbox-box"></div>
+            <span>ثنائي اللغة</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Filter: Access -->
+      <div class="filter-group">
+        <h4 class="filter-title">طريقة الوصول</h4>
+        <div class="checkbox-group" id="filter-access-group">
+          <label class="checkbox-label">
+            <input type="checkbox" value="free" class="filter-cb" data-filter="access">
+            <div class="checkbox-box"></div>
+            <span>مجاني 💚</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="freemium" class="filter-cb" data-filter="access">
+            <div class="checkbox-box"></div>
+            <span>مجاني جزئيًا 💙</span>
+          </label>
+
+
+      <div class="sidebar-info">
+        <strong>💡 نصيحة:</strong> استخدم الفلاتر لتضييق نطاق البحث والعثور على الأدوات التي تناسب صفك واحتياجات طلابك بدقة.
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT (البحث، الأقسام، البطاقات) -->
+    <div class="main-content">
+      
+      <!-- TOOLBAR (Search & Sort) -->
+      <section class="toolbar reveal" aria-label="البحث والترتيب">
+        <div class="search-row">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21 L16.5 16.5"/></svg>
+          <input type="search" class="search-input" id="search-input" placeholder="ابحث عن أداة، مادة، أو وظيفة..." aria-label="بحث في المكتبة">
+          <button class="search-clear" id="search-clear" type="button" aria-label="مسح البحث">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+          </button>
+        </div>
+
+        <div class="toolbar-actions">
+          <div class="sort-group">
+            <span class="sort-label">ترتيب حسب:</span>
+            <select class="filter-select" id="filter-sort">
+              <option value="newest">الأحدث</option>
+              <option value="popular">الأكثر مشاهدة</option>
+              <option value="title">أبجديًا</option>
+            </select>
+          </div>
+
+          <div class="view-toggle" role="group" aria-label="طريقة العرض">
+            <button class="view-btn is-active" data-view="grid" type="button" aria-label="عرض شبكي">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
+            </button>
+            <button class="view-btn" data-view="list" type="button" aria-label="عرض قائمة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6 H21"/><path d="M8 12 H21"/><path d="M8 18 H21"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTIONS NAV -->
+      <div class="sections-nav" id="sections-nav" role="tablist" aria-label="أقسام المكتبة"></div>
+
+      <!-- SECTION HEADER -->
+      <div class="section-header reveal" id="section-header">
+        <div class="section-header__icon" id="section-icon">📚</div>
+        <div class="section-header__text">
+          <h3 id="section-title">المناهج الدراسية</h3>
+          <p id="section-desc"></p>
+        </div>
+      </div>
+
+      <!-- RESULTS ROW -->
+      <div class="results-row" id="resources">
+        <span class="results-count" id="results-count">—</span>
+        <button class="featured-toggle" id="featured-toggle" type="button" style="display:none;">
+          المميزة فقط
+        </button>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid" id="resources-grid" data-view="grid" aria-live="polite"></div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- DETAIL MODAL -->
+<div class="backdrop" id="detail-modal" role="presentation">
+  <article class="modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+    <header class="modal-head">
+      <h2 id="detail-title">تفاصيل الأداة</h2>
+      <button class="modal-close" id="detail-close" type="button" aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+      </button>
+    </header>
+    <div id="detail-content"></div>
+  </article>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast-icon" id="toast-icon">✓</span>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- A11Y FAB -->
+<button class="a11y-fab" id="a11y-toggle" type="button" aria-label="خيارات الوصول" aria-expanded="false" aria-controls="a11y-panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/></svg>
+</button>
+
+<aside class="a11y-panel" id="a11y-panel" role="dialog" aria-label="خيارات الوصول" aria-hidden="true">
+  <div class="a11y-head">
+    <h2 class="a11y-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/></svg>
+      خيارات الوصول
+    </h2>
+    <button class="a11y-close" id="a11y-close" type="button" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="a11y-section">
+    <span class="a11y-label">حجم الخط</span>
+    <div class="a11y-options a11y-options--4">
+      <button class="a11y-option" data-font="0.9" type="button">S</button>
+      <button class="a11y-option is-active" data-font="1" type="button">M</button>
+      <button class="a11y-option" data-font="1.15" type="button">L</button>
+      <button class="a11y-option" data-font="1.3" type="button">XL</button>
+    </div>
+  </div>
+
+  <div class="a11y-section">
+    <span class="a11y-label">المظهر</span>
+    <div class="a11y-options">
+      <button class="a11y-option is-active" data-theme-value="light" type="button">☀️ نهاري</button>
+      <button class="a11y-option" data-theme-value="dark" type="button">🌙 ليلي</button>
+      <button class="a11y-option" data-theme-value="sepia" type="button">📜 سيبيا</button>
+    </div>
+  </div>
+
+  <div class="a11y-toggles">
+    <button class="a11y-toggle" id="a11y-contrast" type="button" aria-pressed="false">
+      <span>🔲 تباين عالٍ</span><span class="a11y-switch" aria-hidden="true"></span>
+    </button>
+    <button class="a11y-toggle" id="a11y-motion" type="button" aria-pressed="false">
+      <span>🎬 تقليل الحركة</span><span class="a11y-switch" aria-hidden="true"></span>
+    </button>
+    <button class="a11y-toggle" id="a11y-dyslexia" type="button" aria-pressed="false">
+      <span>🔤 خط لعسر القراءة</span><span class="a11y-switch" aria-hidden="true"></span>
+    </button>
+    <button class="a11y-toggle" id="a11y-sound" type="button" aria-pressed="false">
+      <span>🔊 المؤثرات الصوتية</span><span class="a11y-switch" aria-hidden="true"></span>
+    </button>
+  </div>
+</aside>
+
+<script>
+(function(){
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const $$ = (s, p=document) => p.querySelectorAll(s);
+
+  /* ============================================================
+     7 أقسام
+     ============================================================ */
+  const SECTIONS = {
+    curriculum: { title: 'المناهج الدراسية', icon: '📚', color: 'linear-gradient(135deg, #1248b8, #1b5fd9)', desc: 'منصات تقدم شرحًا منهجيًا كاملًا لجميع المواد والمراحل — بديل رقمي للكتاب المدرسي والدروس الخصوصية.' },
+    science: { title: 'العلوم والرياضيات', icon: '🔬', color: 'linear-gradient(135deg, #0e8fb0, #12b6d8)', desc: 'محاكيات تفاعلية وأدوات رياضية تساعد الطالب على رؤية المفاهيم المجردة وتجربة التجارب قبل تنفيذها معمليًا.' },
+    languages: { title: 'اللغات', icon: '🌐', color: 'linear-gradient(135deg, #16a34a, #22c55e)', desc: 'أدوات لتطوير مهارات الاستماع والتحدث والقراءة والكتابة — من منصات عالمية معتمدة إلى تطبيقات تفاعلية.' },
+    ai: { title: 'الذكاء الاصطناعي', icon: '🤖', color: 'linear-gradient(135deg, #5b3bb5, #8b6bd9)', desc: 'مساعدات ذكاء اصطناعي تُسرّع التحضير، تُخصص المحتوى، وتُقدم تغذية راجعة فورية — مع مراعاة الخصوصية.' },
+    creativity: { title: 'الإبداع والمهارات', icon: '🎨', color: 'linear-gradient(135deg, #ec4899, #f97316)', desc: 'أدوات تصميم وعرض وبرمجة تُحوّل الدرس من محاضرة إلى تجربة بصرية تفاعلية تُلهم الطلاب.' },
+    practice: { title: 'التدريب والتقييم', icon: '🏆', color: 'linear-gradient(135deg, #d97706, #f5a623)', desc: 'منصات اختبارات وتقييم تكويني — تمنح المعلم بيانات فورية عن فهم الطلاب وتكشف الفجوات قبل الامتحان.' },
+    teacher: { title: 'أدوات المعلم', icon: '🧑‍🏫', color: 'linear-gradient(135deg, #0891b2, #06b6d4)', desc: 'أدوات إدارة الصف، العرض التفاعلي، تنظيم الأفكار، وتسريع المهام الإدارية — تُعيد للمعلم وقته.' }
+  };
+
+  const logo = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+
+  /* ============================================================
+     المصادر (65+ مصدرًا)
+     ============================================================ */
+  const RESOURCES = [
+    /* ========== المناهج الدراسية (11) ========== */
+    { id:'cur-1', cat:'curriculum', title:'منصة مدرسة', domain:'madrasa.org', access:'free', lang:'العربية', featured:true, type:'video', desc:'منصة رسمية من مؤسسة محمد بن راشد — آلاف الفيديوهات المنهجية المجانية بالعربية.', what:'فيديوهات شرح مرتبة حسب الدرس والصف والمادة، مع أوراق عمل وتدريبات.', why:'مصدر حكومي رسمي — يستخدمه المعلم كمرجع بصري للطالب الغائب أو كنشاط منزلي بديل عن الدروس الخصوصية.', url:'https://www.madrasa.org', views:38500 },
+    { id:'cur-2', cat:'curriculum', title:'نفهم', domain:'nafham.com', access:'free', lang:'العربية', featured:true, type:'video', desc:'أكبر منصة عربية لفيديوهات شرح المناهج — 23,000+ فيديو لجميع المراحل.', what:'شرح مبسط لكل درس في المنهج المصري والسعودي، مع إمكانية التوقف وإعادة المشاهدة.', why:'مثالي للطلاب المتعثرين — يستخدمه المعلم كواجب مشاهدة قبل الحصة (Flipped Classroom).', url:'https://www.nafham.com', views:42100 },
+    { id:'cur-3', cat:'curriculum', title:'Khan Academy بالعربية', domain:'khanacademy.org', access:'free', lang:'ثنائي اللغة', featured:true, type:'interactive', desc:'أكاديمية خان — منصة عالمية غير ربحية بدعم من بيل جيتس، مترجمة بالكامل للعربية.', what:'دروس فيديو + تمارين تفاعلية + لوحة تقدم للمعلم لمتابعة إنجاز كل طالب.', why:'يستخدمها المعلم لبناء مسار تعلم فردي (Differentiated Path) لكل طالب حسب مستواه.', url:'https://ar.khanacademy.org', views:36400 },
+    { id:'cur-4', cat:'curriculum', title:'Coursera', domain:'coursera.org', access:'freemium', lang:'ثنائي اللغة', type:'course', desc:'دورات جامعية من ستانفورد وييل وهارفارد مع شهادات معتمدة.', what:'مساقات كاملة (فيديو + واجبات + اختبارات) في تخصصات أكاديمية ومهنية.', why:'يستخدمها المعلم لتطوير نفسه مهنيًا، أو لإثراء الطلاب المتفوقين بمحتوى جامعي.', url:'https://www.coursera.org', views:29600 },
+    { id:'cur-5', cat:'curriculum', title:'edX', domain:'edx.org', access:'freemium', lang:'الإنجليزية', type:'course', desc:'منصة أسسها MIT وهارفارد — دورات أكاديمية مجانية من أرقى الجامعات.', what:'مساقات جامعية مجانية مع إمكانية الحصول على شهادة مدفوعة.', why:'مصدر موثوق لإعداد محتوى إثرائي أو التحضير لاختبارات دولية.', url:'https://www.edx.org', views:26300 },
+    { id:'cur-6', cat:'curriculum', title:'MIT OpenCourseWare', domain:'ocw.mit.edu', access:'free', lang:'الإنجليزية', featured:true, type:'course', desc:'كل مواد MIT مجانًا — محاضرات وواجبات وامتحانات من أشهر معهد تقني.', what:'أرشيف كامل لمساقات MIT: فيديوهات، ملاحظات، اختبارات سابقة مع الحلول.', why:'يستخدمها معلمو الثانوية والجامعة كمرجع عميق لإعداد دروس متقدمة أو مشاريع STEM.', url:'https://ocw.mit.edu', views:23800 },
+    { id:'cur-7', cat:'curriculum', title:'إدراك', domain:'edraak.org', access:'free', lang:'العربية', type:'course', desc:'منصة عربية غير ربحية — دورات مجانية بالتعاون مع EdX وجامعات عالمية.', what:'مساقات عربية في التعليم والتكنولوجيا وإدارة الأعمال، مع شهادات إتمام.', why:'يستخدمها المعلم لتطوير مهاراته الرقمية، أو لإرشاد الطلاب إلى مسارات مهنية مجانية.', url:'https://www.edraak.org', views:25400 },
+    { id:'cur-8', cat:'curriculum', title:'أبواب (Abwaab)', domain:'abwaab.com', access:'freemium', lang:'العربية', type:'video', desc:'منصة عربية للمرحلة الثانوية — فيديوهات واختبارات وفق المناهج المحلية.', what:'شرح مركز للثانوية العامة مع بنك أسئلة واختبارات محاكية.', why:'يستخدمها معلم الثانوية كأداة تدريب على نمط الامتحانات، أو كمرجع سريع للمراجعة النهائية.', url:'https://www.abwaab.com', views:18200 },
+    { id:'cur-9', cat:'curriculum', title:'رواق (Rwaq)', domain:'rwaq.org', access:'free', lang:'العربية', type:'course', desc:'منصة عربية للتعليم المفتوح — دورات أكاديمية مجانية في شتى المجالات.', what:'مساقات عربية مجانية في البرمجة والتصميم وإدارة الأعمال والعلوم.', why:'يستخدمها المعلم للتعلم الذاتي أو لإرشاد الطلاب لمسارات مهارية مجانية.', url:'https://www.rwaq.org', views:14800 },
+    { id:'cur-10', cat:'curriculum', title:'بنك المعرفة المصري', domain:'ekb.eg', access:'free', lang:'العربية', featured:true, type:'interactive', desc:'مبادرة رئاسية مصرية — محتوى تعليمي ضخم لجميع المراحل.', what:'محتوى بالتعاون مع ناشيونال جيوغرافيك وديسكفري وBritannica — موسوعات ومجلات ودورات.', why:'مصدر حكومي رسمي — يستخدمه المعلم كمرجع موسوعي معتمد للطلاب في جميع المواد.', url:'https://www.ekb.eg', views:32500 },
+    { id:'cur-11', cat:'curriculum', title:'Noon Academy', domain:'noonacademy.com', access:'freemium', lang:'العربية', type:'video', desc:'منصة تعليمية عربية — دروس مباشرة وتفاعلية للثانوية والجامعة.', what:'حصص مباشرة مع معلمين، اختبارات تكيفية، ومجموعات دراسية.', why:'يستخدمها المعلم لتنظيم مراجعات مباشرة قبل الامتحانات مع متابعة تفاعلية.', url:'https://www.noonacademy.com', views:16800 },
+
+    /* ========== العلوم والرياضيات (12) ========== */
+    { id:'sci-1', cat:'science', title:'PhET Simulations', domain:'phet.colorado.edu', access:'free', lang:'ثنائي اللغة', featured:true, type:'interactive', desc:'محاكاة تفاعلية من جامعة كولورادو — 130+ تجربة في الفيزياء والكيمياء والأحياء والرياضيات.', what:'مختبر افتراضي يسمح للطالب بتغيير المتغيرات ورؤية النتيجة فورًا.', why:'يستخدمه المعلم لتوضيح المفاهيم المجردة قبل التجربة المعملية، أو كبديل آمن ورخيص عن المعدات.', url:'https://phet.colorado.edu/ar', views:44800 },
+    { id:'sci-2', cat:'science', title:'GeoGebra', domain:'geogebra.org', access:'free', lang:'ثنائي اللغة', featured:true, type:'interactive', desc:'أداة رياضيات تفاعلية — رسوم بيانية وهندسة وجبر وإحصاء.', what:'منصة ديناميكية تربط التمثيل الجبري بالتمثيل البياني والهندسي في نفس الشاشة.', why:'يستخدمها معلم الرياضيات لشرح الدوال والتحويلات الهندسية بطريقة حيّة بدل الرسم الثابت.', url:'https://www.geogebra.org', views:39300 },
+    { id:'sci-3', cat:'science', title:'Desmos', domain:'desmos.com', access:'free', lang:'الإنجليزية', type:'interactive', desc:'آلة حاسبة رسومية متقدمة — مثالية للجبر والتفاضل والتكامل.', what:'رسم فوري للدوال، مع إمكانية تحريك المعاملات ومشاهدة تأثيرها لحظيًا.', why:'يستخدمه المعلم لبناء أنشطة استكشافية حيث يكتشف الطالب قاعدة الدالة بنفسه.', url:'https://www.desmos.com', views:34700 },
+    { id:'sci-4', cat:'science', title:'NASA STEM', domain:'nasa.gov', access:'free', lang:'الإنجليزية', type:'interactive', desc:'موارد علمية رسمية من ناسا — أنشطة وألعاب وفيديوهات عن الفضاء.', what:'مجموعة موارد تعليمية مجانية حول علوم الفضاء والأرض، مع خطط دروس جاهزة.', why:'يستخدمه معلم العلوم لإضافة سياق واقعي ومثير يرفع دافعية الطلاب.', url:'https://www.nasa.gov/stem', views:29200 },
+    { id:'sci-5', cat:'science', title:'Wolfram Alpha', domain:'wolframalpha.com', access:'freemium', lang:'الإنجليزية', featured:true, type:'ai-tool', desc:'محرك معرفي حسابي — يحل مسائل الرياضيات والفيزياء والكيمياء خطوة بخطوة.', what:'إدخال معادلة أو سؤال علمي والحصول على حل مفصّل مع خطوات ورسوم.', why:'يستخدمه المعلم للتحقق من صحة حلوله، أو لإنشاء مسائل جديدة بسرعة مع حلولها.', url:'https://www.wolframalpha.com', views:31400 },
+    { id:'sci-6', cat:'science', title:'CK-12', domain:'ck12.org', access:'free', lang:'الإنجليزية', type:'interactive', desc:'منصة علوم ورياضيات مجانية — كتب تفاعلية وتمارين لجميع المراحل.', what:'كتب مدرسية رقمية قابلة للتخصيص، مع فيديوهات وتمارين مدمجة.', why:'يستخدمه المعلم كبديل مرن للكتاب الورقي، مع إمكانية تعديل المحتوى ليناسب صفه.', url:'https://www.ck12.org', views:21600 },
+    { id:'sci-7', cat:'science', title:'OpenStax', domain:'openstax.org', access:'free', lang:'الإنجليزية', type:'pdf', desc:'كتب جامعية مجانية مفتوحة المصدر من جامعة رايس.', what:'كتب فيزياء وكيمياء وأحياء ورياضيات معتمدة أكاديميًا، بصيغة PDF وعبر الإنترنت.', why:'يستخدمها معلم الثانوية/الجامعة كمصدر موثوق لإعداد ملازم أو قراءات إثرائية.', url:'https://openstax.org', views:17800 },
+    { id:'sci-8', cat:'science', title:'Symbolab', domain:'symbolab.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'آلة حاسبة رياضية متقدمة — 500+ حاسبة مدمجة مع حلول خطوة بخطوة.', what:'حل مسائل الجبر والمثلثات والتفاضل والتكامل والإحصاء، مع شرح كل خطوة.', why:'يستخدمه معلم الرياضيات لتوليد أمثلة إضافية أو للتحقق من حلول الطلاب.', url:'https://www.symbolab.com', views:22400 },
+    { id:'sci-9', cat:'science', title:'Mathway', domain:'mathway.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'حلّال مسائل رياضيات — من الحساب الأساسي إلى الإحصاء.', what:'إدخال أو تصوير مسألة والحصول على حل خطوة بخطوة.', why:'يستخدمه المعلم كأداة مساعدة سريعة لإعداد مسائل تدريبية متنوعة.', url:'https://www.mathway.com', views:19800 },
+    { id:'sci-10', cat:'science', title:'Gizmos (ExploreLearning)', domain:'explorelearning.com', access:'paid', lang:'الإنجليزية', type:'interactive', desc:'أكثر من 500 محاكاة STEM تفاعلية للرياضيات والعلوم.', what:'محاكيات تفاعلية مع أوراق عمل جاهزة ودروس مصممة حول استقصاء علمي.', why:'يستخدمه المعلم كبديل عملي للتجارب المعملية، مع تقارير تقدم للطالب.', url:'https://www.explorelearning.com', views:13200 },
+    { id:'sci-11', cat:'science', title:'HHMI BioInteractive', domain:'biointeractive.org', access:'free', lang:'الإنجليزية', type:'interactive', desc:'موارد أحياء مجانية من معهد هوارد هيوز — محاكيات وبيانات حقيقية.', what:'أنشطة تحليل بيانات علمية حقيقية، ومحاكيات لعمليات حيوية.', why:'يستخدمه معلم الأحياء لتدريب الطلاب على التفكير العلمي وتحليل البيانات.', url:'https://www.biointeractive.org', views:14600 },
+    { id:'sci-12', cat:'science', title:'Labster', domain:'labster.com', access:'paid', lang:'الإنجليزية', type:'interactive', desc:'مختبرات افتراضية ثلاثية الأبعاد — تجارب علمية كاملة في بيئة محاكاة.', what:'محاكاة تجارب بيولوجيا وكيمياء وفيزياء بمستوى جامعي، مع توجيه خطوة بخطوة.', why:'يستخدمه المعلم عند تعذر تنفيذ التجربة واقعيًا، أو لتدريب الطلاب قبل المعمل.', url:'https://www.labster.com', views:11800 },
+
+    /* ========== اللغات (10) ========== */
+    { id:'lang-1', cat:'languages', title:'BBC Learning English', domain:'bbc.co.uk', access:'free', lang:'الإنجليزية', featured:true, type:'video', desc:'دروس مجانية من هيئة الإذاعة البريطانية — استماع ومحادثة وقواعد.', what:'دروس فيديو وصوت ونصوص قصيرة، مرتبة حسب المستوى، مع تمارين فهم.', why:'يستخدمه معلم الإنجليزية كمصدر أصلي للاستماع، أو كواجب منزلي لتقوية النطق.', url:'https://www.bbc.co.uk/learningenglish', views:48200 },
+    { id:'lang-2', cat:'languages', title:'British Council LearnEnglish', domain:'britishcouncil.org', access:'free', lang:'الإنجليزية', featured:true, type:'interactive', desc:'المجلس الثقافي البريطاني — تمارين وألعاب ومقالات بمعايير عالمية.', what:'منصة شاملة بمستويات CEFR، تشمل قواعد ومفردات واستماع وكتابة.', why:'يستخدمها المعلم كمرجع لتحديد مستوى الطلاب، أو كمصدر لأنشطة صفية جاهزة.', url:'https://learnenglish.britishcouncil.org', views:41800 },
+    { id:'lang-3', cat:'languages', title:'Duolingo', domain:'duolingo.com', access:'freemium', lang:'ثنائي اللغة', featured:true, type:'game', desc:'تطبيق تعلم اللغات الأشهر عالميًا — أسلوب ألعاب ممتع ومجاني.', what:'دروس قصيرة تفاعلية تُدرّب المفردات والقواعد عبر التكرار المتباعد.', why:'يستخدمه المعلم كواجب أسبوعي ممتع لبناء عادة يومية، مع متابعة تقدم الطلاب.', url:'https://www.duolingo.com', views:52600 },
+    { id:'lang-4', cat:'languages', title:'تعلم العربية — الجزيرة', domain:'aljazeera.net', access:'free', lang:'العربية', type:'interactive', desc:'منصة مجانية من الجزيرة لتعليم العربية لغير الناطقين بها.', what:'دروس فيديو تفاعلية في النحو والصرف والمحادثة، مع تمارين.', why:'يستخدمها معلم العربية كلغة ثانية كمصدر منهجي، أو لتنويع أساليب شرح القواعد.', url:'https://learning.aljazeera.net', views:20500 },
+    { id:'lang-5', cat:'languages', title:'I Read Arabic', domain:'ireadarabic.com', access:'freemium', lang:'العربية', type:'interactive', desc:'منصة أردنية لتعليم القراءة العربية للأطفال — قصص تفاعلية ومكتبة رقمية.', what:'مكتبة قصص مصورة بمستويات متدرجة، مع قراءة صوتية وتمارين فهم.', why:'يستخدمها معلم المرحلة الابتدائية لتنمية مهارة القراءة والفهم لدى الطلاب المبتدئين.', url:'https://ar.ireadarabic.com', views:16200 },
+    { id:'lang-6', cat:'languages', title:'Quizlet', domain:'quizlet.com', access:'freemium', lang:'ثنائي اللغة', type:'ai-tool', desc:'بطاقات تعليمية ذكية — للحفظ والمراجعة السريعة.', what:'إنشاء بطاقات (سؤال/جواب) وتحويلها إلى اختبارات وألعاب مراجعة.', why:'يستخدمه معلم اللغات لتدريب المفردات، مع إمكانية مشاركة المجموعات مع الصف.', url:'https://quizlet.com', views:37600 },
+    { id:'lang-7', cat:'languages', title:'Busuu', domain:'busuu.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'تطبيق لتعلم اللغات — دروس مع متحدثين أصليين وتصحيح من المجتمع.', what:'دروس في 14 لغة، مع إمكانية التفاعل مع متحدثين أصليين لتصحيح الكتابة والنطق.', why:'يستخدمه المعلم لتنمية مهارات المحادثة، أو كواجب لغوي تفاعلي.', url:'https://www.busuu.com', views:18400 },
+    { id:'lang-8', cat:'languages', title:'Memrise', domain:'memrise.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'تطبيق لتعلم المفردات — مقاطع فيديو لمتحدثين أصليين.', what:'دروس مفردات بفيديوهات قصيرة لمتحدثين أصليين، مع تكرار متباعد.', why:'يستخدمه المعلم لتحسين النطق والاستماع، خاصة اللهجات المختلفة.', url:'https://www.memrise.com', views:15200 },
+    { id:'lang-9', cat:'languages', title:'Cambridge Dictionary', domain:'dictionary.cambridge.org', access:'free', lang:'الإنجليزية', type:'interactive', desc:'قاموس كامبريدج الرسمي — تعريفات وأمثلة ونطق صوتي.', what:'قاموس شامل مع نطق بريطاني وأمريكي، وأمثلة من الاستخدام الحقيقي.', why:'مرجع موثوق يستخدمه المعلم والطالب للتحقق من معاني الكلمات ونطقها.', url:'https://dictionary.cambridge.org', views:22600 },
+    { id:'lang-10', cat:'languages', title:'Grammarly', domain:'grammarly.com', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'مساعد كتابة ذكي — يصحح القواعد والأسلوب أثناء الكتابة.', what:'إضافة متصفح تصحح القواعد والإملاء والأسلوب تلقائيًا في أي حقل نصي.', why:'يستخدمه المعلم والطالب لتحسين جودة الكتابة الإنجليزية، وتعلم القواعد.', url:'https://www.grammarly.com', views:24800 },
+
+    /* ========== الذكاء الاصطناعي (14) ========== */
+    { id:'ai-1', cat:'ai', title:'ChatGPT', domain:'chatgpt.com', access:'freemium', lang:'ثنائي اللغة', featured:true, type:'ai-tool', desc:'مساعد ذكاء اصطناعي من OpenAI — لشرح المفاهيم وتوليد أسئلة ومساعدة في الفهم.', what:'محادثة نصية تُجيب على أسئلة، تشرح مفاهيم، وتُصيغ أسئلة وخطط دروس.', why:'يستخدمه المعلم لتوليد مسودات سريعة ثم يراجعها ويُعدّلها.', url:'https://chatgpt.com', views:72800 },
+    { id:'ai-2', cat:'ai', title:'Google Gemini', domain:'gemini.google.com', access:'freemium', lang:'ثنائي اللغة', featured:true, type:'ai-tool', desc:'ذكاء اصطناعي من جوجل — مع ميزة Guided Learning لشرح الخطوات.', what:'مساعد متعدد الوسائط مدمج مع Google Workspace، يشرح خطوة بخطوة.', why:'يستخدمه المعلم داخل Google Classroom لإنشاء مواد وخطط دروس متوافقة مع المنهج.', url:'https://gemini.google.com', views:61200 },
+    { id:'ai-3', cat:'ai', title:'Claude', domain:'claude.ai', access:'freemium', lang:'ثنائي اللغة', type:'ai-tool', desc:'مساعد ذكاء اصطناعي من Anthropic — ممتاز لتحليل النصوص الطويلة والكتابة الأكاديمية.', what:'معالجة مستندات طويلة وتلخيصها، مع كتابة أكاديمية دقيقة.', why:'يستخدمه المعلم لتحليل أوراق بحثية أو تلخيص فصول كتاب ضخم في دقائق.', url:'https://claude.ai', views:44900 },
+    { id:'ai-4', cat:'ai', title:'MagicSchool AI', domain:'magicschool.ai', access:'freemium', lang:'الإنجليزية', featured:true, type:'ai-tool', desc:'منصة ذكاء اصطناعي مبنية خصيصًا للمعلمين — 50+ أداة ذكية.', what:'توليد خطط دروس، Rubrics، أسئلة، أنشطة تفاعلية، وتقارير أداء في ثوانٍ.', why:'يستخدمها المعلم لتوفير ساعات التحضير، مع خيارات لتخصيص المحتوى.', url:'https://www.magicschool.ai', views:38600 },
+    { id:'ai-5', cat:'ai', title:'Khanmigo', domain:'khanmigo.ai', access:'paid', lang:'الإنجليزية', type:'ai-tool', desc:'مدرس ذكاء اصطناعي من Khan Academy — يرشد خطوة بخطوة دون إعطاء الإجابة مباشرة.', what:'مساعد تعليمي سقراطي يطرح أسئلة موجّهة بدل الحل الجاهز.', why:'يستخدمه المعلم لتوليد خطط دروس، أو يوجه الطلاب له كمعلم إضافي.', url:'https://www.khanmigo.ai', views:29800 },
+    { id:'ai-6', cat:'ai', title:'NotebookLM', domain:'notebooklm.google', access:'free', lang:'ثنائي اللغة', featured:true, type:'ai-tool', desc:'أداة من جوجل — ارفع ملفاتك لتوليد ملخصات وبطاقات وأحيانًا بودكاست صوتي.', what:'رفع PDF/محاضرات، ثم تلخيصها، توليد أسئلة، أو تحويلها إلى حوار صوتي.', why:'يستخدمه المعلم لتحويل فصل كتاب إلى ملخص وبطاقات مراجعة.', url:'https://notebooklm.google', views:42400 },
+    { id:'ai-7', cat:'ai', title:'Perplexity', domain:'perplexity.ai', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'محرك بحث بالذكاء الاصطناعي — يعرض المصادر مباشرة.', what:'بحث فوري مع استشهاد بالمصادر، وتلخيص للموضوعات البحثية.', why:'يستخدمه المعلم للبحث الأكاديمي السريع مع توثيق المصادر.', url:'https://www.perplexity.ai', views:36700 },
+    { id:'ai-8', cat:'ai', title:'Brisk Teaching', domain:'briskteaching.com', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'إضافة Chrome تُعدّل المحتوى وتُقدم تغذية راجعة داخل Google Docs.', what:'تعديل مستوى القراءة، توليد أسئلة، وكتابة تعليقات على واجبات الطلاب.', why:'يستخدمه المعلم لتوفير وقت التصحيح، مع الحفاظ على سياق المستند الأصلي.', url:'https://www.briskteaching.com', views:18600 },
+    { id:'ai-9', cat:'ai', title:'Diffit', domain:'diffit.me', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'أداة تُحوّل أي نص إلى نسخ بمستويات قراءة مختلفة.', what:'لصق مقال/PDF/فيديو، والحصول على نسخة مبسطة أو متقدمة مع أسئلة.', why:'يستخدمه المعلم لتخصيص نفس المحتوى لطلاب بمستويات قراءة متفاوتة.', url:'https://www.diffit.me', views:16400 },
+    { id:'ai-10', cat:'ai', title:'Eduaide.ai', domain:'eduaide.ai', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'مساعد ذكاء اصطناعي للمعلمين — 110+ أداة تعليمية.', what:'توليد خطط، أنشطة، ألعاب، ومخططات تنظيمية.', why:'يستخدمه المعلم للتدخل المبكر وتصميم أنشطة متنوعة بسرعة.', url:'https://www.eduaide.ai', views:15200 },
+    { id:'ai-11', cat:'ai', title:'Curipod', domain:'curipod.com', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'دروس تفاعلية مولّدة بالذكاء الاصطناعي — عروض تفاعلية جاهزة.', what:'توليد عرض تفاعلي كامل من موضوع أو نص، مع أنشطة وتقييم مدمج.', why:'يستخدمه المعلم لإنشاء عرض درس تفاعلي في دقائق بدل ساعات التصميم.', url:'https://curipod.com', views:13800 },
+    { id:'ai-12', cat:'ai', title:'QuestionWell', domain:'questionwell.org', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'توليد أسئلة من نص أو فيديو — تصدير لـ Kahoot/Quizlet.', what:'إدخال نص أو رابط فيديو، والحصول على أسئلة اختبار مرتبطة بتصدير.', why:'يستخدمه المعلم لإنشاء بنوك أسئلة سريعة تُصدَّر مباشرة إلى منصات التقييم.', url:'https://www.questionwell.org', views:12400 },
+    { id:'ai-13', cat:'ai', title:'Twee', domain:'twee.com', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'أداة ذكاء اصطناعي لمعلمي الإنجليزية — أنشطة ومحادثات.', what:'توليد نصوص قصيرة، أسئلة فهم، حوارات، وتمارين نحوية بسرعة.', why:'يستخدمها معلم الإنجليزية لإثراء الحصص بأنشطة متنوعة بدون تحضير يدوي.', url:'https://twee.com', views:10800 },
+    { id:'ai-14', cat:'ai', title:'SchoolAI', domain:'schoolai.com', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'منصة ذكاء اصطناعي آمنة للطلاب والمعلمين — مساعدون مخصصون.', what:'إنشاء "مساعد ذكي" مخصص لكل درس، يوجه الطلاب دون إعطاء الإجابة مباشرة.', why:'يستخدمها المعلم لبناء تجربة تعلم تفاعلية آمنة، مع تقارير.', url:'https://www.schoolai.com', views:9600 },
+
+    /* ========== الإبداع والمهارات (12) ========== */
+    { id:'cre-1', cat:'creativity', title:'Canva for Education', domain:'canva.com', access:'free', lang:'ثنائي اللغة', featured:true, type:'interactive', desc:'أداة تصميم مجانية للمعلمين — 80,000+ قالب تعليمي.', what:'تصميم عروض، ملصقات، بطاقات، ومخططات بسهولة بالسحب والإفلات.', why:'يستخدمها المعلم لإنشاء مواد بصرية احترافية بدون خبرة تصميم.', url:'https://www.canva.com/education/', views:46800 },
+    { id:'cre-2', cat:'creativity', title:'Gamma', domain:'gamma.app', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'أداة ذكاء اصطناعي لتوليد عروض تقديمية من نص أو ملف.', what:'إدخال موضوع أو رفع ملف، وتوليد عرض تقديمي كامل في ثوانٍ.', why:'يستخدمه المعلم لتحضير عرض درس سريع، ثم يعدّله حسب حاجة الصف.', url:'https://gamma.app', views:28400 },
+    { id:'cre-3', cat:'creativity', title:'Genially', domain:'genially.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'أداة لإنشاء محتوى تفاعلي — عروض، إنفوجرافيك، وألعاب.', what:'بناء محتوى تفاعلي بدل العرض الخطي.', why:'يستخدمه المعلم لتحويل مراجعة الدرس إلى تجربة تفاعلية تشد انتباه الطلاب.', url:'https://genially.com', views:22600 },
+    { id:'cre-4', cat:'creativity', title:'Scratch', domain:'scratch.mit.edu', access:'free', lang:'ثنائي اللغة', featured:true, type:'game', desc:'منصة MIT لتعليم البرمجة للأطفال — مشاريع تفاعلية وألعاب.', what:'برمجة بالسحب والإفلات لإنشاء قصص وألعاب ورسوم متحركة.', why:'يستخدمه المعلم لتعليم التفكير الحسابي دون كتابة كود.', url:'https://scratch.mit.edu', views:34200 },
+    { id:'cre-5', cat:'creativity', title:'Code.org', domain:'code.org', access:'free', lang:'ثنائي اللغة', type:'interactive', desc:'تعلم البرمجة مجانًا — دورات تفاعلية من الصفر.', what:'دروس برمجة متدرجة مع مشاريع وشهادات.', why:'يستخدمه المعلم لدمج البرمجة في المنهج أو كنشاط لاصفي.', url:'https://code.org', views:29800 },
+    { id:'cre-6', cat:'creativity', title:'National Geographic Kids', domain:'kids.nationalgeographic.com', access:'free', lang:'الإنجليزية', type:'interactive', desc:'موارد تفاعلية للأطفال — علوم وحيوانات وجغرافيا وألعاب.', what:'مقالات مصورة، فيديوهات، ألعاب، ومسابقات معرفية.', why:'يستخدمه معلم الابتدائي لإثراء حصص العلوم والجغرافيا بمواد جذابة وآمنة.', url:'https://kids.nationalgeographic.com', views:19400 },
+    { id:'cre-7', cat:'creativity', title:'BrainPOP', domain:'brainpop.com', access:'freemium', lang:'الإنجليزية', type:'video', desc:'فيديوهات متحركة وألعاب تعليمية — علوم ورياضيات وفنون.', what:'فيديوهات قصيرة مع اختبارات وألعاب مرتبطة بالموضوع.', why:'يستخدمه المعلم كمُقدمة سريعة للدرس أو كمراجعة ممتعة.', url:'https://www.brainpop.com', views:17600 },
+    { id:'cre-8', cat:'creativity', title:'Padlet', domain:'padlet.com', access:'freemium', lang:'ثنائي اللغة', type:'interactive', desc:'لوحة تعاونية افتراضية — للعصف الذهني ومشاركة المحتوى.', what:'مساحة رقمية يضيف عليها الطلاب أفكارًا وصورًا وروابط.', why:'يستخدمه المعلم لبدء نقاش صفي أو جمع أسئلة الطلاب قبل الحصة.', url:'https://padlet.com', views:23800 },
+    { id:'cre-9', cat:'creativity', title:'Tinkercad', domain:'tinkercad.com', access:'free', lang:'الإنجليزية', type:'interactive', desc:'أداة تصميم ثلاثي الأبعاد — تصميم نماذج ومحاكاة إلكترونيات.', what:'بيئة تصميم 3D بالسحب والإفلات، مع محاكاة دوائر إلكترونية.', why:'يستخدمه معلم التكنولوجيا لمشاريع STEM عملية، دون الحاجة لطابعة 3D.', url:'https://www.tinkercad.com', views:14800 },
+    { id:'cre-10', cat:'creativity', title:'Book Creator', domain:'bookcreator.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'أداة لإنشاء كتب رقمية تفاعلية — للطلاب والمعلمين.', what:'تأليف كتاب رقمي ونشره كـ PDF أو رابط.', why:'يستخدمه المعلم لمشاريع تأليف إبداعية، أو لتوثيق أنشطة الصف.', url:'https://bookcreator.com', views:13200 },
+    { id:'cre-11', cat:'creativity', title:'Adobe Express', domain:'adobe.com', access:'freemium', lang:'ثنائي اللغة', type:'interactive', desc:'أداة تصميم من Adobe — مجانية للمعلمين، مع قوالب احترافية.', what:'تصميم ملصقات، عروض، فيديوهات قصيرة، وإزالة خلفية الصور.', why:'يستخدمها المعلم لإنشاء مواد بصرية احترافية بجودة عالية.', url:'https://www.adobe.com/express/', views:16200 },
+    { id:'cre-12', cat:'creativity', title:'Figma', domain:'figma.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'أداة تصميم تعاونية — واجهات ومخططات ومشاريع جماعية.', what:'تصميم واجهات، نماذج أولية، ولوحات تعاونية.', why:'يستخدمها معلم التصميم/التكنولوجيا لمشاريع جماعية احترافية.', url:'https://www.figma.com', views:12400 },
+
+    /* ========== التدريب والتقييم (11) ========== */
+    { id:'prac-1', cat:'practice', title:'Khan Academy Exercises', domain:'khanacademy.org', access:'free', lang:'ثنائي اللغة', featured:true, type:'interactive', desc:'آلاف التمارين التفاعلية في الرياضيات والعلوم — مع تصحيح فوري.', what:'تمارين متدرجة الصعوبة، مع تلميحات وخطوات حل عند الخطأ.', why:'يستخدمه المعلم كواجب تدريبي، مع متابعة دقيقة لتقدم كل طالب.', url:'https://www.khanacademy.org/math', views:38500 },
+    { id:'prac-2', cat:'practice', title:'Kahoot!', domain:'kahoot.com', access:'freemium', lang:'الإنجليزية', featured:true, type:'game', desc:'ألعاب اختبارات جماعية — ترفع التفاعل في الصف.', what:'اختبارات سريعة تُعرض على الشاشة، والطلاب يجيبون من أجهزتهم.', why:'يستخدمه المعلم كمراجعة سريعة في نهاية الحصة أو كتهيئة.', url:'https://kahoot.com', views:42600 },
+    { id:'prac-3', cat:'practice', title:'Quizizz', domain:'quizizz.com', access:'freemium', lang:'ثنائي اللغة', type:'game', desc:'اختبارات ذاتية التقدم — مناسبة للتعلم غير المتزامن.', what:'اختبارات تفاعلية مع تقارير تفصيلية لكل سؤال وكل طالب.', why:'يستخدمه المعلم كواجب منزلي أو اختبار قصير، مع تحليل فوري للفجوات.', url:'https://quizizz.com', views:32800 },
+    { id:'prac-4', cat:'practice', title:'Formative', domain:'formative.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'تقييم تكويني مباشر — تُرى إجابات الطلاب أثناء كتابتهم.', what:'لوحة مباشرة تعرض إجابات الطلاب لحظة بلحظة.', why:'يستخدمه المعلم للتحقق من الفهم أثناء الشرح، وتعديل الدرس فورًا.', url:'https://www.formative.com', views:18600 },
+    { id:'prac-5', cat:'practice', title:'Ziplet', domain:'ziplet.com', access:'free', lang:'الإنجليزية', type:'interactive', desc:'أداة تذاكر خروج سريعة — 400+ قالب جاهز.', what:'سؤال واحد سريع في نهاية الحصة، يجيب عليه الطلاب.', why:'يستخدمه المعلم لجس نبض الفهم في 30 ثانية، دون تصحيح أوراق.', url:'https://www.ziplet.com', views:14200 },
+    { id:'prac-6', cat:'practice', title:'Google Forms', domain:'forms.google.com', access:'free', lang:'ثنائي اللغة', type:'interactive', desc:'نماذج جوجل — أداة تقييم مجانية ومألوفة.', what:'إنشاء اختبارات ونماذج، مع تحليل تلقائي في Google Sheets.', why:'يستخدمه المعلم لجمع بيانات سريعة بدون تسجيل طلاب جدد.', url:'https://forms.google.com', views:36400 },
+    { id:'prac-7', cat:'practice', title:'Edpuzzle', domain:'edpuzzle.com', access:'freemium', lang:'الإنجليزية', featured:true, type:'interactive', desc:'تحويل أي فيديو إلى درس تفاعلي بأسئلة مدمجة.', what:'قص الفيديو، إضافة أسئلة في نقاط محددة، ومتابعة الطلاب.', why:'يستخدمه المعلم لضمان تفاعل الطلاب مع الفيديو.', url:'https://edpuzzle.com', views:27800 },
+    { id:'prac-8', cat:'practice', title:'Nearpod', domain:'nearpod.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'دروس تفاعلية متزامنة — يتابع الطالب العرض على جهازه.', what:'عرض تقديمي + أنشطة تفاعلية في نفس الوقت.', why:'يستخدمه المعلم لإدارة صف تفاعلي، حيث يشارك كل طالب بدل المشاهدة السلبية.', url:'https://nearpod.com', views:24600 },
+    { id:'prac-9', cat:'practice', title:'Blooket', domain:'blooket.com', access:'freemium', lang:'الإنجليزية', type:'game', desc:'ألعاب مراجعة تفاعلية — أسلوب ألعاب فيديو يُحمّس الطلاب.', what:'تحويل الأسئلة إلى ألعاب جماعية تنافسية.', why:'يستخدمه المعلم للمراجعة النهائية قبل الامتحانات بأسلوب ممتع.', url:'https://www.blooket.com', views:26400 },
+    { id:'prac-10', cat:'practice', title:'Gimkit', domain:'gimkit.com', access:'freemium', lang:'الإنجليزية', type:'game', desc:'لعبة اختبارات تفاعلية — الطلاب يتنافسون بذكاء.', what:'لعبة أسئلة استراتيجية، حيث يجمع الطلاب "عملات".', why:'يستخدمها المعلم لمراجعة ممتعة تجمع بين التقييم والمنافسة.', url:'https://www.gimkit.com', views:19800 },
+    { id:'prac-11', cat:'practice', title:'Socrative', domain:'socrative.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'تقييم فوري بسيط — اختبارات وتذاكر خروج سريعة.', what:'اختبارات فورية، تذاكر خروج، ومسابقات، مع تقارير مباشرة.', why:'يستخدمه المعلم للتحقق السريع من فهم الطلاب بعد كل مفهوم.', url:'https://www.socrative.com', views:14600 },
+
+    /* ========== أدوات المعلم (13) ========== */
+    { id:'tea-1', cat:'teacher', title:'ClassroomScreen', domain:'classroomscreen.com', access:'freemium', lang:'الإنجليزية', featured:true, type:'interactive', desc:'شاشة صف تفاعلية — مؤقت، إشارات، QR، وأدوات إدارة.', what:'عرض على السبورة الذكية: مؤقت، اختيار عشوائي، مستوى صوت، رمز QR.', why:'يستخدمه المعلم لإدارة وقت الحصة والأنشطة دون تشتيت.', url:'https://classroomscreen.com', views:28600 },
+    { id:'tea-2', cat:'teacher', title:'Google Classroom', domain:'classroom.google.com', access:'free', lang:'ثنائي اللغة', featured:true, type:'interactive', desc:'منصة إدارة الصف من جوجل — واجبات ومواد وتواصل.', what:'إنشاء صفوف، توزيع واجبات، تصحيح، وإعلانات.', why:'يستخدمه المعلم لتنظيم كل شيء في مكان واحد، وتتبع تسليمات الطلاب.', url:'https://classroom.google.com', views:52600 },
+    { id:'tea-3', cat:'teacher', title:'Microsoft Teams for Education', domain:'microsoft.com', access:'free', lang:'ثنائي اللغة', type:'interactive', desc:'منصة تعاون صفي من مايكروسوفت — اجتماعات وواجبات وملفات.', what:'اجتماعات فيديو، محادثات، مهام، وتخزين ملفات.', why:'يستخدمه المعلم لإدارة صف هجين ومشاركة الملفات بأمان.', url:'https://www.microsoft.com/en-us/education/products/teams', views:34200 },
+    { id:'tea-4', cat:'teacher', title:'Gradescope', domain:'gradescope.com', access:'paid', lang:'الإنجليزية', type:'interactive', desc:'تصحيح آلي للاختبارات الورقية والواجبات — يوفر ساعات.', what:'مسح الاختبارات ضوئيًا، تجميع الإجابات المتشابهة، وتصحيح جماعي.', why:'يستخدمه المعلم في الصفوف الكبيرة لتصحيح مئات الأوراق في وقت قياسي.', url:'https://www.gradescope.com', views:16800 },
+    { id:'tea-5', cat:'teacher', title:'CoGrader', domain:'cograder.com', access:'paid', lang:'الإنجليزية', type:'ai-tool', desc:'مساعد تصحيح داخل Google Classroom — يقلل وقت التصحيح 80%.', what:'تحليل إجابات الطلاب وإضافة تعليقات محددة.', why:'يستخدمه المعلم لتقديم تغذية راجعة نوعية لكل طالب دون استنزاف وقته.', url:'https://cograder.com', views:14200 },
+    { id:'tea-6', cat:'teacher', title:'Education Copilot', domain:'educationcopilot.com', access:'freemium', lang:'الإنجليزية', type:'ai-tool', desc:'مولّد خطط دروس ونشرات دراسية في ثوانٍ.', what:'إدخال موضوع، والحصول على خطة درس منظمة أو نشرة.', why:'يستخدمه المعلم لتسريع التحضير، خاصة عند تغطية موضوع جديد.', url:'https://educationcopilot.com', views:12400 },
+    { id:'tea-7', cat:'teacher', title:'Mentimeter', domain:'mentimeter.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'استطلاعات وتفاعل مباشر — الطلاب يصوتون من هواتفهم.', what:'عرض سؤال، والطلاب يصوتون، وتظهر النتائج مباشرة.', why:'يستخدمه المعلم لقياس الرأي أو الفهم الجماعي في دقائق.', url:'https://www.mentimeter.com', views:24800 },
+    { id:'tea-8', cat:'teacher', title:'Plickers', domain:'plickers.com', access:'free', lang:'الإنجليزية', type:'interactive', desc:'تقييم بدون أجهزة للطلاب — بطاقات ورقية + مسح بالهاتف.', what:'كل طالب يرفع بطاقة، والمعلم يمسح الغرفة بكاميرا الهاتف.', why:'يستخدمه المعلم في الفصول منخفضة التجهيز، أو حيث يُمنع استخدام الهواتف.', url:'https://plickers.com', views:16200 },
+    { id:'tea-9', cat:'teacher', title:'Loom', domain:'loom.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'تسجيل شاشة وفيديو سريع — لشرح الدروس أو التغذية الراجعة.', what:'تسجيل الشاشة والكاميرا معًا، ومشاركة الرابط فورًا.', why:'يستخدمه المعلم لتسجيل شرح قصير لطالب غائب.', url:'https://www.loom.com', views:19800 },
+    { id:'tea-10', cat:'teacher', title:'Google Earth', domain:'earth.google.com', access:'free', lang:'ثنائي اللغة', type:'interactive', desc:'أداة استكشاف جغرافي ثلاثي الأبعاد — رحلات افتراضية.', what:'التنقل بين المدن والتضاريس، وإنشاء جولات افتراضية.', why:'يستخدمه معلم الجغرافيا/التاريخ لربط الدرس بأماكن حقيقية.', url:'https://earth.google.com', views:22400 },
+    { id:'tea-11', cat:'teacher', title:'Screencastify', domain:'screencastify.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'تسجيل الشاشة مباشرة من المتصفح — بدون برامج إضافية.', what:'تسجيل الشاشة، إضافة تعليقات صوتية، وتصدير سريع.', why:'يستخدمه المعلم لإنشاء فيديوهات تعليمية سريعة.', url:'https://www.screencastify.com', views:15800 },
+    { id:'tea-12', cat:'teacher', title:'Seesaw', domain:'seesaw.com', access:'freemium', lang:'الإنجليزية', type:'interactive', desc:'محفظة إلكترونية للطلاب — توثق التعلم وتتواصل مع الأهل.', what:'مشاركة أعمال الطلاب، مع تواصل مباشر مع أولياء الأمور.', why:'يستخدمه المعلم لتوثيق تقدم الطلاب ومشاركة الإنجازات.', url:'https://web.seesaw.me', views:17400 },
+    { id:'tea-13', cat:'teacher', title:'Remind', domain:'remind.com', access:'free', lang:'الإنجليزية', type:'interactive', desc:'تطبيق تواصل آمن — رسائل جماعية للمعلمين والطلاب والأهل.', what:'إرسال رسائل وتنبيهات جماعية، دون كشف أرقام الهواتف.', why:'يستخدمه المعلم للتواصل مع أولياء الأمور بأمان.', url:'https://www.remind.com', views:14600 }
+  ];
+
+  /* ============================================================
+     STATE
+     ============================================================ */
+  const state = {
+    resources: RESOURCES,
+    favorites: new Set(),
+    activeSection: 'curriculum',
+    filter: { 
+      types: new Set(), 
+      langs: new Set(), 
+      access: new Set(), 
+      sort: 'newest', 
+      q: '' 
+    },
+    view: 'grid',
+    soundEnabled: false
+  };
+
+  const STORAGE = {
+    font:'aqdar_font', theme:'aqdar_theme', contrast:'aqdar_contrast',
+    motion:'aqdar_motion', view:'aqdar_view', dyslexia:'aqdar_dys',
+    sound:'aqdar_sound', favorites:'aqdar_favs'
+  };
+
+  const TYPE_ICONS = {
+    video:'🎬', interactive:'✨', game:'🎮', pdf:'📄',
+    'ai-tool':'🤖', course:'🎓'
+  };
+  const ACCESS_LABELS = { free:'مجاني', paid:'مدفوع', freemium:'مجاني جزئيًا' };
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  /* ============================================================
+     SOUND & TOAST
+     ============================================================ */
+  let audioCtx = null;
+  function playSound(freq=880, dur=0.08){
+    if(!state.soundEnabled) return;
+    try {
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type = 'sine'; o.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.10, audioCtx.currentTime + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime + dur);
+    } catch(e) {}
+  }
+
+  function toast(msg, type=''){
+    const el = $('toast'), icon = $('toast-icon'), text = $('toast-msg');
+    text.textContent = msg;
+    el.className = 'toast show ' + type;
+    icon.textContent = type === 'error' ? '✕' : type === 'success' ? '✓' : 'ℹ';
+    playSound(type === 'error' ? 320 : 880);
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.className = 'toast', 3200);
+  }
+
+  /* ============================================================
+     A11Y
+     ============================================================ */
+  function applyFont(s){
+    document.documentElement.style.setProperty('--font-scale', String(s));
+    try{localStorage.setItem(STORAGE.font, String(s));}catch(e){}
+    $$('.a11y-option[data-font]').forEach(b => b.classList.toggle('is-active', parseFloat(b.dataset.font) === parseFloat(s)));
+  }
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    try{localStorage.setItem(STORAGE.theme, t);}catch(e){}
+    $$('.a11y-option[data-theme-value]').forEach(b => b.classList.toggle('is-active', b.dataset.themeValue === t));
+  }
+  function applyContrast(on){
+    document.documentElement.setAttribute('data-contrast', on ? 'high' : 'normal');
+    try{localStorage.setItem(STORAGE.contrast, on ? '1':'0');}catch(e){}
+    $('a11y-contrast')?.setAttribute('aria-pressed', String(on));
+  }
+  function applyMotion(on){
+    document.documentElement.setAttribute('data-no-motion', on ? 'true':'false');
+    try{localStorage.setItem(STORAGE.motion, on ? '1':'0');}catch(e){}
+    $('a11y-motion')?.setAttribute('aria-pressed', String(on));
+  }
+  function applyDyslexia(on){
+    document.documentElement.setAttribute('data-font-dyslexia', String(on));
+    try{localStorage.setItem(STORAGE.dyslexia, on ? '1':'0');}catch(e){}
+    $('a11y-dyslexia')?.setAttribute('aria-pressed', String(on));
+  }
+  function applySound(on){
+    state.soundEnabled = on;
+    try{localStorage.setItem(STORAGE.sound, on ? '1':'0');}catch(e){}
+    $('a11y-sound')?.setAttribute('aria-pressed', String(on));
+  }
+  function restoreA11y(){
+    const g = (k,d) => { try{return localStorage.getItem(k)||d;}catch(e){return d;} };
+    applyFont(parseFloat(g(STORAGE.font,'1')));
+    applyTheme(g(STORAGE.theme,'light'));
+    applyContrast(g(STORAGE.contrast,'0') === '1');
+    applyMotion(g(STORAGE.motion,'0') === '1');
+    applyDyslexia(g(STORAGE.dyslexia,'0') === '1');
+    applySound(g(STORAGE.sound,'0') === '1');
+    if(!localStorage.getItem(STORAGE.motion) && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      applyMotion(true);
+    }
+  }
+  function setupA11y(){
+    const fab = $('a11y-toggle'), panel = $('a11y-panel'), close = $('a11y-close');
+    fab?.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('is-visible');
+      fab.setAttribute('aria-expanded', String(isOpen));
+      panel.setAttribute('aria-hidden', String(!isOpen));
+    });
+    close?.addEventListener('click', () => {
+      panel.classList.remove('is-visible');
+      fab.setAttribute('aria-expanded','false');
+      panel.setAttribute('aria-hidden','true');
+    });
+    $$('.a11y-option[data-font]').forEach(b => b.addEventListener('click', () => applyFont(parseFloat(b.dataset.font))));
+    $$('.a11y-option[data-theme-value]').forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.themeValue)));
+    $('a11y-contrast')?.addEventListener('click', () => applyContrast($('a11y-contrast').getAttribute('aria-pressed') !== 'true'));
+    $('a11y-motion')?.addEventListener('click', () => applyMotion($('a11y-motion').getAttribute('aria-pressed') !== 'true'));
+    $('a11y-dyslexia')?.addEventListener('click', () => applyDyslexia($('a11y-dyslexia').getAttribute('aria-pressed') !== 'true'));
+    $('a11y-sound')?.addEventListener('click', () => applySound($('a11y-sound').getAttribute('aria-pressed') !== 'true'));
+  }
+
+  /* ============================================================
+     SCROLL & REVEAL
+     ============================================================ */
+  function initScrollProgress(){
+    const bar = $('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.transform = `scaleX(${max > 0 ? h.scrollTop / max : 0})`;
+    }, { passive: true });
+  }
+  function initReveal(){
+    const els = $$('.reveal');
+    if(!('IntersectionObserver' in window)){ els.forEach(e => e.classList.add('is-visible')); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    els.forEach(e => io.observe(e));
+  }
+
+  /* ============================================================
+     COUNTERS
+     ============================================================ */
+  function animateCounter(el, target){
+    if(!el) return;
+    const dur = 900, start = performance.now();
+    function step(t){
+      const p = Math.min(1, (t-start)/dur);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString('ar-EG');
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString('ar-EG');
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ============================================================
+     FAVORITES
+     ============================================================ */
+  function loadFavorites(){
+    try {
+      const stored = JSON.parse(localStorage.getItem(STORAGE.favorites) || '[]');
+      state.favorites = new Set(stored);
+    } catch(e) { state.favorites = new Set(); }
+    const el = $('stat-favorites');
+    if(el) el.textContent = state.favorites.size.toLocaleString('ar-EG');
+  }
+  function toggleFavorite(id){
+    if(state.favorites.has(id)){
+      state.favorites.delete(id);
+      toast('أُزيل من المفضلة', 'success');
+    } else {
+      state.favorites.add(id);
+      toast('أُضيف إلى المفضلة ✓', 'success');
+    }
+    try { localStorage.setItem(STORAGE.favorites, JSON.stringify([...state.favorites])); } catch(e){}
+    const el = $('stat-favorites');
+    if(el) el.textContent = state.favorites.size.toLocaleString('ar-EG');
+    renderSection(state.activeSection);
+  }
+
+  /* ============================================================
+     SECTIONS NAV
+     ============================================================ */
+  function buildSectionsNav(){
+    const nav = $('sections-nav');
+    nav.innerHTML = Object.entries(SECTIONS).map(([id, sec]) => {
+      const count = state.resources.filter(r => r.cat === id).length;
+      return `<button class="section-card" data-section="${id}" type="button" role="tab">
+        <div class="section-card__icon">${sec.icon}</div>
+        <div class="section-card__body">
+          <span class="section-card__title">${sec.title}</span>
+          <span class="section-card__count">${count} أداة</span>
+        </div>
+      </button>`;
+    }).join('');
+
+    nav.querySelectorAll('.section-card').forEach(card => {
+      card.addEventListener('click', () => {
+        state.activeSection = card.dataset.section;
+        playSound(720, 0.05);
+        renderSection(state.activeSection);
+        window.scrollTo({ top: $('resources').offsetTop - 100, behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ============================================================
+     RENDER & FILTERS
+     ============================================================ */
+  function updateSectionNav(){
+    $$('.section-card').forEach(card => {
+      card.classList.toggle('is-active', card.dataset.section === state.activeSection);
+      card.setAttribute('aria-selected', String(card.dataset.section === state.activeSection));
+    });
+  }
+
+  function applyFilters(list){
+    // Filter by Type
+    if(state.filter.types.size > 0){
+      list = list.filter(r => state.filter.types.has(r.type));
+    }
+    // Filter by Language
+    if(state.filter.langs.size > 0){
+      list = list.filter(r => state.filter.langs.has(r.lang));
+    }
+    // Filter by Access
+    if(state.filter.access.size > 0){
+      list = list.filter(r => state.filter.access.has(r.access));
+    }
+    // Filter by Search Query
+    const q = state.filter.q.trim().toLowerCase();
+    if(q){
+      list = list.filter(r =>
+        [r.title, r.desc, r.what, r.why, r.lang].filter(Boolean).join(' ').toLowerCase().includes(q)
+      );
+    }
+    
+    // Sorting
+    if(state.filter.sort === 'popular') list.sort((a,b) => (b.views||0) - (a.views||0));
+    else if(state.filter.sort === 'title') list.sort((a,b) => a.title.localeCompare(b.title, 'ar'));
+    
+    return list;
+  }
+
+  function renderSection(sectionId){
+    state.activeSection = sectionId;
+    const section = SECTIONS[sectionId];
+
+    updateSectionNav();
+
+    $('section-icon').textContent = section.icon;
+    $('section-title').textContent = section.title;
+    $('section-desc').textContent = section.desc;
+
+    let list = state.resources.filter(r => r.cat === sectionId);
+    list = applyFilters(list);
+
+    const grid = $('resources-grid');
+    $('results-count').textContent = `${list.length} أداة`;
+
+    if(!list.length){
+      grid.innerHTML = `<div class="empty-state">
+        <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21 L16.5 16.5"/></svg></div>
+        <strong>لا توجد نتائج مطابقة</strong>
+        <p>جرّب كلمات بحث أخرى، أو تصفح قسمًا آخر، أو مسح الفلاتر.</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map(renderCard).join('');
+    grid.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openDetail(b.dataset.open)));
+    grid.querySelectorAll('[data-fav]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); toggleFavorite(b.dataset.fav); }));
+  }
+
+  function renderCard(r){
+    const isFav = state.favorites.has(r.id);
+    const icon = TYPE_ICONS[r.type] || '📎';
+    const section = SECTIONS[r.cat];
+    const accessClass = r.access === 'free' ? 'badge--free' : r.access === 'paid' ? 'badge--paid' : 'badge--freemium';
+    const accessLabel = ACCESS_LABELS[r.access] || r.access;
+    const rating = (4 + (r.views % 10) / 10).toFixed(1);
+
+    return `<article class="card${r.featured ? ' card--featured' : ''}">
+      <div class="card__thumb" style="background:${section.color}">
+        <div class="card__badges">
+          ${r.featured ? '<span class="badge badge--featured">⭐ مميز</span>' : ''}
+          <span class="badge badge--trusted">✓ موثوق</span>
+          <span class="badge ${accessClass}">${accessLabel}</span>
+        </div>
+        <button class="card__fav${isFav ? ' is-fav' : ''}" type="button" data-fav="${esc(r.id)}" aria-pressed="${isFav}" aria-label="${isFav ? 'إزالة' : 'إضافة'}">
+          <svg viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>
+        </button>
+        <div class="card__logo-bg">
+          <img class="card__logo" src="${logo(r.domain)}" alt="${esc(r.title)}" loading="lazy"
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\\'font-size:2.5rem\\'>${icon}</span>'">
+        </div>
+      </div>
+      <div class="card__body">
+        <span class="card__cat">${section.icon} ${esc(section.title)}</span>
+        <h4 class="card__title">${esc(r.title)}</h4>
+        <p class="card__desc">${esc(r.desc)}</p>
+
+        <div class="card__what-why">
+          <div class="what"><strong>⚙️ ماذا تفعل: </strong>${esc(r.what)}</div>
+          <div class="why"><strong>👨‍🏫 لماذا يستخدمها المعلم: </strong>${esc(r.why)}</div>
+        </div>
+
+        <div class="card__meta">
+          <span class="pill">🌐 ${esc(r.lang)}</span>
+          <span class="pill">${icon} ${esc(r.type)}</span>
+        </div>
+
+        <div class="card__stats">
+          <span class="stat-views">👁️ ${(r.views||0).toLocaleString('ar-EG')}</span>
+          <span class="stat-rating">⭐ ${rating}</span>
+        </div>
+
+        <div class="card__actions">
+          <button class="card__btn card__btn--primary" type="button" data-open="${esc(r.id)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M1 12 Q5 5 12 5 Q19 5 23 12 Q19 19 12 19 Q5 19 1 12 Z"/><circle cx="12" cy="12" r="3"/></svg>
+            عرض التفاصيل
+          </button>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  /* ============================================================
+     DETAIL MODAL
+     ============================================================ */
+  function openDetail(id){
+    const r = state.resources.find(x => x.id === id);
+    if(!r) return;
+    const isFav = state.favorites.has(r.id);
+    const icon = TYPE_ICONS[r.type] || '📎';
+    const section = SECTIONS[r.cat];
+    const accessLabel = ACCESS_LABELS[r.access] || r.access;
+    const rating = (4 + (r.views % 10) / 10).toFixed(1);
+
+    $('detail-content').innerHTML = `
+      <div class="detail-hero" style="background:${section.color}">
+        <div class="detail-logo-bg">
+          <img class="detail-logo" src="${logo(r.domain)}" alt="${esc(r.title)}" loading="lazy"
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\\'font-size:3rem\\'>${icon}</span>'">
+        </div>
+      </div>
+      <div class="detail-body">
+        <h3 class="detail-title">${esc(r.title)}</h3>
+        <p class="detail-desc">${esc(r.desc)}</p>
+
+        <div class="detail-what-why">
+          <div class="what"><strong>⚙️ ماذا تفعل: </strong>${esc(r.what)}</div>
+          <div class="why"><strong>👨‍🏫 لماذا يستخدمها المعلم: </strong>${esc(r.why)}</div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-item__label">القسم</span>
+            <span class="detail-item__value">${section.icon} ${esc(section.title)}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-item__label">النوع</span>
+            <span class="detail-item__value">${icon} ${esc(r.type)}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-item__label">اللغة</span>
+            <span class="detail-item__value">${esc(r.lang)}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-item__label">الوصول</span>
+            <span class="detail-item__value">${accessLabel}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-item__label">المشاهدات</span>
+            <span class="detail-item__value">👁️ ${(r.views||0).toLocaleString('ar-EG')}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-item__label">التقييم</span>
+            <span class="detail-item__value" style="color:var(--gold)">⭐ ${rating}</span>
+          </div>
+          <div class="detail-item" style="grid-column:1/-1">
+            <span class="detail-item__label">الرابط</span>
+            <span class="detail-item__value"><a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue)">${esc(r.domain)}</a></span>
+          </div>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn btn--ghost" type="button" id="detail-fav-btn">
+            <svg viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="color:${isFav?'var(--gold)':'currentColor'}">
+              <path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/>
+            </svg>
+            ${isFav ? 'محفوظ' : 'حفظ'}
+          </button>
+          <a class="btn btn--primary" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 13 V19 A2 2 0 0 1 16 21 H6 A2 2 0 0 1 4 19 V9 A2 2 0 0 1 6 7 H12"/><path d="M15 3 H21 V9"/><path d="M10 14 L21 3"/></svg>
+            فتح الأداة
+          </a>
+        </div>
+      </div>`;
+
+    $('detail-modal').classList.add('open');
+    $('detail-fav-btn')?.addEventListener('click', () => { toggleFavorite(r.id); openDetail(r.id); });
+  }
+
+  /* ============================================================
+     BIND UI (Event Listeners)
+     ============================================================ */
+  function bindUI(){
+    $('btn-back').addEventListener('click', () => {
+      if(history.length > 1) history.back();
+      else location.href = 'index.html';
+    });
+
+    // Search
+    $('search-input').addEventListener('input', e => {
+      state.filter.q = e.target.value;
+      $('search-clear').classList.toggle('visible', state.filter.q.length > 0);
+      renderSection(state.activeSection);
+    });
+    $('search-clear').addEventListener('click', () => {
+      state.filter.q = '';
+      $('search-input').value = '';
+      $('search-clear').classList.remove('visible');
+      renderSection(state.activeSection);
+    });
+
+    // Sort
+    $('filter-sort').addEventListener('change', e => {
+      state.filter.sort = e.target.value;
+      renderSection(state.activeSection);
+    });
+
+    // Checkbox Filters
+    document.querySelectorAll('.filter-cb').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const filterType = e.target.dataset.filter; // 'type', 'lang', 'access'
+        const value = e.target.value;
+        
+        if (filterType === 'type') {
+          if (e.target.checked) state.filter.types.add(value);
+          else state.filter.types.delete(value);
+        } else if (filterType === 'lang') {
+          if (e.target.checked) state.filter.langs.add(value);
+          else state.filter.langs.delete(value);
+        } else if (filterType === 'access') {
+          if (e.target.checked) state.filter.access.add(value);
+          else state.filter.access.delete(value);
+        }
+        
+        renderSection(state.activeSection);
+      });
+    });
+
+    // Clear All Filters
+    $('btn-clear-all').addEventListener('click', () => {
+      // Reset State
+      state.filter.types.clear();
+      state.filter.langs.clear();
+      state.filter.access.clear();
+      state.filter.q = '';
+      
+      // Reset UI
+      $('search-input').value = '';
+      $('search-clear').classList.remove('visible');
+      $('filter-sort').value = 'newest';
+      state.filter.sort = 'newest';
+      
+      document.querySelectorAll('.filter-cb').forEach(cb => cb.checked = false);
+      
+      renderSection(state.activeSection);
+      toast('تم مسح جميع الفلاتر', 'success');
+    });
+
+    // View Toggle
+    $$('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('.view-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        state.view = btn.dataset.view;
+        $('resources-grid').dataset.view = state.view;
+      });
+    });
+
+    // Modals
+    $('detail-close').addEventListener('click', () => $('detail-modal').classList.remove('open'));
+    $$('.backdrop').forEach(m => {
+      m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); });
+    });
+    document.addEventListener('keydown', e => {
+      if(e.key === 'Escape') $$('.backdrop.open').forEach(m => m.classList.remove('open'));
+    });
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', e => {
+      const tag = (e.target.tagName || '').toLowerCase();
+      const isInput = tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable;
+      if(isInput) return;
+      if(e.key === '/'){ e.preventDefault(); $('search-input')?.focus(); }
+      else if(e.key === 'a' || e.key === 'A'){ $('a11y-toggle')?.click(); }
+    });
+  }
+
+  /* ============================================================
+     INIT
+     ============================================================ */
+  function init(){
+    restoreA11y();
+    setupA11y();
+    bindUI();
+    initReveal();
+    initScrollProgress();
+    loadFavorites();
+    buildSectionsNav();
+
+    animateCounter($('stat-resources'), state.resources.length);
+    animateCounter($('stat-categories'), Object.keys(SECTIONS).length);
+    const totalViews = state.resources.reduce((s,r) => s + (r.views||0), 0);
+    animateCounter($('stat-views'), totalViews);
+
+    renderSection('curriculum');
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2124 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light" data-font-scale="1" data-line="normal" data-letter="normal" data-weight="normal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2b6b">
+<title>ساحة النقاش | أقدر AQDAR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b2b6b;--blue:#1b5fd9;--blue-2:#1248b8;--cyan:#12b6d8;--cyan-2:#2ad4e8;
+  --yellow:#ffb020;--yellow-3:#ffd86b;--purple:#5b3bb5;
+  --bg:#f2f6ff;--surface:#fff;--surface-2:#f7faff;--border:#d9e4f6;
+  --ink:#102650;--muted:#61779b;--green:#16834b;--red:#c53939;
+  --shadow:0 10px 28px rgba(11,43,107,.08);
+  --shadow-lg:0 24px 60px rgba(11,43,107,.18);
+  --radius:20px;--radius-lg:26px;
+  --focus:0 0 0 3px rgba(18,182,216,.4);
+  --ease:cubic-bezier(.22,.9,.28,1);
+  --ease-bounce:cubic-bezier(.34,1.56,.64,1);
+  --line-height:1.7;
+  --letter-spacing:normal;
+}
+[data-theme="dark"]{
+  --bg:#071226;--surface:#101f3a;--surface-2:#142744;--border:#2b4264;
+  --ink:#edf4ff;--muted:#b4c4df;--shadow:0 10px 28px rgba(0,0,0,.28);--shadow-lg:0 24px 60px rgba(0,0,0,.5);
+}
+[data-theme="sepia"]{
+  --bg:#f4ecd8;--surface:#faf3e0;--surface-2:#f0e6cc;--border:#d9c9a8;
+  --ink:#3d2e1a;--muted:#6b5740;--shadow:0 10px 28px rgba(61,46,26,.08);--shadow-lg:0 24px 60px rgba(61,46,26,.18);
+}
+[data-line="wide"]{ --line-height:1.95; }
+[data-line="wider"]{ --line-height:2.2; }
+[data-letter="wide"]{ --letter-spacing:0.06em; }
+[data-letter="wider"]{ --letter-spacing:0.12em; }
+[data-contrast="high"]{ --ink:#000;--muted:#1a2a4a;--border:#000; }
+[data-theme="dark"][data-contrast="high"]{ --ink:#fff;--muted:#dde7ff;--bg:#000;--surface:#0a0a0a;--border:#fff; }
+[data-theme="sepia"][data-contrast="high"]{ --ink:#000;--muted:#2a1f0a;--border:#000;--bg:#fff7e0;--surface:#fffdf5; }
+[data-no-motion="true"] *, [data-no-motion="true"] *::before, [data-no-motion="true"] *::after{
+  animation-duration:.001ms !important;animation-iteration-count:1 !important;
+  transition-duration:.001ms !important;scroll-behavior:auto !important;
+}
+[data-readmode="true"] .sidebar{ display:none !important; }
+[data-readmode="true"] .layout{ grid-template-columns:1fr; max-width:900px; margin:0 auto; }
+[data-readmode="true"] .topic:not(:hover):not(:focus-within){ opacity:.65; transition:opacity .3s; }
+[data-readmode="true"] .topic:hover, [data-readmode="true"] .topic:focus-within{ opacity:1; box-shadow:var(--shadow-lg); }
+
+/* Weight */
+[data-weight="bold"] body, [data-weight="bold"] *:not(svg):not(svg *){ font-weight:700 !important; }
+[data-weight="bold"] h1,[data-weight="bold"] h2,[data-weight="bold"] h3,[data-weight="bold"] h4,
+[data-weight="bold"] .user-name,
+[data-weight="bold"] .brand-text h1{ font-weight:900 !important; }
+
+/* Letter spacing */
+[data-letter="wide"] *:not(svg):not(svg *),
+[data-letter="wider"] *:not(svg):not(svg *){ letter-spacing:var(--letter-spacing) !important; }
+
+/* Highlight links */
+[data-highlight-links="true"] a,
+[data-highlight-links="true"] .mini-btn,
+[data-highlight-links="true"] .btn,
+[data-highlight-links="true"] .filter{
+  outline:2px dashed #ff6b35 !important;
+  outline-offset:3px !important;
+  background-color:rgba(255,107,53,.1) !important;
+  border-radius:6px;
+}
+
+/* Big cursor */
+[data-big-cursor="true"],[data-big-cursor="true"] *,[data-big-cursor="true"] *::before,[data-big-cursor="true"] *::after{
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M8 4 L8 36 L16 28 L22 42 L28 40 L22 26 L34 26 Z' fill='%230b2b6b' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 8 4, auto !important;
+}
+
+/* Reduce transparency */
+[data-reduce-transparency="true"] *{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+[data-reduce-transparency="true"] .topbar{ background:#0b2b6b !important; }
+[data-reduce-transparency="true"] .user-card{ background:rgba(255,255,255,.3) !important; border-color:rgba(255,255,255,.5) !important; }
+
+/* Reading guide */
+.reading-guide{
+  position:fixed;left:0;right:0;height:48px;
+  background:linear-gradient(90deg,rgba(27,95,217,.12),rgba(42,212,232,.12));
+  border-top:2px solid rgba(27,95,217,.5);border-bottom:2px solid rgba(27,95,217,.5);
+  pointer-events:none;z-index:50;display:none;
+  transition:top .06s ease-out;
+  box-shadow:0 0 20px rgba(27,95,217,.2);
+}
+[data-reading-guide="true"] .reading-guide{ display:block; }
+
+*{box-sizing:border-box}
+html{ font-size:calc(16px * var(--font-scale, 1)); transition:font-size .3s var(--ease); }
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Cairo",system-ui,sans-serif;line-height:var(--line-height);
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{
+  outline:3px solid var(--cyan);outline-offset:3px;border-radius:8px;
+}
+button:disabled{opacity:.6;cursor:not-allowed}
+
+.skip{position:absolute;top:-100px;right:12px;background:var(--blue);color:#fff;padding:12px 18px;border-radius:0 0 12px 12px;z-index:999;font-weight:800;text-decoration:none;transition:top .2s;}
+.skip:focus{top:0}
+
+/* ================================================================
+   TOPBAR — Polished & Clean (no theme toggle)
+   ================================================================ */
+.topbar{
+  background:linear-gradient(120deg,#0b2b6b 0%,#1248b8 65%,#087eae 100%);
+  color:#fff;
+  padding:14px max(20px,calc((100vw - 1180px)/2));
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:center;
+  gap:20px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 4px 24px rgba(11,43,107,.25);
+}
+
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex-shrink:0;}
+.brand-logo{width:48px;height:48px;flex-shrink:0;filter:drop-shadow(0 6px 16px rgba(0,0,0,.3))}
+.brand-text{display:flex;flex-direction:column;line-height:1.1}
+.brand-text h1{font-size:1.18rem;font-weight:900;margin:0;letter-spacing:-.015em}
+.brand-text p{margin:3px 0 0;color:#d7eaff;font-size:.76rem;font-weight:600}
+
+/* ================================================================
+   USER CARD — Bigger, clearer, ALL data visible
+   ================================================================ */
+.user-card-wrap{
+  display:flex;justify-content:flex-end;
+  position:relative;min-width:0;
+  padding-inline-start:8px;
+}
+
+.user-card{
+  display:flex;align-items:center;gap:14px;
+  padding:10px 18px 10px 10px;
+  background:rgba(255,255,255,.16);
+  border:1.5px solid rgba(255,255,255,.28);
+  border-radius:20px;
+  cursor:pointer;
+  transition:all .3s var(--ease);
+  position:relative;
+  min-width:340px;max-width:560px;
+  box-shadow:0 4px 16px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.user-card:hover{
+  background:rgba(255,255,255,.24);
+  border-color:rgba(255,255,255,.45);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.user-card:focus-visible{outline:3px solid var(--cyan-2);outline-offset:3px}
+.user-card[aria-expanded="true"]{
+  background:rgba(255,255,255,.26);
+  border-color:rgba(255,255,255,.5);
+}
+
+.user-avatar{
+  width:56px;height:56px;flex-shrink:0;
+  border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#FFD3AE,#f5b683);
+  color:#17315F;font-weight:900;font-size:1.2rem;
+  box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 3px rgba(255,255,255,.4);
+  position:relative;
+}
+.user-avatar::after{
+  content:"";position:absolute;bottom:-1px;left:-1px;
+  width:14px;height:14px;border-radius:50%;
+  background:#4ade80;border:3px solid #1248b8;
+  box-shadow:0 0 8px rgba(74,222,128,.6);
+}
+.user-avatar.is-offline::after{background:#999;box-shadow:none;}
+
+.user-info{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+
+.user-name{
+  font-size:1rem;font-weight:900;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  line-height:1.2;letter-spacing:-.01em;
+}
+
+.user-sub{
+  font-size:.74rem;color:#b8e8ff;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  line-height:1.2;display:flex;align-items:center;gap:6px;
+}
+.user-sub .sep{opacity:.5}
+.user-sub .username-part{direction:ltr;unicode-bidi:embed;}
+.user-sub .email-part{direction:ltr;unicode-bidi:embed;}
+
+.user-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:999px;
+  font-size:.68rem;font-weight:800;line-height:1.4;
+  border:1px solid transparent;
+}
+
+.role-badge{background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.18);}
+.role-badge.student{background:rgba(100,180,255,.42);border-color:rgba(100,180,255,.6);color:#eaf5ff}
+.role-badge.teacher{background:rgba(100,220,150,.42);border-color:rgba(100,220,150,.6);color:#e8fff0}
+.role-badge.parent{background:rgba(255,180,100,.42);border-color:rgba(255,180,100,.6);color:#fff8ec}
+.role-badge.admin{background:rgba(200,150,255,.42);border-color:rgba(200,150,255,.6);color:#f6e8ff}
+
+.status-badge{background:rgba(100,255,150,.25);color:#d4ffe4;border-color:rgba(100,255,150,.45);}
+.status-badge::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:#4ade80;box-shadow:0 0 6px #4ade80;
+  animation:pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.7}}
+.status-badge.inactive{background:rgba(150,150,150,.28);color:#e0e0e0;border-color:rgba(150,150,150,.45);}
+.status-badge.inactive::before{background:#999;box-shadow:none;animation:none;}
+
+.user-chevron{
+  width:20px;height:20px;flex-shrink:0;
+  color:rgba(255,255,255,.85);
+  transition:transform .3s var(--ease);
+}
+.user-card[aria-expanded="true"] .user-chevron{transform:rotate(180deg);}
+
+/* ================================================================
+   USER MENU — Premium dropdown
+   ================================================================ */
+.user-menu{
+  position:absolute;top:calc(100% + 12px);inset-inline-start:0;
+  width:min(380px, calc(100vw - 32px));
+  background:var(--surface);
+  border:1.5px solid var(--border);border-radius:22px;
+  box-shadow:0 30px 80px rgba(11,43,107,.3);
+  padding:0;z-index:200;display:none;
+  animation:menuIn .3s var(--ease-bounce) both;
+  overflow:hidden;
+}
+.user-menu.open{display:block}
+@keyframes menuIn{from{opacity:0;transform:translateY(-10px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.user-menu-header{
+  display:flex;align-items:center;gap:14px;
+  padding:22px 20px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(42,212,232,.18), transparent 55%),
+    linear-gradient(135deg,rgba(27,95,217,.1),rgba(42,212,232,.12));
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+[data-theme="dark"] .user-menu-header{
+  background:
+    radial-gradient(circle at 100% 0%, rgba(42,212,232,.2), transparent 55%),
+    linear-gradient(135deg,rgba(42,212,232,.14),rgba(27,95,217,.16));
+}
+.user-menu-avatar{
+  width:64px;height:64px;flex-shrink:0;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#4A7CEC,#18BFD4);
+  color:#fff;font-weight:900;font-size:1.35rem;
+  box-shadow:0 6px 20px rgba(27,95,217,.4),0 0 0 4px rgba(255,255,255,.5);
+  position:relative;z-index:1;
+}
+.user-menu-avatar::after{
+  content:"";position:absolute;bottom:1px;left:1px;
+  width:16px;height:16px;border-radius:50%;
+  background:#4ade80;border:3px solid var(--surface);
+  box-shadow:0 0 8px rgba(74,222,128,.6);
+}
+
+.user-menu-header-info{min-width:0;flex:1;position:relative;z-index:1}
+.user-menu-header-info strong{
+  display:block;font-size:1.08rem;font-weight:900;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:4px;
+}
+.user-menu-header-info small{
+  display:block;font-size:.78rem;color:var(--muted);font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  direction:ltr;text-align:right;
+}
+
+.user-menu-stats{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  border-bottom:1px solid var(--border);
+}
+.user-menu-stat{
+  padding:14px 16px;
+  display:flex;flex-direction:column;gap:2px;
+  text-align:center;
+  border-inline-end:1px dashed var(--border);
+}
+.user-menu-stat:last-child{border-inline-end:none}
+.user-menu-stat-value{
+  font-size:1.2rem;font-weight:900;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.user-menu-stat-label{font-size:.72rem;color:var(--muted);font-weight:700}
+
+.user-menu-meta{margin:0;padding:14px 20px 8px;display:flex;flex-direction:column;gap:2px;}
+.user-menu-row{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;padding:10px 0;font-size:.83rem;
+  border-bottom:1px dashed var(--border);
+}
+.user-menu-row:last-child{border-bottom:none}
+.user-menu-row dt{color:var(--muted);font-weight:700;margin:0;display:flex;align-items:center;gap:8px;}
+.user-menu-row dt svg{width:15px;height:15px;opacity:.7}
+.user-menu-row dd{
+  margin:0;color:var(--ink);font-weight:800;
+  text-align:left;direction:ltr;
+  max-width:60%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.user-menu-row dd[dir="rtl"]{direction:rtl;text-align:right}
+
+.user-menu-divider{height:1px;background:var(--border);margin:6px 12px;}
+
+.user-menu-item{
+  display:flex;align-items:center;gap:12px;
+  width:calc(100% - 16px);margin:0 8px 4px;padding:12px 14px;
+  background:transparent;border:none;border-radius:12px;
+  color:var(--ink);font-weight:700;font-size:.88rem;
+  text-align:start;cursor:pointer;transition:all .2s var(--ease);
+}
+.user-menu-item:last-child{margin-bottom:8px}
+.user-menu-item:hover{background:var(--surface-2);transform:translateX(-3px)}
+.user-menu-item.danger{color:var(--red)}
+.user-menu-item.danger:hover{background:rgba(197,57,57,.08)}
+.user-menu-item svg{width:17px;height:17px;flex-shrink:0}
+
+/* ================================================================
+   Main layout
+   ================================================================ */
+.wrap{width:min(1180px,calc(100% - 32px));margin:24px auto 80px}
+
+.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+.stat-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px;
+  display:flex;align-items:center;gap:14px;box-shadow:0 2px 8px rgba(11,43,107,.05);
+  transition:all .25s var(--ease);
+}
+.stat-item:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.stat-icon{
+  width:48px;height:48px;flex-shrink:0;border-radius:14px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(27,95,217,.14),rgba(42,212,232,.18));
+  color:var(--blue);
+}
+[data-theme="dark"] .stat-icon{color:var(--cyan-2)}
+.stat-body{display:flex;flex-direction:column;line-height:1.2}
+.stat-value{
+  font-size:1.5rem;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat-label{font-size:.78rem;color:var(--muted);font-weight:700}
+
+.hero{
+  background:linear-gradient(135deg,var(--surface),var(--surface-2));
+  border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:clamp(24px,4vw,38px);box-shadow:var(--shadow);
+  display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;
+  position:relative;overflow:hidden;margin-bottom:22px;
+}
+.hero::before{content:"";position:absolute;left:-50px;top:-90px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(42,212,232,.18),transparent 70%);pointer-events:none;}
+.hero::after{content:"";position:absolute;right:-30px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,176,32,.14),transparent 70%);pointer-events:none;}
+.hero-content{position:relative;z-index:1}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--blue);font-weight:800;font-size:.85rem;
+  background:rgba(27,95,217,.1);padding:5px 12px;border-radius:999px;
+}
+[data-theme="dark"] .eyebrow{color:var(--cyan-2);background:rgba(42,212,232,.14)}
+[data-theme="sepia"] .eyebrow{color:#8a5013;background:rgba(138,80,19,.14)}
+.hero h2{
+  margin:12px 0 6px;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.25;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{margin:0;color:var(--muted);max-width:680px;font-size:1rem}
+.hero-cta{position:relative;z-index:1;white-space:nowrap}
+
+.btn{
+  border:0;border-radius:13px;padding:11px 18px;font-weight:800;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .15s,filter .15s,box-shadow .2s;min-height:46px;
+}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:linear-gradient(110deg,var(--blue),#087eae);color:#fff;box-shadow:0 6px 16px rgba(27,95,217,.32);}
+.btn-soft{background:var(--surface-2);border:1px solid var(--border);color:var(--ink)}
+
+.toolbar{display:grid;grid-template-columns:minmax(180px,1fr) 220px auto;gap:12px;margin-bottom:16px;}
+.field{
+  width:100%;min-width:0;border:1px solid var(--border);
+  background:var(--surface);color:var(--ink);border-radius:13px;
+  padding:12px 14px;font-size:.94rem;transition:border-color .2s,box-shadow .2s;
+}
+.field::placeholder{color:var(--muted)}
+.field:focus{outline:none;border-color:var(--cyan);box-shadow:var(--focus)}
+
+.search-wrap{position:relative}
+.search-wrap .field{padding-inline-end:42px}
+.search-clear{
+  position:absolute;inset-inline-end:10px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;display:none;place-items:center;
+  background:var(--surface-2);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s;
+}
+.search-clear.visible{display:grid}
+.search-clear:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.search-clear svg{width:14px;height:14px}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filter{
+  border:1px solid var(--border);background:var(--surface);color:var(--muted);
+  border-radius:999px;padding:8px 16px;font-size:.9rem;font-weight:700;transition:all .2s var(--ease);
+}
+.filter:hover{color:var(--blue);border-color:rgba(27,95,217,.4)}
+.filter[aria-pressed="true"]{background:rgba(27,95,217,.1);color:var(--blue);border-color:rgba(27,95,217,.4);}
+[data-theme="dark"] .filter[aria-pressed="true"]{color:var(--cyan-2);background:rgba(42,212,232,.14);border-color:rgba(42,212,232,.4)}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+.section-head h3{margin:0;font-size:1.15rem;font-weight:800}
+.count{color:var(--muted);font-size:.9rem;font-weight:700}
+
+.topics{display:grid;gap:14px}
+.topic{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;
+  box-shadow:0 3px 12px rgba(11,43,107,.06);
+  transition:box-shadow .25s,border-color .25s,opacity .3s;
+}
+.topic:hover{box-shadow:var(--shadow);border-color:rgba(27,95,217,.2)}
+.topic-top{display:flex;gap:12px;align-items:flex-start}
+.avatar{
+  flex:0 0 44px;width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(145deg,#d9edff,#c9f5f4);
+  color:#0b3c83;display:grid;place-items:center;font-weight:800;font-size:1.05rem;
+}
+[data-theme="dark"] .avatar{background:linear-gradient(145deg,#1e4c8e,#0d5566);color:#e0f2ff}
+[data-theme="sepia"] .avatar{background:linear-gradient(145deg,#e8dcc0,#d4c39a);color:#5c3d1a}
+.topic-main{min-width:0;flex:1}
+.topic-title{font-size:1.06rem;font-weight:800;margin:0 0 4px;line-height:1.5;overflow-wrap:anywhere;color:var(--ink)}
+.topic-meta{font-size:.83rem;color:var(--muted);display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.topic-body{margin:12px 0 15px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+.topic-bottom{
+  border-top:1px solid var(--border);padding-top:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.topic-stats{display:flex;gap:14px;align-items:center;color:var(--muted);font-size:.87rem;font-weight:600}
+.topic-stats svg{width:14px;height:14px;vertical-align:middle;margin-inline-end:4px}
+.topic-actions{display:flex;gap:7px;flex-wrap:wrap}
+
+.mini-btn{
+  border:1px solid var(--border);background:var(--surface-2);color:var(--ink);
+  border-radius:10px;padding:6px 12px;font-weight:700;font-size:.85rem;
+  transition:all .2s var(--ease);display:inline-flex;align-items:center;gap:5px;
+}
+.mini-btn:hover{border-color:rgba(27,95,217,.5);color:var(--blue);transform:translateY(-1px)}
+.mini-btn svg{width:14px;height:14px}
+
+.pill{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:800;
+  background:rgba(22,131,75,.12);color:var(--green);
+}
+.pill.hidden{background:rgba(197,57,57,.12);color:var(--red)}
+
+.side-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;padding:20px;margin-bottom:14px;
+}
+.side-card h3{font-size:1rem;margin:0 0 12px;font-weight:800;color:var(--ink)}
+.side-card p{font-size:.9rem;color:var(--muted);margin:0;line-height:1.75}
+.rules{padding:0 20px 0 0;margin:8px 0 0;color:var(--muted);font-size:.88rem}
+.rules li{margin:8px 0}
+.notice{
+  padding:12px 14px;border-radius:13px;
+  background:rgba(18,182,216,.08);border:1px solid rgba(18,182,216,.2);
+  font-size:.87rem;margin-top:12px;color:var(--ink);font-weight:600;
+}
+
+.state{
+  padding:40px 20px;text-align:center;
+  border:1px dashed var(--border);background:var(--surface);border-radius:18px;color:var(--muted);
+}
+.state strong{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:6px;font-weight:800}
+.spinner{
+  width:26px;height:26px;border:3px solid var(--border);
+  border-top-color:var(--blue);border-radius:50%;
+  animation:spin .8s linear infinite;margin:0 auto 12px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.backdrop{
+  position:fixed;inset:0;background:rgba(6,19,44,.76);
+  display:none;align-items:center;justify-content:center;padding:18px;z-index:150;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.backdrop.open{display:flex}
+.modal{
+  width:min(620px,100%);max-height:min(90vh,850px);overflow:auto;
+  background:var(--surface);border:1px solid var(--border);border-radius:22px;
+  padding:24px;box-shadow:var(--shadow-lg);
+  animation:modalIn .35s var(--ease-bounce) both;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.modal-head h2{font-size:1.2rem;margin:0;font-weight:800}
+.close{
+  width:38px;height:38px;border:1px solid var(--border);border-radius:12px;
+  background:var(--surface-2);color:var(--ink);font-size:1.3rem;
+  display:grid;place-items:center;transition:all .2s;
+}
+.close:hover{background:rgba(197,57,57,.1);color:var(--red);transform:rotate(90deg)}
+.form-row{margin:14px 0}
+.form-row label{display:block;font-weight:800;margin-bottom:6px;color:var(--ink)}
+.form-row textarea{min-height:150px;resize:vertical}
+.help{font-size:.82rem;color:var(--muted);margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.char-count{font-size:.75rem;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.char-count.warn{color:var(--yellow)}
+.char-count.danger{color:var(--red)}
+.modal-actions{display:flex;justify-content:flex-start;gap:8px;flex-wrap:wrap;margin-top:20px}
+
+.toast{
+  position:fixed;bottom:20px;left:20px;z-index:200;
+  max-width:min(420px,calc(100vw - 40px));
+  background:var(--surface);border:1px solid var(--border);
+  border-inline-start:4px solid var(--blue);
+  border-radius:13px;padding:13px 16px;
+  box-shadow:var(--shadow-lg);font-weight:700;
+  animation:toastIn .35s var(--ease-bounce) both;
+  display:none;align-items:center;gap:10px;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+.toast.show{display:flex}
+.toast.error{border-inline-start-color:var(--red)}
+.toast.success{border-inline-start-color:var(--green)}
+.toast-icon{
+  width:30px;height:30px;flex-shrink:0;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;font-size:.9rem;font-weight:800;
+}
+.toast.error .toast-icon{background:linear-gradient(135deg,var(--red),#a02525)}
+.toast.success .toast-icon{background:linear-gradient(135deg,var(--green),#0f6a3a)}
+
+.replies{display:none;border-top:1px solid var(--border);margin-top:14px;padding-top:14px}
+.replies.open{display:block}
+.reply{padding:13px;background:var(--surface-2);border:1px solid var(--border);border-radius:13px;margin:10px 0}
+.reply-head{
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+  font-size:.82rem;color:var(--muted);flex-wrap:wrap;
+}
+.reply-body{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0;color:var(--ink)}
+.reply-form{display:grid;gap:8px;margin-top:14px}
+.reply-form textarea{min-height:90px}
+.empty-small{font-size:.88rem;color:var(--muted);padding:10px 0;font-weight:600}
+
+.footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:34px;font-weight:600}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.a11y-fab{
+  position:fixed;bottom:22px;left:22px;z-index:90;
+  display:grid;place-items:center;
+  width:58px;height:58px;border-radius:50%;border:none;cursor:pointer;
+  color:#fff;background:linear-gradient(135deg,var(--blue),var(--cyan));
+  box-shadow:0 14px 32px rgba(27,95,217,.4);
+  transition:transform .3s var(--ease-bounce);
+  animation:a11yPulse 3s ease-in-out infinite;
+}
+@keyframes a11yPulse{
+  0%,100%{box-shadow:0 14px 32px rgba(27,95,217,.4),0 0 0 0 rgba(27,95,217,.5)}
+  50%{box-shadow:0 14px 32px rgba(27,95,217,.4),0 0 0 14px rgba(27,95,217,0)}
+}
+.a11y-fab:hover{transform:translateY(-3px) rotate(6deg)}
+.a11y-fab:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+.a11y-fab svg{width:28px;height:28px;transition:transform .3s var(--ease-bounce)}
+.a11y-fab[aria-expanded="true"]{background:linear-gradient(135deg,var(--cyan),var(--blue))}
+.a11y-fab[aria-expanded="true"] svg{transform:rotate(90deg)}
+
+/* ================================================================
+   A11y Panel — Advanced
+   ================================================================ */
+.a11y-panel{
+  position:fixed;bottom:92px;left:22px;z-index:95;
+  width:min(430px,calc(100vw - 36px));
+  max-height:calc(100vh - 130px);overflow-y:auto;
+  padding:0;background:var(--surface);
+  border:1.5px solid var(--border);border-radius:24px;
+  box-shadow:0 24px 60px rgba(11,43,107,.28);
+  display:flex;flex-direction:column;
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.95);
+  transition:all .3s var(--ease);transform-origin:bottom left;
+}
+.a11y-panel.is-visible{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+
+.a11y-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:20px 22px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(42,212,232,.14), transparent 60%),
+    linear-gradient(135deg,rgba(27,95,217,.06),rgba(42,212,232,.08));
+  border-bottom:1px solid var(--border);
+  border-radius:24px 24px 0 0;
+  position:sticky;top:0;z-index:2;
+}
+.a11y-title-wrap{display:flex;align-items:center;gap:12px}
+.a11y-title-icon{
+  flex-shrink:0;width:44px;height:44px;border-radius:14px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;border:none;
+  box-shadow:0 4px 12px rgba(27,95,217,.3);
+}
+.a11y-title-icon svg{width:22px;height:22px}
+.a11y-title{margin:0;font-size:1.08rem;font-weight:800;color:var(--ink)}
+.a11y-title small{display:block;font-size:.72rem;color:var(--muted);font-weight:600;margin-top:2px}
+.a11y-close{
+  flex-shrink:0;display:grid;place-items:center;
+  width:36px;height:36px;border:none;border-radius:50%;
+  background:rgba(0,0,0,.05);color:var(--muted);cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.a11y-close:hover{background:rgba(197,57,57,.12);color:var(--red);transform:rotate(90deg)}
+.a11y-close svg{width:18px;height:18px}
+
+.a11y-body{padding:18px 22px;display:flex;flex-direction:column;gap:20px;}
+
+.a11y-section{display:flex;flex-direction:column;gap:12px;}
+.a11y-section-head{display:flex;align-items:flex-start;gap:10px}
+.a11y-section-icon{
+  flex-shrink:0;width:36px;height:36px;border-radius:11px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(27,95,217,.12),rgba(42,212,232,.16));
+  color:var(--blue);
+  border:1px solid rgba(27,95,217,.12);
+}
+[data-theme="dark"] .a11y-section-icon{color:var(--cyan-2);background:linear-gradient(135deg,rgba(42,212,232,.16),rgba(27,95,217,.18));border-color:rgba(42,212,232,.2)}
+.a11y-section-icon svg{width:18px;height:18px}
+.a11y-section-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.a11y-section-text strong{font-size:.9rem;font-weight:800;color:var(--ink);line-height:1.3}
+.a11y-section-text small{font-size:.72rem;color:var(--muted);font-weight:600;line-height:1.3}
+.a11y-value{
+  flex-shrink:0;font-size:.7rem;font-weight:800;color:var(--blue);
+  padding:3px 10px;background:rgba(27,95,217,.1);border-radius:999px;align-self:center;
+}
+[data-theme="dark"] .a11y-value{color:var(--cyan-2);background:rgba(42,212,232,.14)}
+
+/* Quick profiles */
+.a11y-quick-profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.a11y-profile{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:12px 6px;
+  background:var(--surface-2);
+  border:1.5px solid var(--border);border-radius:13px;
+  cursor:pointer;transition:all .25s var(--ease);
+  font-family:inherit;min-height:88px;
+}
+.a11y-profile:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 8px 20px rgba(27,95,217,.15);}
+.a11y-profile.is-active{
+  background:linear-gradient(135deg,rgba(27,95,217,.12),rgba(42,212,232,.16));
+  border-color:var(--blue);box-shadow:0 6px 16px rgba(27,95,217,.2);
+}
+.a11y-profile-icon{font-size:1.4rem;line-height:1}
+.a11y-profile-name{font-size:.78rem;font-weight:800;color:var(--ink);text-align:center;line-height:1.2;}
+.a11y-profile-desc{font-size:.62rem;font-weight:600;color:var(--muted);text-align:center;line-height:1.2;margin-top:2px;}
+
+/* Options */
+.a11y-options{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.a11y-options.cols-3{grid-template-columns:repeat(3,1fr)}
+.a11y-option{
+  display:grid;place-items:center;min-height:58px;
+  font-family:inherit;color:var(--muted);background:var(--surface-2);
+  border:1.5px solid var(--border);border-radius:12px;
+  cursor:pointer;transition:all .2s var(--ease);padding:6px 4px;
+  flex-direction:column;gap:2px;position:relative;
+}
+.a11y-option:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+.a11y-option.is-active{
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;border-color:transparent;
+  box-shadow:0 8px 18px rgba(27,95,217,.3);
+}
+.a11y-option-letter{font-weight:800;line-height:1}
+.a11y-option-label{font-size:.66rem;font-weight:700;line-height:1}
+.a11y-option-icon{font-size:1.2rem;line-height:1}
+
+/* Toggle */
+.a11y-toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 14px;background:var(--surface-2);
+  border:1.5px solid var(--border);border-radius:13px;
+  cursor:pointer;font-family:inherit;color:var(--ink);text-align:start;
+  transition:all .2s var(--ease);min-height:58px;width:100%;
+}
+.a11y-toggle:hover{border-color:var(--blue);background:var(--surface)}
+.a11y-toggle-info{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.a11y-toggle-icon{
+  flex-shrink:0;width:36px;height:36px;border-radius:11px;
+  display:grid;place-items:center;background:var(--surface);
+  border:1px solid var(--border);color:var(--muted);
+  transition:all .2s var(--ease);
+}
+.a11y-toggle-icon svg{width:18px;height:18px}
+.a11y-toggle[aria-pressed="true"] .a11y-toggle-icon{
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;border-color:transparent;
+  box-shadow:0 4px 10px rgba(27,95,217,.3);
+}
+.a11y-toggle-text{display:flex;flex-direction:column;gap:1px;text-align:start}
+.a11y-toggle-text strong{font-size:.87rem;font-weight:800;color:var(--ink);line-height:1.25}
+.a11y-toggle-text small{font-size:.7rem;font-weight:600;color:var(--muted);line-height:1.3}
+.a11y-switch{
+  position:relative;flex-shrink:0;width:44px;height:26px;
+  background:var(--border);border-radius:999px;
+  transition:background .25s var(--ease);
+}
+.a11y-switch::after{
+  content:"";position:absolute;top:3px;inset-inline-end:3px;
+  width:20px;height:20px;background:#fff;border-radius:50%;
+  transition:transform .3s var(--ease-bounce);
+  box-shadow:0 1px 4px rgba(0,0,0,.22);
+}
+.a11y-toggle[aria-pressed="true"] .a11y-switch{background:var(--blue)}
+.a11y-toggle[aria-pressed="true"] .a11y-switch::after{transform:translateX(-18px)}
+
+.a11y-divider{height:1px;background:var(--border);margin:4px 0;}
+
+.a11y-reset{
+  width:100%;padding:13px 14px;
+  background:transparent;border:1.5px dashed var(--border);
+  border-radius:12px;color:var(--muted);font-weight:800;font-size:.88rem;
+  cursor:pointer;transition:all .2s;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:8px;
+}
+.a11y-reset:hover{border-color:var(--red);color:var(--red);background:rgba(197,57,57,.06)}
+.a11y-reset svg{width:16px;height:16px}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media(max-width:960px){
+  .user-card{min-width:290px;max-width:100%}
+  .user-name{font-size:.94rem}
+}
+
+@media(max-width:850px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .side-card{margin:0}
+  .hero{grid-template-columns:1fr}
+  .hero-cta{justify-self:start}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .toolbar .btn{grid-column:1/-1}
+}
+
+@media(max-width:800px){
+  .topbar{grid-template-columns:1fr;gap:12px;padding:12px 14px;}
+  .brand{justify-self:start}
+  .user-card-wrap{justify-content:stretch;padding-inline-start:0}
+  .user-card{width:100%;max-width:none;min-width:0}
+  .user-menu{inset-inline-start:0;width:100%;max-width:none;min-width:0}
+}
+
+@media(max-width:600px){
+  .wrap{width:calc(100% - 22px);margin-top:14px}
+  .brand-logo{width:40px;height:40px}
+  .brand-text h1{font-size:1rem}
+  .brand-text p{font-size:.7rem}
+  .user-card{padding:8px 12px 8px 8px;gap:10px}
+  .user-avatar{width:48px;height:48px;font-size:1rem}
+  .user-name{font-size:.9rem}
+  .user-sub{font-size:.68rem}
+  .badge{font-size:.62rem;padding:2px 8px}
+  .hero{padding:22px;border-radius:20px}
+  .toolbar{grid-template-columns:1fr}
+  .toolbar .btn{grid-column:auto}
+  .sidebar{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:1fr;gap:10px}
+  .stat-item{padding:12px 14px}
+  .stat-icon{width:42px;height:42px}
+  .stat-value{font-size:1.25rem}
+  .topic{padding:15px}
+  .topic-top{gap:9px}
+  .avatar{width:38px;height:38px;flex-basis:38px;font-size:.95rem}
+  .topic-bottom{align-items:flex-start}
+  .topic-actions{width:100%}
+  .topic-actions button{flex:1}
+  .modal{padding:18px}
+  .a11y-fab{bottom:16px;left:16px;width:54px;height:54px}
+  .a11y-panel{bottom:82px;left:16px;width:calc(100vw - 32px);max-height:calc(100vh - 110px);}
+  .a11y-options{grid-template-columns:repeat(4,1fr);gap:6px}
+  .a11y-option{min-height:52px;padding:4px 2px}
+  .a11y-quick-profiles{grid-template-columns:repeat(3,1fr);gap:6px}
+  .a11y-profile{min-height:78px;padding:10px 4px}
+  .a11y-profile-desc{font-size:.56rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">تجاوز إلى المحتوى الرئيسي</a>
+
+<!-- Reading guide -->
+<div class="reading-guide" id="reading-guide" aria-hidden="true"></div>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <a href="index.html" class="brand" aria-label="أقدر AQDAR — الرئيسية">
+    <svg class="brand-logo" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <linearGradient id="tShirt" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4A7CEC"/><stop offset="100%" stop-color="#2457D6"/>
+        </linearGradient>
+        <linearGradient id="tStar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFE066"/><stop offset="100%" stop-color="#F5A623"/>
+        </linearGradient>
+        <radialGradient id="tInner">
+          <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eaf3ff"/>
+        </radialGradient>
+      </defs>
+      <circle cx="120" cy="120" r="108" fill="url(#tInner)"/>
+      <circle cx="120" cy="120" r="108" fill="none" stroke="#1248b8" stroke-width="1.6" stroke-dasharray="3 10" opacity=".28"/>
+      <path d="M92 158 Q84 180 82 196" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="82" cy="198" r="6" fill="#FFD3AE"/>
+      <rect x="114" y="138" width="12" height="22" rx="6" fill="#FFD3AE"/>
+      <path d="M92 168 Q92 152 110 150 L130 150 Q148 152 148 168 L148 200 Q148 212 138 212 L102 212 Q92 212 92 200 Z" fill="url(#tShirt)"/>
+      <path d="M148 168 Q170 148 184 122" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <path d="M94 204 h52 v32 q0 6 -6 6 h-6 q-6 0 -6 -6 v-10 l-4 -6 l-4 6 v10 q0 6 -6 6 h-6 q-6 0 -6 -6 Z" fill="#17315F"/>
+      <ellipse cx="106" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+      <ellipse cx="134" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+      <circle cx="120" cy="120" r="28" fill="#FFD3AE"/>
+      <path d="M92 120 Q90 94 112 88 Q134 84 148 96 Q156 108 148 124 Q142 110 130 104 Q112 96 100 106 Q94 112 92 120 Z" fill="#1A2B4C"/>
+      <path d="M108 122 Q112 118 116 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M126 122 Q130 118 134 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M110 132 Q120 142 130 132" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M196 36 L203 58 L226 60 L208 74 L213 96 L196 84 L179 96 L184 74 L166 60 L189 58 Z" fill="url(#tStar)"/>
+    </svg>
+    <div class="brand-text">
+      <h1>أقدر | AQDAR</h1>
+      <p>مساحة آمنة للتعلّم وتبادل الأفكار</p>
+    </div>
+  </a>
+
+  <!-- ★ Rich User Card — all data visible -->
+  <div class="user-card-wrap">
+    <div class="user-card" id="user-card" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false">
+      <div class="user-avatar" id="user-avatar" aria-hidden="true">؟</div>
+      <div class="user-info">
+        <strong class="user-name" id="user-name">جارٍ التحميل…</strong>
+        <span class="user-sub">
+          <span class="username-part" id="user-username">—</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span class="email-part" id="user-email">—</span>
+        </span>
+        <div class="user-badges">
+          <span class="badge role-badge" id="user-role">—</span>
+          <span class="badge status-badge" id="user-status">نشط</span>
+        </div>
+      </div>
+      <svg class="user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9 L12 15 L18 9"/>
+      </svg>
+
+      <div class="user-menu" id="user-menu" role="menu">
+        <div class="user-menu-header">
+          <div class="user-menu-avatar" id="user-menu-avatar" aria-hidden="true">؟</div>
+          <div class="user-menu-header-info">
+            <strong id="user-menu-name">—</strong>
+            <small id="user-menu-email">—</small>
+          </div>
+        </div>
+
+        <div class="user-menu-stats">
+          <div class="user-menu-stat">
+            <span class="user-menu-stat-value" id="user-menu-topics-count">0</span>
+            <span class="user-menu-stat-label">موضوع</span>
+          </div>
+          <div class="user-menu-stat">
+            <span class="user-menu-stat-value" id="user-menu-replies-count">0</span>
+            <span class="user-menu-stat-label">رد</span>
+          </div>
+        </div>
+
+        <dl class="user-menu-meta">
+          <div class="user-menu-row">
+            <dt>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 V19 A6 6 0 0 1 10 13 H14 A6 6 0 0 1 20 19 V21"/></svg>
+              اسم المستخدم
+            </dt>
+            <dd id="user-menu-username" dir="ltr">—</dd>
+          </div>
+          <div class="user-menu-row">
+            <dt>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L4 5 V11 Q4 17 12 22 Q20 17 20 11 V5 Z"/><circle cx="12" cy="11" r="2.4"/></svg>
+              الدور
+            </dt>
+            <dd id="user-menu-role" dir="rtl">—</dd>
+          </div>
+          <div class="user-menu-row">
+            <dt>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12 L11 14 L15 10"/></svg>
+              الحالة
+            </dt>
+            <dd id="user-menu-status" dir="rtl">—</dd>
+          </div>
+          <div class="user-menu-row">
+            <dt>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 V6"/><path d="M8 2 V6"/><path d="M3 10 H21"/></svg>
+              عضو منذ
+            </dt>
+            <dd id="user-menu-joined" dir="rtl">—</dd>
+          </div>
+        </dl>
+
+        <div class="user-menu-divider"></div>
+        <button class="user-menu-item" id="menu-back" role="menuitem" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5 L5 12 L12 19"/><path d="M5 12 H19"/></svg>
+          العودة للمنصة
+        </button>
+        <div class="user-menu-divider"></div>
+        <button class="user-menu-item danger" id="menu-logout" role="menuitem" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3 H5 A2 2 0 0 0 3 5 V19 A2 2 0 0 0 5 21 H9"/><path d="M16 17 L21 12 L16 7"/><path d="M21 12 H9"/></svg>
+          تسجيل الخروج
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main id="main" class="wrap">
+
+  <section class="stats-bar" aria-label="إحصائيات ساحة النقاش">
+    <div class="stat-item">
+      <div class="stat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M12 20 V10"/><path d="M18 20 V4"/><path d="M6 20 V16"/></svg>
+      </div>
+      <div class="stat-body">
+        <strong class="stat-value" id="stat-topics">—</strong>
+        <span class="stat-label">موضوع</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="stat-body">
+        <strong class="stat-value" id="stat-replies">—</strong>
+        <span class="stat-label">رد</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M17 21 V19 A4 4 0 0 0 13 15 H5 A4 4 0 0 0 1 19 V21"/><circle cx="9" cy="7" r="4"/><path d="M23 21 V19 A4 4 0 0 0 20 15"/><path d="M16 3.13 A4 4 0 0 1 16 11.13"/></svg>
+      </div>
+      <div class="stat-body">
+        <strong class="stat-value" id="stat-members">—</strong>
+        <span class="stat-label">مشارك</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-content">
+      <span class="eyebrow">✦ نتعلّم معًا</span>
+      <h2 id="page-title">ساحة النقاش</h2>
+      <p>اسأل، شارك أفكارك، واستفد من خبرات زملائك ومعلميك. حافظ على احترام الجميع واجعل نقاشك مرتبطًا بالتعلّم.</p>
+    </div>
+    <button class="btn btn-primary hero-cta" id="new-topic-btn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      اكتب موضوعًا جديدًا
+    </button>
+  </section>
+
+  <section class="toolbar" aria-label="البحث والتصفية">
+    <div class="search-wrap">
+      <label class="sr-only" for="search-input">ابحث في الموضوعات</label>
+      <input class="field" id="search-input" type="search" placeholder="ابحث بعنوان الموضوع أو محتواه…">
+      <button class="search-clear" id="search-clear" type="button" aria-label="مسح البحث">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+      </button>
+    </div>
+    <label class="sr-only" for="sort-select">ترتيب الموضوعات</label>
+    <select class="field" id="sort-select">
+      <option value="newest">الأحدث أولًا</option>
+      <option value="oldest">الأقدم أولًا</option>
+      <option value="active">الأكثر تفاعلًا</option>
+    </select>
+    <button class="btn btn-soft" id="refresh-btn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>
+      تحديث
+    </button>
+  </section>
+
+  <div class="filters" role="group" aria-label="تصفية الموضوعات">
+    <button class="filter" data-filter="all" aria-pressed="true" type="button">كل الموضوعات</button>
+    <button class="filter" data-filter="open" aria-pressed="false" type="button">النقاشات المفتوحة</button>
+    <button class="filter" data-filter="mine" aria-pressed="false" type="button">موضوعاتي</button>
+  </div>
+
+  <div class="layout">
+    <section aria-labelledby="topics-heading">
+      <div class="section-head">
+        <h3 id="topics-heading">موضوعات المجتمع</h3>
+        <span class="count" id="topics-count">—</span>
+      </div>
+      <div id="topics-list" class="topics" aria-live="polite">
+        <div class="state">
+          <div class="spinner" aria-hidden="true"></div>
+          <strong>جارٍ تحميل الموضوعات</strong>
+          لحظات ونجهّز ساحة النقاش.
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar" aria-label="إرشادات ساحة النقاش">
+      <section class="side-card">
+        <h3>كيف نناقش باحترام؟</h3>
+        <ul class="rules">
+          <li>اكتب عنوانًا واضحًا ومحددًا.</li>
+          <li>استخدم كلمات بسيطة ومحترمة.</li>
+          <li>لا تنشر بياناتك الشخصية.</li>
+          <li>ساعد الآخرين بإجابة مفيدة.</li>
+        </ul>
+      </section>
+      <section class="side-card">
+        <h3>إرشادات سريعة</h3>
+        <p>يمكنك إنشاء موضوع والرد على موضوعات الآخرين. يمكن للمعلم أو مسؤول المنصة إخفاء المحتوى المخالف وفق الصلاحيات المعتمدة.</p>
+        <div class="notice" id="role-note">يتم تحديد صلاحياتك بعد التحقق من حسابك.</div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="footer">منصة أقدر التعليمية · ساحة النقاش</footer>
+</main>
+
+<!-- Modal: New Topic -->
+<div class="backdrop" id="topic-modal-backdrop" role="presentation">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="topic-modal-title">
+    <div class="modal-head">
+      <h2 id="topic-modal-title">إنشاء موضوع جديد</h2>
+      <button class="close" type="button" data-close="topic" aria-label="إغلاق النافذة">×</button>
+    </div>
+    <form id="topic-form">
+      <div class="form-row">
+        <label for="topic-title">عنوان الموضوع</label>
+        <input class="field" id="topic-title" maxlength="140" required placeholder="مثال: كيف أحافظ على أمان الحاسب؟">
+        <div class="help">
+          <span>اجعل العنوان واضحًا ومحددًا</span>
+          <span class="char-count" id="title-count">0 / 140</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="topic-body">تفاصيل الموضوع</label>
+        <textarea class="field" id="topic-body" maxlength="6000" required placeholder="اكتب سؤالك أو فكرتك بطريقة واضحة…"></textarea>
+        <div class="help">
+          <span>لا تكتب كلمة المرور أو رقم الهاتف أو أي بيانات شخصية</span>
+          <span class="char-count" id="body-count">0 / 6000</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="topic-submit" type="submit">نشر الموضوع</button>
+        <button class="btn btn-soft" type="button" data-close="topic">إلغاء</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast-icon" id="toast-icon">✓</span>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- A11y FAB -->
+<button type="button" class="a11y-fab" id="a11y-toggle" aria-label="فتح خيارات الوصول" aria-expanded="false" aria-controls="a11y-panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/>
+  </svg>
+</button>
+
+<!-- ★ A11y Panel — Advanced -->
+<aside class="a11y-panel" id="a11y-panel" role="dialog" aria-label="خيارات الوصول" aria-hidden="true">
+  <div class="a11y-head">
+    <div class="a11y-title-wrap">
+      <span class="a11y-title-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/></svg>
+      </span>
+      <div>
+        <h2 class="a11y-title">خيارات الوصول</h2>
+        <small>اجعل تجربتك مريحة</small>
+      </div>
+    </div>
+    <button type="button" class="a11y-close" id="a11y-close" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="a11y-body">
+
+    <!-- Quick Profiles -->
+    <div class="a11y-section">
+      <div class="a11y-section-head">
+        <span class="a11y-section-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L3 14 H12 L11 22 L21 10 H12 Z"/></svg>
+        </span>
+        <div class="a11y-section-text">
+          <strong>ملفات سريعة</strong>
+          <small>إعدادات جاهزة تناسب احتياجات مختلفة</small>
+        </div>
+      </div>
+      <div class="a11y-quick-profiles">
+        <button type="button" class="a11y-profile" data-profile="vision">
+          <span class="a11y-profile-icon">👁️</span>
+          <span class="a11y-profile-name">ضعف البصر</span>
+          <span class="a11y-profile-desc">نص أكبر وتباين عالٍ</span>
+        </button>
+        <button type="button" class="a11y-profile" data-profile="dyslexia">
+          <span class="a11y-profile-icon">📖</span>
+          <span class="a11y-profile-name">صعوبة القراءة</span>
+          <span class="a11y-profile-desc">تباعد أوسع وخط أثقل</span>
+        </button>
+        <button type="button" class="a11y-profile" data-profile="focus">
+          <span class="a11y-profile-icon">🎯</span>
+          <span class="a11y-profile-name">تركيز عميق</span>
+          <span class="a11y-profile-desc">قراءة هادئة بلا حركة</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Font size -->
+    <div class="a11y-section">
+      <div class="a11y-section-head">
+        <span class="a11y-section-icon" aria-hidden="true">Aa</span>
+        <div class="a11y-section-text">
+          <strong>حجم الخط</strong>
+          <small>كبّر أو صغّر النصوص لسهولة القراءة</small>
+        </div>
+        <span class="a11y-value" id="a11y-font-value">متوسط</span>
+      </div>
+      <div class="a11y-options" role="group" aria-label="حجم الخط">
+        <button type="button" class="a11y-option" data-font="0.9" aria-pressed="false"><span class="a11y-option-letter" style="font-size:0.9rem">أ</span><span class="a11y-option-label">صغير</span></button>
+        <button type="button" class="a11y-option is-active" data-font="1" aria-pressed="true"><span class="a11y-option-letter" style="font-size:1.1rem">أ</span><span class="a11y-option-label">متوسط</span></button>
+        <button type="button" class="a11y-option" data-font="1.15" aria-pressed="false"><span class="a11y-option-letter" style="font-size:1.3rem">أ</span><span class="a11y-option-label">كبير</span></button>
+        <button type="button" class="a11y-option" data-font="1.3" aria-pressed="false"><span class="a11y-option-letter" style="font-size:1.5rem">أ</span><span class="a11y-option-label">أكبر</span></button>
+      </div>
+    </div>
+
+    <!-- Letter spacing -->
+    <div class="a11y-section">
+      <div class="a11y-section-head">
+        <span class="a11y-section-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 H21"/><path d="M8 12 H16"/><path d="M3 17 H21"/></svg>
+        </span>
+        <div class="a11y-section-text">
+          <strong>تباعد الحروف</strong>
+          <small>وسّع المسافات بين الحروف</small>
+        </div>
+        <span class="a11y-value" id="a11y-letter-value">عادي</span>
+      </div>
+      <div class="a11y-options cols-3" role="group" aria-label="تباعد الحروف">
+        <button type="button" class="a11y-option is-active" data-letter="normal" aria-pressed="true"><span class="a11y-option-label">عادي</span></button>
+        <button type="button" class="a11y-option" data-letter="wide" aria-pressed="false"><span class="a11y-option-label">واسع</span></button>
+        <button type="button" class="a11y-option" data-letter="wider" aria-pressed="false"><span class="a11y-option-label">أوسع</span></button>
+      </div>
+    </div>
+
+    <!-- Line spacing -->
+    <div class="a11y-section">
+      <div class="a11y-section-head">
+        <span class="a11y-section-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6 H20"/><path d="M4 12 H20"/><path d="M4 18 H20"/></svg>
+        </span>
+        <div class="a11y-section-text">
+          <strong>تباعد الأسطر</strong>
+          <small>زد المسافات بين الأسطر لقراءة أسهل</small>
+        </div>
+        <span class="a11y-value" id="a11y-line-value">عادي</span>
+      </div>
+      <div class="a11y-options cols-3" role="group" aria-label="تباعد الأسطر">
+        <button type="button" class="a11y-option is-active" data-line="normal" aria-pressed="true"><span class="a11y-option-label">عادي</span></button>
+        <button type="button" class="a11y-option" data-line="wide" aria-pressed="false"><span class="a11y-option-label">واسع</span></button>
+        <button type="button" class="a11y-option" data-line="wider" aria-pressed="false"><span class="a11y-option-label">أوسع</span></button>
+      </div>
+    </div>
+
+    <div class="a11y-divider"></div>
+
+    <!-- Theme -->
+    <div class="a11y-section">
+      <div class="a11y-section-head">
+        <span class="a11y-section-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3 V21 A9 9 0 0 0 12 3 Z" fill="currentColor" opacity=".9"/></svg>
+        </span>
+        <div class="a11y-section-text">
+          <strong>مظهر الصفحة</strong>
+          <small>اختر الألوان المريحة لعينك</small>
+        </div>
+        <span class="a11y-value" id="a11y-theme-value">نهاري</span>
+      </div>
+      <div class="a11y-options cols-3" role="group" aria-label="مظهر الصفحة">
+        <button type="button" class="a11y-option is-active" data-theme-value="light" aria-pressed="true"><span class="a11y-option-icon" aria-hidden="true">☀️</span><span class="a11y-option-label">نهاري</span></button>
+        <button type="button" class="a11y-option" data-theme-value="dark" aria-pressed="false"><span class="a11y-option-icon" aria-hidden="true">🌙</span><span class="a11y-option-label">ليلي</span></button>
+        <button type="button" class="a11y-option" data-theme-value="sepia" aria-pressed="false"><span class="a11y-option-icon" aria-hidden="true">📜</span><span class="a11y-option-label">سيبيا</span></button>
+      </div>
+    </div>
+
+    <div class="a11y-divider"></div>
+
+    <!-- Toggles -->
+    <div class="a11y-section">
+      <button type="button" class="a11y-toggle" id="a11y-contrast" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3 V21 A9 9 0 0 0 12 3 Z" fill="currentColor" opacity=".9"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>تباين عالٍ</strong>
+            <small>ألوان أوضح وأقوى للقراءة</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-weight" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 H14 A4 4 0 0 1 14 12 H6 Z" fill="currentColor" opacity=".9"/><path d="M6 12 H15 A4 4 0 0 1 15 20 H6 Z" fill="currentColor"/><path d="M6 4 V20"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>خط أثقل</strong>
+            <small>نص أعرض يسهّل التتبع</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-highlight-links" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13 A5 5 0 0 0 7 14"/><path d="M14 11 A5 5 0 0 1 17 10"/><path d="M8 8 L10 10"/><path d="M14 14 L16 16"/><path d="M10 15 L7 18 A3 3 0 0 1 2 13 L5 10"/><path d="M14 9 L17 6 A3 3 0 0 1 22 11 L19 14"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>تمييز الروابط</strong>
+            <small>إبراز الأزرار والروابط</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-big-cursor" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 L4 18 L8 14 L11 20 L14 19 L11 13 L16 13 Z" fill="currentColor"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>مؤشر كبير</strong>
+            <small>سهم أسهل في الرؤية</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-reading-guide" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/><rect x="8" y="10" width="8" height="4" rx="1" fill="currentColor" opacity=".3"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>دليل القراءة</strong>
+            <small>خط يتبع مؤشر الفأرة</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-reduce-transparency" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3 V21"/><path d="M3 9 H21"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>تقليل الشفافية</strong>
+            <small>خلفيات صلبة بدلًا من الشفافة</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-motion" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 V6"/><path d="M12 18 V21"/><path d="M4.2 4.2 L6.3 6.3"/><path d="M17.7 17.7 L19.8 19.8"/><path d="M3 12 H6"/><path d="M18 12 H21"/><path d="M4.2 19.8 L6.3 17.7"/><path d="M17.7 6.3 L19.8 4.2"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>تقليل الحركة</strong>
+            <small>إيقاف الرسوم المتحركة</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="a11y-toggle" id="a11y-readmode" aria-pressed="false">
+        <span class="a11y-toggle-info">
+          <span class="a11y-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3 H8 A4 4 0 0 1 12 7 V21 A3 3 0 0 0 9 18 H2 Z"/><path d="M22 3 H16 A4 4 0 0 0 12 7 V21 A3 3 0 0 1 15 18 H22 Z"/></svg>
+          </span>
+          <span class="a11y-toggle-text">
+            <strong>وضع القراءة المركّز</strong>
+            <small>يُبرز الموضوع الحالي ويُخفي الشريط الجانبي</small>
+          </span>
+        </span>
+        <span class="a11y-switch" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <button type="button" class="a11y-reset" id="a11y-reset">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12 a9 9 0 1 1-3-6.7"/><path d="M21 4 V9 H16"/></svg>
+      إعادة ضبط كل الإعدادات
+    </button>
+  </div>
+</aside>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const $ = (id) => document.getElementById(id);
+
+  const state = {
+    sb: null, user: null, profile: null, role: '',
+    topics: [], repliesByTopic: new Map(),
+    filter: 'all', query: '', sort: 'newest',
+    openReplies: new Set(), moderator: false, loading: false
+  };
+
+  const allowedRoles = new Set(['student', 'teacher', 'admin']);
+  const ROLE_LABELS = { student: 'طالب', teacher: 'معلم', parent: 'ولي أمر', admin: 'مسؤول' };
+
+  const STORAGE = {
+    font: 'aqdar_discussion_font_scale',
+    motion: 'aqdar_discussion_reduce_motion',
+    contrast: 'aqdar_discussion_high_contrast',
+    theme: 'aqdar_discussion_theme',
+    line: 'aqdar_discussion_line_spacing',
+    readmode: 'aqdar_discussion_readmode',
+    letter: 'aqdar_discussion_letter_spacing',
+    weight: 'aqdar_discussion_font_weight',
+    highlight: 'aqdar_discussion_highlight_links',
+    cursor: 'aqdar_discussion_big_cursor',
+    guide: 'aqdar_discussion_reading_guide',
+    transparency: 'aqdar_discussion_reduce_transparency'
+  };
+
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+  const dateText = (value) => {
+    if (!value) return 'تاريخ غير متاح';
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? 'تاريخ غير متاح'
+      : new Intl.DateTimeFormat('ar-EG', { dateStyle: 'medium', timeStyle: 'short' }).format(d);
+  };
+
+  const dateOnly = (value) => {
+    if (!value) return '—';
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? '—'
+      : new Intl.DateTimeFormat('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+  };
+
+  const relativeTime = (value) => {
+    if (!value) return '';
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return '';
+    const diff = Date.now() - d.getTime();
+    const sec = Math.floor(diff / 1000);
+    const min = Math.floor(sec / 60);
+    const hr = Math.floor(min / 60);
+    const day = Math.floor(hr / 24);
+    if (sec < 60) return 'الآن';
+    if (min < 60) return `منذ ${min} دقيقة`;
+    if (hr < 24) return `منذ ${hr} ساعة`;
+    if (day < 7) return `منذ ${day} يوم`;
+    return dateText(value);
+  };
+
+  const nameFor = (id) => {
+    if (id && state.user && id === state.user.id) {
+      return state.profile?.display_name
+        || [state.profile?.first_name, state.profile?.last_name].filter(Boolean).join(' ')
+        || 'أنت';
+    }
+    return 'عضو في المنصة';
+  };
+
+  const initials = (name) => (
+    String(name || 'ع').trim().split(/\s+/).slice(0, 2).map(s => s[0] || '').join('') || 'ع'
+  );
+
+  function toast(message, type = '') {
+    const el = $('toast'), icon = $('toast-icon'), msg = $('toast-msg');
+    msg.textContent = message;
+    el.className = 'toast show ' + type;
+    icon.textContent = type === 'error' ? '✕' : type === 'success' ? '✓' : 'ℹ';
+    window.clearTimeout(toast.timer);
+    toast.timer = window.setTimeout(() => el.className = 'toast', 4200);
+  }
+
+  function setBusy(button, busy, label) {
+    if (!button) return;
+    button.disabled = busy;
+    if (busy) {
+      button.dataset.oldLabel = button.textContent;
+      button.textContent = label || 'جارٍ التنفيذ…';
+    } else if (button.dataset.oldLabel) {
+      button.textContent = button.dataset.oldLabel;
+      delete button.dataset.oldLabel;
+    }
+  }
+
+  function getClient() {
+    if (window.supabaseClient) return window.supabaseClient;
+    console.error('[AQDAR discussion] window.supabaseClient is missing.');
+    return null;
+  }
+
+  function stateBox(title, body, href, label) {
+    return `<div class="state"><strong>${esc(title)}</strong>${esc(body)}${
+      href ? `<div style="margin-top:14px"><a class="btn btn-primary" href="${esc(href)}">${esc(label || 'فتح')}</a></div>` : ''
+    }</div>`;
+  }
+
+  /* ================ A11y ================ */
+  const FONT_LABELS = { '0.9': 'صغير', '1': 'متوسط', '1.15': 'كبير', '1.3': 'أكبر' };
+  const THEME_LABELS = { light: 'نهاري', dark: 'ليلي', sepia: 'سيبيا' };
+  const LINE_LABELS = { normal: 'عادي', wide: 'واسع', wider: 'أوسع' };
+  const LETTER_LABELS = { normal: 'عادي', wide: 'واسع', wider: 'أوسع' };
+
+  function applyFontScale(scale) {
+    document.documentElement.style.setProperty('--font-scale', String(scale));
+    try { localStorage.setItem(STORAGE.font, String(scale)); } catch (e) {}
+    document.querySelectorAll('.a11y-option[data-font]').forEach(btn => {
+      const active = parseFloat(btn.getAttribute('data-font')) === parseFloat(scale);
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    const label = $('a11y-font-value');
+    if (label) label.textContent = FONT_LABELS[String(scale)] || 'متوسط';
+  }
+
+  function applyMotion(reduce) {
+    document.documentElement.setAttribute('data-no-motion', reduce ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.motion, reduce ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-motion'); if (btn) btn.setAttribute('aria-pressed', String(reduce));
+  }
+
+  function applyContrast(high) {
+    document.documentElement.setAttribute('data-contrast', high ? 'high' : 'normal');
+    try { localStorage.setItem(STORAGE.contrast, high ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-contrast'); if (btn) btn.setAttribute('aria-pressed', String(high));
+  }
+
+  function applyTheme(themeValue) {
+    document.documentElement.setAttribute('data-theme', themeValue);
+    try { localStorage.setItem(STORAGE.theme, themeValue); } catch (e) {}
+    document.querySelectorAll('.a11y-option[data-theme-value]').forEach(btn => {
+      const active = btn.getAttribute('data-theme-value') === themeValue;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    const label = $('a11y-theme-value');
+    if (label) label.textContent = THEME_LABELS[themeValue] || 'نهاري';
+  }
+
+  function applyLineSpacing(line) {
+    document.documentElement.setAttribute('data-line', line);
+    try { localStorage.setItem(STORAGE.line, line); } catch (e) {}
+    document.querySelectorAll('.a11y-option[data-line]').forEach(btn => {
+      const active = btn.getAttribute('data-line') === line;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    const label = $('a11y-line-value');
+    if (label) label.textContent = LINE_LABELS[line] || 'عادي';
+  }
+
+  function applyLetter(letter) {
+    document.documentElement.setAttribute('data-letter', letter);
+    try { localStorage.setItem(STORAGE.letter, letter); } catch (e) {}
+    document.querySelectorAll('.a11y-option[data-letter]').forEach(btn => {
+      const active = btn.getAttribute('data-letter') === letter;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    const label = $('a11y-letter-value');
+    if (label) label.textContent = LETTER_LABELS[letter] || 'عادي';
+  }
+
+  function applyReadMode(on) {
+    document.documentElement.setAttribute('data-readmode', on ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.readmode, on ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-readmode'); if (btn) btn.setAttribute('aria-pressed', String(on));
+  }
+
+  function applyWeight(bold) {
+    document.documentElement.setAttribute('data-weight', bold ? 'bold' : 'normal');
+    try { localStorage.setItem(STORAGE.weight, bold ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-weight'); if (btn) btn.setAttribute('aria-pressed', String(bold));
+  }
+
+  function applyHighlightLinks(on) {
+    document.documentElement.setAttribute('data-highlight-links', on ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.highlight, on ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-highlight-links'); if (btn) btn.setAttribute('aria-pressed', String(on));
+  }
+
+  function applyBigCursor(on) {
+    document.documentElement.setAttribute('data-big-cursor', on ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.cursor, on ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-big-cursor'); if (btn) btn.setAttribute('aria-pressed', String(on));
+  }
+
+  function applyReadingGuide(on) {
+    document.documentElement.setAttribute('data-reading-guide', on ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.guide, on ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-reading-guide'); if (btn) btn.setAttribute('aria-pressed', String(on));
+  }
+
+  function applyReduceTransparency(on) {
+    document.documentElement.setAttribute('data-reduce-transparency', on ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.transparency, on ? '1' : '0'); } catch (e) {}
+    const btn = $('a11y-reduce-transparency'); if (btn) btn.setAttribute('aria-pressed', String(on));
+  }
+
+  function restoreA11y() {
+    const get = (k, def) => { try { return localStorage.getItem(k) || def; } catch(e){ return def; } };
+    applyFontScale(parseFloat(get(STORAGE.font, '1')));
+    applyMotion(get(STORAGE.motion,'0')==='1');
+    applyContrast(get(STORAGE.contrast,'0')==='1');
+    applyTheme(get(STORAGE.theme,'light'));
+    applyLine(get(STORAGE.line,'normal'));
+    applyLetter(get(STORAGE.letter,'normal'));
+    applyReadMode(get(STORAGE.readmode,'0')==='1');
+    applyWeight(get(STORAGE.weight,'0')==='1');
+    applyHighlightLinks(get(STORAGE.highlight,'0')==='1');
+    applyBigCursor(get(STORAGE.cursor,'0')==='1');
+    applyReadingGuide(get(STORAGE.guide,'0')==='1');
+    applyReduceTransparency(get(STORAGE.transparency,'0')==='1');
+  }
+  const applyLine = applyLineSpacing;
+
+  function resetA11y() {
+    applyFontScale(1); applyMotion(false); applyContrast(false);
+    applyTheme('light'); applyLineSpacing('normal'); applyLetter('normal');
+    applyReadMode(false); applyWeight(false); applyHighlightLinks(false);
+    applyBigCursor(false); applyReadingGuide(false); applyReduceTransparency(false);
+    document.querySelectorAll('.a11y-profile').forEach(p => p.classList.remove('is-active'));
+    toast('تم إعادة ضبط الإعدادات', 'success');
+  }
+
+  function applyProfile(name) {
+    resetA11y();
+    document.querySelectorAll('.a11y-profile').forEach(p => p.classList.toggle('is-active', p.dataset.profile === name));
+    if (name === 'vision') {
+      applyFontScale(1.15); applyContrast(true); applyWeight(true);
+    } else if (name === 'dyslexia') {
+      applyLetter('wide'); applyLineSpacing('wide'); applyWeight(true);
+    } else if (name === 'focus') {
+      applyReadMode(true); applyMotion(true);
+    }
+    toast('تم تطبيق الملف السريع', 'success');
+  }
+
+  function setupA11yPanel() {
+    const toggle = $('a11y-toggle'), panel = $('a11y-panel'), close = $('a11y-close');
+    function openPanel() {
+      panel.classList.add('is-visible');
+      panel.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function closePanel() {
+      panel.classList.remove('is-visible');
+      panel.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+    if (toggle && panel) toggle.addEventListener('click', () => {
+      panel.classList.contains('is-visible') ? closePanel() : openPanel();
+    });
+    if (close) close.addEventListener('click', closePanel);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && panel && panel.classList.contains('is-visible')) closePanel();
+    });
+
+    document.querySelectorAll('.a11y-option[data-font]').forEach(btn => {
+      btn.addEventListener('click', () => applyFontScale(parseFloat(btn.getAttribute('data-font'))));
+    });
+    document.querySelectorAll('.a11y-option[data-theme-value]').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.getAttribute('data-theme-value')));
+    });
+    document.querySelectorAll('.a11y-option[data-line]').forEach(btn => {
+      btn.addEventListener('click', () => applyLineSpacing(btn.getAttribute('data-line')));
+    });
+    document.querySelectorAll('.a11y-option[data-letter]').forEach(btn => {
+      btn.addEventListener('click', () => applyLetter(btn.getAttribute('data-letter')));
+    });
+    document.querySelectorAll('.a11y-profile').forEach(btn => {
+      btn.addEventListener('click', () => applyProfile(btn.dataset.profile));
+    });
+
+    const bind = (id, fn) => {
+      const b = $(id);
+      if (b) b.addEventListener('click', () => fn(b.getAttribute('aria-pressed') !== 'true'));
+    };
+    bind('a11y-contrast', applyContrast);
+    bind('a11y-motion', applyMotion);
+    bind('a11y-readmode', applyReadMode);
+    bind('a11y-weight', applyWeight);
+    bind('a11y-highlight-links', applyHighlightLinks);
+    bind('a11y-big-cursor', applyBigCursor);
+    bind('a11y-reading-guide', applyReadingGuide);
+    bind('a11y-reduce-transparency', applyReduceTransparency);
+
+    const resetBtn = $('a11y-reset');
+    if (resetBtn) resetBtn.addEventListener('click', resetA11y);
+
+    document.addEventListener('mousemove', e => {
+      if (document.documentElement.getAttribute('data-reading-guide') !== 'true') return;
+      const guide = $('reading-guide');
+      if (guide) guide.style.top = (e.clientY - 24) + 'px';
+    }, { passive: true });
+  }
+
+  /* ================ User menu ================ */
+  function setupUserMenu() {
+    const card = $('user-card'), menu = $('user-menu');
+    if (!card || !menu) return;
+    const open = () => { card.setAttribute('aria-expanded','true'); menu.classList.add('open'); };
+    const close = () => { card.setAttribute('aria-expanded','false'); menu.classList.remove('open'); };
+    card.addEventListener('click', e => { if(menu.contains(e.target)) return; e.stopPropagation(); menu.classList.contains('open') ? close() : open(); });
+    card.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); menu.classList.contains('open') ? close() : open(); } });
+    document.addEventListener('click', e => { if(!card.contains(e.target)) close(); });
+    document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
+
+    $('menu-back').addEventListener('click', () => { window.location.href = 'index.html'; });
+    $('menu-logout').addEventListener('click', async () => {
+      if (!state.sb) return;
+      try { await state.sb.auth.signOut(); } catch(e){}
+      window.location.replace('login.html');
+    });
+  }
+
+  /* ================ Init ================ */
+  async function init() {
+    restoreA11y();
+    setupA11yPanel();
+    setupUserMenu();
+
+    state.sb = getClient();
+    if (!state.sb) {
+      $('user-name').textContent = 'تعذّر الاتصال';
+      $('topics-list').innerHTML = stateBox('تعذّر الاتصال بقاعدة البيانات', 'تأكد من تحميل js/supabase-client.js وإعداد Supabase.');
+      $('new-topic-btn').disabled = true;
+      return;
+    }
+
+    const { data: { session }, error: sessionError } = await state.sb.auth.getSession();
+    if (sessionError || !session?.user) { window.location.replace('login.html'); return; }
+    state.user = session.user;
+
+    const { data: profile } = await state.sb
+      .from('profiles')
+      .select('id,username,display_name,first_name,last_name,role,status,created_at')
+      .eq('id', state.user.id)
+      .maybeSingle();
+
+    state.profile = profile || null;
+    state.role = String(profile?.role || 'student').toLowerCase();
+    state.moderator = ['teacher', 'admin'].includes(state.role);
+
+    const displayName = profile?.display_name || [profile?.first_name, profile?.last_name].filter(Boolean).join(' ') || state.user.email || 'مستخدم';
+    const userEmail = state.user.email || '—';
+    const userUsername = profile?.username ? '@' + profile.username : '—';
+    const userRoleLabel = ROLE_LABELS[state.role] || 'طالب';
+    const isActive = !profile?.status || profile.status === 'active';
+    const userStatusLabel = isActive ? 'نشط' : 'غير نشط';
+    const joinedAt = dateOnly(profile?.created_at || state.user.created_at);
+    const initial = initials(displayName).toUpperCase();
+
+    $('user-avatar').textContent = initial;
+    if (!isActive) $('user-avatar').classList.add('is-offline');
+    $('user-name').textContent = displayName;
+    $('user-username').textContent = userUsername;
+    $('user-email').textContent = userEmail;
+
+    const roleBadge = $('user-role');
+    roleBadge.textContent = userRoleLabel;
+    roleBadge.className = 'badge role-badge ' + state.role;
+
+    const statusBadge = $('user-status');
+    statusBadge.textContent = userStatusLabel;
+    statusBadge.className = 'badge status-badge' + (isActive ? '' : ' inactive');
+
+    $('user-menu-avatar').textContent = initial;
+    $('user-menu-name').textContent = displayName;
+    $('user-menu-email').textContent = userEmail;
+    $('user-menu-username').textContent = userUsername;
+    $('user-menu-role').textContent = userRoleLabel;
+    $('user-menu-status').textContent = userStatusLabel;
+    $('user-menu-joined').textContent = joinedAt;
+
+    $('role-note').textContent = state.moderator
+      ? '✦ تظهر لك أدوات الإشراف على الموضوعات والردود.'
+      : '✦ يمكنك إنشاء موضوع والرد على النقاشات. أدوات الإشراف متاحة للمعلم والمسؤول.';
+
+    if (!allowedRoles.has(state.role)) { state.role = 'student'; state.moderator = false; }
+    await loadTopics();
+  }
+
+  /* ================ Load ================ */
+  async function loadTopics() {
+    if (state.loading || !state.sb || !state.user) return;
+    state.loading = true;
+    $('topics-list').innerHTML = '<div class="state"><div class="spinner" aria-hidden="true"></div><strong>جارٍ تحميل الموضوعات</strong>لحظات من فضلك.</div>';
+
+    const { data, error } = await state.sb.from('discussions')
+      .select('id,title,body,status,author_id,created_at,updated_at')
+      .order('created_at', { ascending: state.sort === 'oldest' })
+      .limit(100);
+
+    state.loading = false;
+    if (error) {
+      console.error('[AQDAR] load topics:', error);
+      $('topics-list').innerHTML = stateBox('لم نتمكن من تحميل الموضوعات', 'راجع اتصال Supabase وسياسات القراءة.');
+      $('topics-count').textContent = '';
+      return;
+    }
+    state.topics = data || [];
+    await loadReplyCounts(state.topics.map(t => t.id));
+    renderTopics();
+    updateStats();
+    updateUserStats();
+  }
+
+  async function loadReplyCounts(ids) {
+    state.repliesByTopic = new Map();
+    if (!ids.length) return;
+    const { data, error } = await state.sb.from('discussion_replies')
+      .select('id,discussion_id,body,status,author_id,created_at')
+      .in('discussion_id', ids)
+      .order('created_at', { ascending: true });
+    if (error) { console.warn('[AQDAR] replies:', error); return; }
+    for (const row of data || []) {
+      if (!state.repliesByTopic.has(row.discussion_id)) state.repliesByTopic.set(row.discussion_id, []);
+      state.repliesByTopic.get(row.discussion_id).push(row);
+    }
+  }
+
+  function updateStats() {
+    let totalReplies = 0;
+    const authors = new Set();
+    state.topics.forEach(t => {
+      if (t.author_id) authors.add(t.author_id);
+      const replies = state.repliesByTopic.get(t.id) || [];
+      totalReplies += replies.filter(r => r.status === 'visible').length;
+      replies.forEach(r => { if (r.author_id && r.status === 'visible') authors.add(r.author_id); });
+    });
+    $('stat-topics').textContent = state.topics.length.toLocaleString('ar-EG');
+    $('stat-replies').textContent = totalReplies.toLocaleString('ar-EG');
+    $('stat-members').textContent = authors.size.toLocaleString('ar-EG');
+  }
+
+  function updateUserStats() {
+    if (!state.user) return;
+    const myTopics = state.topics.filter(t => t.author_id === state.user.id).length;
+    let myReplies = 0;
+    state.repliesByTopic.forEach(arr => {
+      arr.forEach(r => { if (r.author_id === state.user.id) myReplies++; });
+    });
+    const tEl = $('user-menu-topics-count');
+    const rEl = $('user-menu-replies-count');
+    if (tEl) tEl.textContent = myTopics.toLocaleString('ar-EG');
+    if (rEl) rEl.textContent = myReplies.toLocaleString('ar-EG');
+  }
+
+  /* ================ Render ================ */
+  function visibleTopics() {
+    let list = [...state.topics];
+    if (!state.moderator) list = list.filter(t => t.status !== 'hidden');
+    if (state.filter === 'open') list = list.filter(t => t.status === 'open');
+    if (state.filter === 'mine') list = list.filter(t => t.author_id === state.user?.id);
+    const term = state.query.trim().toLocaleLowerCase('ar');
+    if (term) list = list.filter(t => (t.title + ' ' + t.body).toLocaleLowerCase('ar').includes(term));
+    if (state.sort === 'active') {
+      list.sort((a, b) => {
+        const aCount = (state.repliesByTopic.get(a.id) || []).length;
+        const bCount = (state.repliesByTopic.get(b.id) || []).length;
+        return bCount - aCount;
+      });
+    }
+    return list;
+  }
+
+  function renderTopics() {
+    const list = visibleTopics();
+    $('topics-count').textContent = `${list.length} موضوع`;
+    if (!list.length) {
+      $('topics-list').innerHTML = stateBox('لا توجد موضوعات مطابقة', 'جرّب تغيير كلمات البحث أو اكتب موضوعًا جديدًا.');
+      return;
+    }
+
+    $('topics-list').innerHTML = list.map(t => {
+      const replies = (state.repliesByTopic.get(t.id) || [])
+        .filter(r => r.status === 'visible' || state.moderator);
+      const mine = t.author_id === state.user?.id;
+      const hidden = t.status === 'hidden';
+      const opened = state.openReplies.has(t.id);
+      const author = esc(nameFor(t.author_id));
+      const relTime = relativeTime(t.created_at);
+
+      return `<article class="topic" data-topic="${esc(t.id)}">
+        <div class="topic-top">
+          <div class="avatar" aria-hidden="true">${esc(initials(author))}</div>
+          <div class="topic-main">
+            <h4 class="topic-title">${esc(t.title)}</h4>
+            <div class="topic-meta">
+              <span>${author}</span>
+              <span aria-hidden="true">·</span>
+              <time datetime="${esc(t.created_at || '')}" title="${esc(dateText(t.created_at))}">${esc(relTime)}</time>
+              <span class="pill ${hidden ? 'hidden' : ''}">${hidden ? 'مخفي' : 'نقاش مفتوح'}</span>
+            </div>
+          </div>
+        </div>
+        <p class="topic-body">${esc(t.body)}</p>
+        <div class="topic-bottom">
+          <div class="topic-stats">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              ${replies.length} رد
+            </span>
+            ${mine ? '<span>✦ موضوعك</span>' : ''}
+          </div>
+          <div class="topic-actions">
+            <button class="mini-btn" type="button" data-action="replies" data-id="${esc(t.id)}" aria-expanded="${opened ? 'true' : 'false'}">
+              ${opened ? 'إخفاء الردود' : 'عرض الردود والرد'}
+            </button>
+            ${mine && !hidden ? `<button class="mini-btn" type="button" data-action="edit-topic" data-id="${esc(t.id)}">تعديل</button>` : ''}
+            ${state.moderator ? `<button class="mini-btn" type="button" data-action="toggle-topic" data-id="${esc(t.id)}">${hidden ? 'إظهار الموضوع' : 'إخفاء الموضوع'}</button>` : ''}
+          </div>
+        </div>
+        <div class="replies ${opened ? 'open' : ''}" id="replies-${esc(t.id)}">${renderReplies(t, replies)}</div>
+      </article>`;
+    }).join('');
+  }
+
+  function renderReplies(topic, replies) {
+    const canReply = topic.status !== 'hidden';
+    let html = replies.length
+      ? replies.map(r => `<div class="reply">
+          <div class="reply-head">
+            <strong>${esc(nameFor(r.author_id))}</strong>
+            <time datetime="${esc(r.created_at || '')}" title="${esc(dateText(r.created_at))}">${esc(relativeTime(r.created_at))}</time>
+            ${state.moderator ? `<button class="mini-btn" type="button" data-action="toggle-reply" data-id="${esc(r.id)}" data-status="${esc(r.status)}">${r.status === 'hidden' ? 'إظهار الرد' : 'إخفاء الرد'}</button>` : ''}
+            ${r.status === 'hidden' ? '<span class="pill hidden">مخفي</span>' : ''}
+          </div>
+          <p class="reply-body">${esc(r.body)}</p>
+        </div>`).join('')
+      : '<p class="empty-small">لا توجد ردود حتى الآن. كن أول من يرد.</p>';
+
+    if (canReply) {
+      html += `<form class="reply-form" data-reply-form="${esc(topic.id)}">
+        <label for="reply-${esc(topic.id)}"><strong>أضف ردك</strong></label>
+        <textarea class="field" id="reply-${esc(topic.id)}" name="body" maxlength="3000" required placeholder="اكتب ردًا واضحًا ومحترمًا…"></textarea>
+        <div class="help">
+          <span></span>
+          <span class="char-count" data-char-for="reply-${esc(topic.id)}">0 / 3000</span>
+        </div>
+        <button class="btn btn-primary" type="submit">إرسال الرد</button>
+      </form>`;
+    } else {
+      html += '<p class="empty-small">هذا الموضوع مخفي حاليًا، ولا يمكن إضافة رد جديد.</p>';
+    }
+    return html;
+  }
+
+  /* ================ Topic modal ================ */
+  function updateCharCount(inputEl, counterEl, max) {
+    if (!inputEl || !counterEl) return;
+    const len = inputEl.value.length;
+    counterEl.textContent = `${len} / ${max}`;
+    counterEl.classList.toggle('warn', len > max * 0.75 && len <= max * 0.95);
+    counterEl.classList.toggle('danger', len > max * 0.95);
+  }
+
+  function openTopicModal(topic) {
+    const form = $('topic-form');
+    form.dataset.editId = topic?.id || '';
+    $('topic-modal-title').textContent = topic ? 'تعديل الموضوع' : 'إنشاء موضوع جديد';
+    $('topic-title').value = topic?.title || '';
+    $('topic-body').value = topic?.body || '';
+    $('topic-submit').textContent = topic ? 'حفظ التعديلات' : 'نشر الموضوع';
+    updateCharCount($('topic-title'), $('title-count'), 140);
+    updateCharCount($('topic-body'), $('body-count'), 6000);
+    $('topic-modal-backdrop').classList.add('open');
+    setTimeout(() => $('topic-title').focus(), 50);
+  }
+
+  function closeTopicModal() {
+    $('topic-modal-backdrop').classList.remove('open');
+    $('topic-form').dataset.editId = '';
+    $('topic-form').reset();
+    $('title-count').textContent = '0 / 140';
+    $('body-count').textContent = '0 / 6000';
+    $('new-topic-btn').focus();
+  }
+
+  async function submitTopic(event) {
+    event.preventDefault();
+    if (!state.user) { toast('سجّل الدخول أولًا.', 'error'); return; }
+
+    const title = $('topic-title').value.trim();
+    const body = $('topic-body').value.trim();
+    const editId = $('topic-form').dataset.editId;
+
+    if (title.length < 4 || body.length < 8) {
+      toast('اكتب عنوانًا من 4 أحرف على الأقل ومحتوى أوضح.', 'error');
+      return;
+    }
+
+    const button = $('topic-submit');
+    setBusy(button, true, editId ? 'جارٍ الحفظ…' : 'جارٍ النشر…');
+
+    let result;
+    if (editId) {
+      result = await state.sb.from('discussions')
+        .update({ title, body }).eq('id', editId).eq('author_id', state.user.id)
+        .select('id').maybeSingle();
+    } else {
+      result = await state.sb.from('discussions').insert({ title, body }).select('id').single();
+    }
+
+    setBusy(button, false);
+
+    if (result.error) {
+      console.error('[AQDAR] save topic:', result.error);
+      toast(editId ? 'تعذّر حفظ التعديلات.' : 'تعذّر نشر الموضوع. تأكد من صلاحيات النشر.', 'error');
+      return;
+    }
+
+    toast(editId ? 'تم تحديث الموضوع ✓' : 'تم نشر الموضوع بنجاح ✓', 'success');
+    closeTopicModal();
+    await loadTopics();
+  }
+
+  /* ================ Reply ================ */
+  async function submitReply(event) {
+    const form = event.target.closest('form[data-reply-form]');
+    if (!form) return;
+    event.preventDefault();
+
+    const topicId = form.dataset.replyForm;
+    const body = new FormData(form).get('body')?.toString().trim();
+    if (!body || body.length < 2) { toast('اكتب ردًا قبل الإرسال.', 'error'); return; }
+
+    const button = form.querySelector('button[type="submit"]');
+    setBusy(button, true, 'جارٍ الإرسال…');
+
+    const { error } = await state.sb.from('discussion_replies')
+      .insert({ discussion_id: topicId, body, author_id: state.user.id });
+
+    setBusy(button, false);
+
+    if (error) {
+      console.error('[AQDAR] insert reply:', error);
+      toast('تعذّر إرسال الرد.', 'error');
+      return;
+    }
+
+    toast('تم إرسال ردك ✓', 'success');
+    state.openReplies.add(topicId);
+    await loadTopics();
+  }
+
+  /* ================ Moderation ================ */
+  async function toggleTopic(id) {
+    if (!state.moderator || !state.sb) {
+      toast('ليس لديك صلاحية الإشراف.', 'error');
+      return;
+    }
+    const topic = state.topics.find(t => t.id === id);
+    if (!topic) {
+      toast('لم يتم العثور على الموضوع.', 'error');
+      return;
+    }
+    const next = topic.status === 'hidden' ? 'open' : 'hidden';
+    const { data, error } = await state.sb.rpc('moderate_discussion', {
+      p_discussion_id: id, p_status: next
+    });
+    if (error || data !== true) {
+      console.error('[AQDAR] moderate_discussion error:', error || data);
+      toast(error?.message || 'تعذّر تغيير حالة الموضوع.', 'error');
+      return;
+    }
+    toast(next === 'hidden' ? 'تم إخفاء الموضوع ✓' : 'تم إظهار الموضوع ✓', 'success');
+    await loadTopics();
+  }
+
+  async function toggleReply(id, status) {
+    if (!state.moderator || !state.sb) {
+      toast('ليس لديك صلاحية الإشراف.', 'error');
+      return;
+    }
+    const next = status === 'hidden' ? 'visible' : 'hidden';
+    const { data, error } = await state.sb.rpc('moderate_reply', {
+      p_reply_id: id, p_status: next
+    });
+    if (error || data !== true) {
+      console.error('[AQDAR] moderate_reply error:', error || data);
+      toast(error?.message || 'تعذّر تغيير حالة الرد.', 'error');
+      return;
+    }
+    toast(next === 'hidden' ? 'تم إخفاء الرد ✓' : 'تم إظهار الرد ✓', 'success');
+    await loadTopics();
+  }
+
+  /* ================ Bindings ================ */
+  $('new-topic-btn').addEventListener('click', () => {
+    if (!state.user) { toast('سجّل الدخول أولًا.', 'error'); return; }
+    openTopicModal();
+  });
+
+  $('topic-form').addEventListener('submit', submitTopic);
+  document.querySelectorAll('[data-close="topic"]').forEach(b => b.addEventListener('click', closeTopicModal));
+  $('topic-modal-backdrop').addEventListener('click', e => {
+    if (e.target === $('topic-modal-backdrop')) closeTopicModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && $('topic-modal-backdrop').classList.contains('open')) closeTopicModal();
+  });
+
+  const titleInput = $('topic-title'), bodyInput = $('topic-body');
+  if (titleInput) titleInput.addEventListener('input', () => updateCharCount(titleInput, $('title-count'), 140));
+  if (bodyInput) bodyInput.addEventListener('input', () => updateCharCount(bodyInput, $('body-count'), 6000));
+
+  document.addEventListener('input', e => {
+    const ta = e.target;
+    if (ta.tagName === 'TEXTAREA' && ta.id && ta.id.startsWith('reply-')) {
+      const counter = document.querySelector(`[data-char-for="${ta.id}"]`);
+      if (counter) updateCharCount(ta, counter, 3000);
+    }
+  });
+
+  $('topics-list').addEventListener('click', async e => {
+    const b = e.target.closest('button[data-action]');
+    if (!b) return;
+    const id = b.dataset.id;
+    switch (b.dataset.action) {
+      case 'replies':
+        state.openReplies.has(id) ? state.openReplies.delete(id) : state.openReplies.add(id);
+        renderTopics();
+        break;
+      case 'edit-topic': {
+        const t = state.topics.find(x => x.id === id);
+        if (t && t.author_id === state.user?.id) openTopicModal(t);
+        break;
+      }
+      case 'toggle-topic': await toggleTopic(id); break;
+      case 'toggle-reply': await toggleReply(id, b.dataset.status); break;
+    }
+  });
+
+  $('topics-list').addEventListener('submit', submitReply);
+
+  const searchInput = $('search-input'), searchClear = $('search-clear');
+  if (searchInput) searchInput.addEventListener('input', e => {
+    state.query = e.target.value;
+    searchClear.classList.toggle('visible', state.query.length > 0);
+    renderTopics();
+  });
+  if (searchClear) searchClear.addEventListener('click', () => {
+    searchInput.value = ''; state.query = '';
+    searchClear.classList.remove('visible');
+    renderTopics(); searchInput.focus();
+  });
+
+  $('sort-select').addEventListener('change', e => {
+    state.sort = e.target.value;
+    renderTopics();
+  });
+
+  document.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => {
+    state.filter = b.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    renderTopics();
+  }));
+
+  $('refresh-btn').addEventListener('click', loadTopics);
+
+  init().catch(err => {
+    console.error(err);
+    $('topics-list').innerHTML = stateBox('حدث خطأ غير متوقع', 'حدّث الصفحة، وإذا استمر الخطأ افتح وحدة التحكم لمعرفة التفاصيل.');
+  });
+
+})();
+</script>
+</body>
+</html>

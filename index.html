@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>أقدر | AQDAR</title>
+<style>
+:root{
+  --primary:#2457D6;
+  --cyan:#18BFD4;
+  --gold:#FFC94A;
+  --green:#5CB83C;
+  --orange:#F5A623;
+  --bg:#F6FAFF;
+  --text:#17315F;
+  --font:"Noto Kufi Arabic","Cairo","Segoe UI",Tahoma,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font)}
+
+#app{
+  position:fixed;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:clamp(.1rem,1vh,.4rem);
+  padding:env(safe-area-inset-top) 3vw env(safe-area-inset-bottom);overflow:hidden;
+}
+
+/* ===== الخلفية ===== */
+.bg{
+  position:absolute;inset:-15%;opacity:0;
+  animation:bgIn 1.2s ease-out forwards;
+  background:
+    radial-gradient(45% 45% at 20% 25%,rgba(24,191,212,.25),transparent 70%),
+    radial-gradient(50% 50% at 80% 75%,rgba(36,87,214,.22),transparent 70%),
+    radial-gradient(35% 35% at 75% 15%,rgba(255,201,74,.22),transparent 70%),
+    radial-gradient(30% 30% at 10% 80%,rgba(92,184,60,.18),transparent 70%);
+}
+.bg.live{animation:bgIn 1.2s ease-out forwards, drift 24s ease-in-out infinite alternate}
+@keyframes bgIn{to{opacity:1}}
+@keyframes drift{to{transform:translate3d(4%,-3%,0) scale(1.06)}}
+
+.pt{
+  position:absolute;border-radius:50%;opacity:0;pointer-events:none;
+  will-change:transform,opacity;filter:blur(.5px);
+  animation:pt var(--d) ease-in-out var(--l) infinite;
+}
+@keyframes pt{
+  0%,100%{opacity:0;transform:translate3d(0,12px,0) scale(.8)}
+  50%{opacity:.7;transform:translate3d(var(--x),-32px,0) scale(1.2)}
+}
+
+.bg-star{
+  position:absolute;border-radius:50%;opacity:0;pointer-events:none;
+  background:radial-gradient(circle,#FFC94A,transparent 70%);
+  animation:twinkle var(--d) ease-in-out var(--l) infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:0;transform:scale(.2)}
+  50%{opacity:.6;transform:scale(1)}
+}
+
+/* ===== المسرح ===== */
+.stage{
+  position:relative;
+  width:min(86vw, 58vh * 0.92, 520px);
+  aspect-ratio:500/560;
+  z-index:1;
+}
+.logo-container{
+  width:100%;height:100%;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+
+#mainLogo{
+  width:100%;height:100%;opacity:0;
+  transform:scale(.45) translateY(50px);
+  filter:blur(18px);
+  overflow:visible;
+  will-change:transform,opacity,filter;
+}
+/* حالة نهائية ثابتة + أنيميشن الدخول */
+#mainLogo.show{
+  opacity:1;
+  transform:scale(1) translateY(0);
+  filter:blur(0);
+  animation:logoEntrance 1.5s cubic-bezier(.22,.8,.2,1) forwards;
+}
+/* لما نضيف pulse، نشغّل الأنيميشنين مع بعض — اللوجو مايختفيش */
+#mainLogo.show.pulse{
+  animation:
+    logoEntrance 1.5s cubic-bezier(.22,.8,.2,1) forwards,
+    logoPulse 5s ease-in-out 1.6s infinite;
+}
+@keyframes logoEntrance{
+  0%{opacity:0;transform:scale(.35) translateY(70px);filter:blur(20px)}
+  30%{opacity:.7;filter:blur(4px)}
+  100%{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}
+}
+
+/* ===== الحلقات ===== */
+.glow-ring{
+  position:absolute;inset:1%;border-radius:50%;
+  border:3px solid transparent;
+  background:linear-gradient(var(--bg),var(--bg)) padding-box,
+             conic-gradient(from 0deg,var(--primary),var(--cyan),var(--gold),var(--green),var(--orange),var(--primary)) border-box;
+  opacity:0;transform:scale(.55);
+  will-change:transform,opacity;
+}
+.glow-ring.show{animation:ringIn 1.6s cubic-bezier(.22,.8,.2,1) .4s forwards}
+@keyframes ringIn{
+  0%{opacity:0;transform:scale(.55) rotate(-50deg)}
+  100%{opacity:.32;transform:scale(1) rotate(0deg)}
+}
+.glow-ring.spin{
+  animation:ringIn 1.6s cubic-bezier(.22,.8,.2,1) .4s forwards,
+            ringSpin 20s linear 2s infinite;
+}
+@keyframes ringSpin{to{transform:scale(1) rotate(360deg)}}
+
+.glow-ring2{
+  position:absolute;inset:-3%;border-radius:50%;
+  background:conic-gradient(from 45deg,transparent,var(--cyan),transparent,var(--primary),transparent);
+  opacity:0;
+}
+.glow-ring2.show{animation:ring2In 2.2s ease-out .8s forwards}
+@keyframes ring2In{to{opacity:.12}}
+
+/* نبضة اللوجو — تثبّت opacity/transform عشان مايختفيش */
+@keyframes logoPulse{
+  0%,100%{
+    opacity:1;
+    transform:scale(1) translateY(0);
+    filter:drop-shadow(0 0 12px rgba(24,191,212,.25));
+  }
+  50%{
+    opacity:1;
+    transform:scale(1) translateY(0);
+    filter:drop-shadow(0 0 28px rgba(24,191,212,.5));
+  }
+}
+
+/* ===== النصوص ===== */
+.brand{text-align:center;position:relative;z-index:1}
+#ar{
+  font-size:clamp(2rem,7.5vw + .9vh,4.2rem);
+  font-weight:800;line-height:1.05;
+  background:linear-gradient(110deg,var(--primary),var(--cyan),var(--primary));
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  opacity:0;transform:translateY(16px);
+}
+#ar.show{animation:shine 4s linear infinite, textUp .8s cubic-bezier(.22,.8,.2,1) forwards}
+@keyframes textUp{to{opacity:1;transform:translateY(0)}}
+@keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+#en{
+  direction:ltr;display:flex;justify-content:center;gap:.06em;
+  font-size:clamp(.82rem,2.8vw + .55vh,1.35rem);
+  font-weight:700;color:var(--primary);letter-spacing:.3em;
+  margin-top:.05rem;padding-left:.3em;
+}
+#en span{opacity:0;display:inline-block;transform:translateY(12px)}
+#en span.show{animation:letterIn .45s cubic-bezier(.22,.8,.2,1) forwards}
+@keyframes letterIn{to{opacity:1;transform:translateY(0)}}
+
+#tag{
+  margin-top:clamp(.15rem,.9vh,.4rem);
+  font-size:clamp(.78rem,2.1vw + .4vh,1.08rem);
+  font-weight:600;opacity:0;transform:translateY(10px);
+}
+#tag.show{animation:textUp .55s ease forwards}
+
+#slogan{
+  margin-top:.1rem;font-size:clamp(.85rem,2.4vw + .5vh,1.2rem);
+  font-weight:800;color:var(--primary);opacity:0;
+}
+#slogan.show{animation:textUp .5s ease forwards}
+#slogan b{color:var(--gold);font-weight:900;margin:0 .25em}
+
+/* ===== شريط التحميل ===== */
+.load{
+  position:relative;z-index:1;
+  width:clamp(105px,25vw,190px);height:5px;
+  border-radius:5px;background:rgba(36,87,214,.1);
+  overflow:hidden;margin-top:clamp(.12rem,.8vh,.45rem);
+}
+.load i{
+  position:absolute;inset:0;border-radius:5px;
+  background:linear-gradient(90deg,var(--cyan),var(--primary),var(--gold));
+  transform-origin:0 50%;transform:scaleX(0);
+  box-shadow:0 0 8px rgba(24,191,212,.5);
+}
+.load i.go{animation:barFill 5.2s cubic-bezier(.4,0,.3,1) forwards}
+@keyframes barFill{
+  0%{transform:scaleX(0)}
+  15%{transform:scaleX(.15)}
+  60%{transform:scaleX(.8)}
+  100%{transform:scaleX(1)}
+}
+
+.final .h,.final #ar,.final #en span,
+.final #tag,.final #slogan{
+  opacity:1!important;transform:none!important;filter:none!important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .bg,.bg.live,.pt,.glow-ring.spin,.bg-star,#mainLogo.pulse{animation:none!important}
+  .bg,.glow-ring{opacity:1}
+  .pt{display:none}
+  #mainLogo{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="bg" id="bg"></div>
+  <div id="pts"></div>
+
+  <div class="stage">
+    <div class="glow-ring" id="ring1"></div>
+    <div class="glow-ring2" id="ring2"></div>
+    <div class="logo-container">
+
+      <!-- ================================================= -->
+      <!-- اللوجو — نسب متناسقة (رأس : جسم ≈ 1 : 3.2)         -->
+      <!-- ================================================= -->
+      <svg id="mainLogo" viewBox="0 0 500 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="gBlueArc" x1="0" y1="0" x2="1" y2="0.6">
+            <stop offset="0" stop-color="#3B6FEC"/>
+            <stop offset="1" stop-color="#18BFD4"/>
+          </linearGradient>
+          <linearGradient id="gGreenArc" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#7DD24D"/>
+            <stop offset="1" stop-color="#4DA830"/>
+          </linearGradient>
+          <linearGradient id="gSwoosh1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#7DD24D"/>
+            <stop offset="0.6" stop-color="#5CB83C"/>
+            <stop offset="1" stop-color="#4DA830"/>
+          </linearGradient>
+          <linearGradient id="gSwoosh2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#FFC94A"/>
+            <stop offset="0.7" stop-color="#F5A623"/>
+            <stop offset="1" stop-color="#E88B10"/>
+          </linearGradient>
+          <linearGradient id="gShirt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4A7CEC"/>
+            <stop offset="1" stop-color="#2457D6"/>
+          </linearGradient>
+          <linearGradient id="gStar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE066"/>
+            <stop offset="1" stop-color="#F5A623"/>
+          </linearGradient>
+          <radialGradient id="gCheek">
+            <stop offset="0" stop-color="#FFB0B0" stop-opacity=".75"/>
+            <stop offset="1" stop-color="#FFB0B0" stop-opacity="0"/>
+          </radialGradient>
+
+          <filter id="starGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softShadow" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="3.5" flood-color="#0A1530" flood-opacity=".14"/>
+          </filter>
+
+          <clipPath id="arcClip">
+            <circle cx="245" cy="235" r="200"/>
+          </clipPath>
+        </defs>
+
+        <!-- 1) الأقواس الدائرية -->
+        <g clip-path="url(#arcClip)">
+          <path d="M48 340 Q38 165 195 92 Q360 20 448 170"
+                stroke="url(#gBlueArc)" stroke-width="8.5"
+                fill="none" stroke-linecap="round" opacity=".95"/>
+          <path d="M448 170 Q472 305 400 415 Q355 480 270 495"
+                stroke="url(#gGreenArc)" stroke-width="8.5"
+                fill="none" stroke-linecap="round" opacity=".9"/>
+        </g>
+
+        <!-- 2) أيقونة الكتاب -->
+        <g id="iconBook" filter="url(#softShadow)"
+           style="transform-box:fill-box;transform-origin:center">
+          <rect x="108" y="78" width="62" height="56" rx="15" fill="#2457D6"/>
+          <path d="M124 96 Q135 90 144 96 V122 Q135 118 124 122 Z" fill="#fff" opacity=".95"/>
+          <path d="M144 96 Q153 90 162 96 V122 Q153 118 144 122 Z" fill="#fff" opacity=".82"/>
+          <line x1="144" y1="96" x2="144" y2="122" stroke="#2457D6" stroke-width="1.6"/>
+        </g>
+
+        <!-- 3) أيقونة المصباح -->
+        <g id="iconBulb" filter="url(#softShadow)"
+           style="transform-box:fill-box;transform-origin:center">
+          <rect x="72" y="160" width="62" height="56" rx="15" fill="#5CB83C"/>
+          <path d="M103 174 Q93 174 93 184 Q93 191 98 194 V200 H108 V194 Q113 191 113 184 Q113 174 103 174 Z"
+                fill="#fff" opacity=".95"/>
+          <rect x="98" y="200" width="10" height="3" rx="1.5" fill="#fff"/>
+          <rect x="99" y="204" width="8" height="2.5" rx="1.2" fill="#fff" opacity=".7"/>
+          <line x1="103" y1="168" x2="103" y2="165" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="93" y1="172" x2="90" y2="169" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="113" y1="172" x2="116" y2="169" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </g>
+
+        <!-- 4) أيقونة الأشخاص -->
+        <g id="iconUsers" filter="url(#softShadow)"
+           style="transform-box:fill-box;transform-origin:center">
+          <rect x="98" y="240" width="62" height="56" rx="15" fill="#F5A623"/>
+          <circle cx="122" cy="260" r="9" fill="#fff" opacity=".95"/>
+          <path d="M111 284 Q111 274 122 274 Q133 274 133 284 Z" fill="#fff" opacity=".85"/>
+          <circle cx="143" cy="262" r="7" fill="#fff" opacity=".72"/>
+          <path d="M134 284 Q134 276 143 276 Q152 276 152 284 Z" fill="#fff" opacity=".58"/>
+        </g>
+
+        <!-- 5) الموجة (Swoosh) -->
+        <g id="swoosh">
+          <path d="M178 382 Q225 362 275 380 Q325 398 370 360"
+                stroke="url(#gSwoosh1)" stroke-width="15"
+                fill="none" stroke-linecap="round" filter="url(#softGlow)"/>
+          <path d="M160 404 Q225 384 285 402 Q344 420 394 382"
+                stroke="url(#gSwoosh2)" stroke-width="15"
+                fill="none" stroke-linecap="round" filter="url(#softGlow)"/>
+        </g>
+
+        <!-- ========================================================= -->
+        <!-- 6) الطفل — نسب متناسقة                                     -->
+        <!--    الرأس 72px ، الجسم 89px ، الأرجل 60px                   -->
+        <!-- ========================================================= -->
+        <g id="child" filter="url(#softShadow)"
+           style="transform-box:view-box;transform-origin:245px 250px">
+
+          <!-- الذراع اليسرى (خلف الجسم) -->
+          <path d="M212 260 Q202 298 200 334"
+                stroke="#2457D6" stroke-width="17"
+                stroke-linecap="round" fill="none"/>
+          <circle cx="200" cy="337" r="7.5" fill="#FFD3AE"/>
+
+          <!-- الرقبة -->
+          <rect x="238" y="216" width="14" height="38" rx="7" fill="#FFD3AE"/>
+
+          <!-- الذراع اليمنى (ممدودة نحو النجمة) -->
+          <path d="M274 258 Q304 226 330 196"
+                stroke="#2457D6" stroke-width="16"
+                stroke-linecap="round" fill="none"/>
+
+          <!-- القميص -->
+          <path d="M209 268
+                   Q209 250 231 247
+                   L259 247
+                   Q281 250 281 268
+                   L281 320
+                   Q281 336 265 336
+                   L225 336
+                   Q209 336 209 320 Z"
+                fill="url(#gShirt)"/>
+
+          <!-- كف اليد اليمنى المفتوح -->
+          <g transform="translate(332, 192)"
+             style="transform-box:fill-box;transform-origin:center">
+            <ellipse cx="0" cy="0" rx="8" ry="7" fill="#FFD3AE"/>
+            <rect x="-5.5" y="-12" width="4.5" height="12" rx="2.2"
+                  fill="#FFD3AE" transform="rotate(-20)"/>
+            <rect x="-1" y="-14" width="4.5" height="13" rx="2.2"
+                  fill="#FFD3AE" transform="rotate(-6)"/>
+            <rect x="3.5" y="-13" width="4.5" height="12" rx="2.2"
+                  fill="#FFD3AE" transform="rotate(8)"/>
+            <rect x="7.5" y="-9" width="4" height="10" rx="2"
+                  fill="#FFD3AE" transform="rotate(22)"/>
+            <rect x="-10" y="-3" width="4.5" height="8" rx="2.2"
+                  fill="#FFD3AE" transform="rotate(-45 -8 0)"/>
+          </g>
+
+          <!-- البنطال -->
+          <path d="M212 326
+                   h66
+                   v50
+                   q0 9 -9 9
+                   h-10
+                   q-9 0 -9 -9
+                   v-12
+                   l-5 -8
+                   l-5 8
+                   v12
+                   q0 9 -9 9
+                   h-10
+                   q-9 0 -9 -9
+                   Z"
+                fill="#17315F"/>
+
+          <!-- الحذاء -->
+          <ellipse cx="226" cy="386" rx="14" ry="7" fill="#17315F"/>
+          <ellipse cx="264" cy="386" rx="14" ry="7" fill="#17315F"/>
+          <ellipse cx="226" cy="387" rx="8" ry="2.2" fill="#fff" opacity=".2"/>
+          <ellipse cx="264" cy="387" rx="8" ry="2.2" fill="#fff" opacity=".2"/>
+
+          <!-- الرأس -->
+          <g>
+            <circle cx="245" cy="200" r="36" fill="#FFD3AE"/>
+
+            <!-- الشعر -->
+            <path d="M209 200
+                     Q205 166 231 156
+                     Q259 146 283 162
+                     Q301 178 285 202
+                     Q281 184 267 172
+                     Q245 162 225 170
+                     Q213 178 209 200 Z"
+                  fill="#1A2B4C"/>
+            <path d="M215 172 Q221 162 229 164 Q223 169 215 172 Z"
+                  fill="#3B5FA8" opacity=".42"/>
+            <path d="M261 164 Q269 156 279 162 Q269 166 261 164 Z"
+                  fill="#3B5FA8" opacity=".42"/>
+            <path d="M209 200 Q203 188 207 178 Q211 186 209 200 Z" fill="#1A2B4C"/>
+            <path d="M285 202 Q291 188 287 178 Q283 186 285 202 Z" fill="#1A2B4C"/>
+
+            <!-- العيون -->
+            <path d="M226 202 Q232 196 238 202"
+                  stroke="#1A2B4C" stroke-width="3"
+                  fill="none" stroke-linecap="round"/>
+            <path d="M252 202 Q258 196 264 202"
+                  stroke="#1A2B4C" stroke-width="3"
+                  fill="none" stroke-linecap="round"/>
+
+            <!-- الابتسامة -->
+            <path d="M230 216
+                     Q237 228 245 228
+                     Q253 228 260 216
+                     Q258 232 245 234
+                     Q232 232 230 216 Z"
+                  fill="#1A2B4C"/>
+            <ellipse cx="245" cy="228" rx="5.5" ry="3" fill="#FF6B6B"/>
+
+            <!-- الخدود -->
+            <circle cx="222" cy="212" r="8.5" fill="url(#gCheek)"/>
+            <circle cx="268" cy="212" r="8.5" fill="url(#gCheek)"/>
+          </g>
+        </g>
+
+        <!-- 7) النجمة -->
+        <g id="star" filter="url(#starGlow)"
+           style="transform-box:fill-box;transform-origin:center">
+          <path d="M408 42 L424 82 L468 88 L435 116 L444 160
+                   L408 138 L372 160 L381 116 L348 88 L392 82 Z"
+                fill="url(#gStar)"/>
+          <path d="M408 56 L418 82 L444 88 L423 106 L430 132
+                   L408 118 L386 132 L393 106 L372 88 L398 82 Z"
+                fill="#FFE890" opacity=".48"/>
+
+          <line x1="408" y1="26" x2="408" y2="36" stroke="#FFC94A" stroke-width="4" stroke-linecap="round" opacity=".95"/>
+          <line x1="458" y1="42" x2="466" y2="50" stroke="#FFC94A" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+          <line x1="478" y1="80" x2="488" y2="86" stroke="#FFC94A" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+          <line x1="474" y1="118" x2="484" y2="124" stroke="#FFC94A" stroke-width="3.5" stroke-linecap="round" opacity=".65"/>
+          <line x1="440" y1="172" x2="446" y2="180" stroke="#FFC94A" stroke-width="3.5" stroke-linecap="round" opacity=".65"/>
+          <line x1="408" y1="182" x2="408" y2="192" stroke="#FFC94A" stroke-width="3.5" stroke-linecap="round" opacity=".75"/>
+          <line x1="376" y1="172" x2="370" y2="180" stroke="#FFC94A" stroke-width="3.5" stroke-linecap="round" opacity=".65"/>
+          <line x1="342" y1="118" x2="332" y2="124" stroke="#FFC94A" stroke-width="4" stroke-linecap="round" opacity=".65"/>
+          <line x1="338" y1="80" x2="328" y2="86" stroke="#FFC94A" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+          <line x1="358" y1="42" x2="350" y2="50" stroke="#FFC94A" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+        </g>
+
+        <!-- 8) النصوص داخل SVG -->
+        <text x="250" y="470" font-size="78" font-weight="800" text-anchor="middle"
+              fill="#2457D6"
+              style="font-family:'Noto Kufi Arabic','Cairo',sans-serif"
+              filter="url(#softGlow)">أقدر</text>
+
+        <path d="M168 488 Q250 502 332 488"
+              stroke="#5CB83C" stroke-width="5"
+              fill="none" stroke-linecap="round" opacity=".85"/>
+
+        <text x="250" y="528" font-size="26" font-weight="700" text-anchor="middle"
+              fill="#2457D6" letter-spacing="7"
+              style="font-family:'Segoe UI','Arial',sans-serif">AQDAR</text>
+      </svg>
+
+    </div>
+  </div>
+
+  <div class="brand">
+    <h1 id="ar">أقدر</h1>
+    <div id="en" aria-label="AQDAR"></div>
+    <p id="tag">منصة تعليمية لذوي الاحتياجات الخاصة</p>
+    <p id="slogan">قوة <b style="color:var(--gold)">•</b> تميز <b style="color:var(--gold)">•</b> إنجاز</p>
+  </div>
+
+  <div class="load" aria-hidden="true"><i id="bar"></i></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const EASE = "cubic-bezier(.22,.8,.2,1)";
+
+const A = (el, kf, o) => el.animate(
+  kf, Object.assign({duration:900, easing:EASE, fill:"forwards"}, o)
+);
+const T = (fn, ms) => setTimeout(fn, ms);
+
+function initSplash(){
+  const en = $("#en");
+  "AQDAR".split("").forEach(c => {
+    const s = document.createElement("span");
+    s.textContent = c;
+    en.appendChild(s);
+  });
+
+  const box = $("#pts");
+  const cols = ["#18BFD4","#2457D6","#FFC94A","#5CB83C","#F5A623"];
+  for(let i = 0; i < 24; i++){
+    const p = document.createElement("span");
+    const s = 3 + Math.random() * 9;
+    p.className = "pt";
+    p.style.cssText = `left:${Math.random()*100}%;top:${5+Math.random()*90}%;width:${s}px;height:${s}px;background:${cols[i%5]};--d:${5+Math.random()*9}s;--l:${Math.random()*-14}s;--x:${(Math.random()-.5)*60}px`;
+    box.appendChild(p);
+  }
+
+  for(let i = 0; i < 15; i++){
+    const s = document.createElement("span");
+    const sz = 2 + Math.random() * 6;
+    s.className = "bg-star";
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${3+Math.random()*6}s;--l:${Math.random()*-8}s`;
+    box.appendChild(s);
+  }
+
+  if(reduced){
+    document.body.classList.add("final");
+    $("#bar").classList.add("go");
+    T(() => {
+      $("#ar").classList.add("show");
+      $$("#en span").forEach((s,i) => T(() => s.classList.add("show"), i*70));
+      $("#tag").classList.add("show");
+      $("#slogan").classList.add("show");
+    }, 300);
+    T(finishSplash, 3000);
+  } else {
+    startIntro();
+  }
+}
+
+function startIntro(){
+  $("#bg").classList.add("live");
+
+  T(() => $("#bar").classList.add("go"), 80);
+  T(() => $("#ring1").classList.add("show"), 180);
+  T(() => {
+    $("#ring1").classList.add("spin");
+    $("#ring2").classList.add("show");
+  }, 1700);
+
+  T(() => $("#mainLogo").classList.add("show"), 350);
+  T(() => $("#ar").classList.add("show"), 1400);
+
+  T(() => {
+    $$("#en span").forEach((s,i) => T(() => s.classList.add("show"), i*85));
+  }, 2000);
+
+  T(() => $("#tag").classList.add("show"), 2600);
+  T(() => $("#slogan").classList.add("show"), 3100);
+  T(() => $("#mainLogo").classList.add("pulse"), 2800);
+
+  T(finishSplash, 5200);
+}
+
+function finishSplash(){
+  A($("#app"), [{opacity:1},{opacity:0}], {duration:700, easing:"ease-in-out"})
+    .finished
+    .then(goToNextPage)
+    .catch(goToNextPage);
+}
+
+async function goToNextPage(){
+  try{
+    const r = await fetch("index.html", {method:"HEAD", cache:"no-store"});
+if(r.ok){ location.replace("login.html"); return; }
+  }catch(e){}
+  A($("#app"), [{opacity:0},{opacity:1}], {duration:600});
+}
+
+document.addEventListener("DOMContentLoaded", initSplash);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,3107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-font-scale="1" data-no-motion="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eef5ff">
+<title>اختر دورك | أقدر AQDAR</title>
+
+<style>
+:root{
+  --blue-900:#0b2b6b;
+  --blue-700:#1248b8;
+  --blue-600:#1b5fd9;
+  --blue-500:#2d6ee8;
+  --cyan-600:#0e9dbd;
+  --cyan-500:#12b6d8;
+  --cyan-400:#2ad4e8;
+  --cyan-300:#7be3ef;
+  --yellow-500:#ffb020;
+  --yellow-400:#ffc233;
+  --yellow-300:#ffd86b;
+  --purple-600:#5b3bb5;
+  --purple-400:#8b6bd9;
+  --green-500:#16a34a;
+  --green-400:#22c55e;
+  --pink-500:#ec4899;
+
+  --bg-top:#ffffff;
+  --bg-mid:#f0f6ff;
+  --bg-bot:#e2edff;
+
+  --ink:#0d2350;
+  --ink-soft:#4a6ba8;
+  --ink-mute:#7b93bd;
+
+  --card-bg:#ffffff;
+  --card-border:rgba(18,72,184,.09);
+  --card-shadow:0 4px 24px rgba(18,72,184,.06);
+  --card-shadow-hover:0 26px 60px rgba(18,72,184,.20);
+
+  --radius-2xl:36px;
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:16px;
+
+  --ease-soft:cubic-bezier(.22,.9,.28,1);
+  --ease-spring:cubic-bezier(.22,1.35,.36,1);
+
+  --maxw:1380px;
+}
+
+[data-theme="dark"]{
+  --bg-top:#0a1633;
+  --bg-mid:#0d1e44;
+  --bg-bot:#0a1a3c;
+  --ink:#eef3ff;
+  --ink-soft:#9ab0dd;
+  --ink-mute:#6f88ba;
+  --card-bg:#132a5a;
+  --card-border:rgba(120,170,255,.14);
+  --card-shadow:0 4px 24px rgba(0,0,0,.30);
+  --card-shadow-hover:0 26px 60px rgba(0,0,0,.48);
+}
+
+[data-contrast="high"]{
+  --ink:#000000;
+  --ink-soft:#1a2a4a;
+  --card-border:rgba(18,72,184,.40);
+}
+[data-theme="dark"][data-contrast="high"]{
+  --ink:#ffffff;
+  --ink-soft:#dde7ff;
+}
+
+html{
+  font-size:calc(16px * var(--font-scale, 1));
+  transition:font-size .35s var(--ease-soft);
+}
+
+[data-no-motion="true"] *,
+[data-no-motion="true"] *::before,
+[data-no-motion="true"] *::after{
+  animation:none !important;
+  transition:none !important;
+}
+
+*{ box-sizing:border-box; }
+html, body{ margin:0; padding:0; min-height:100%; }
+
+body{
+  font-family:"Segoe UI", Tahoma, "Noto Sans Arabic", "Cairo", "Tajawal",
+              system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  color:var(--ink);
+  background:var(--bg-mid);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  min-height:100vh; min-height:100dvh;
+  position:relative;
+  padding:
+    clamp(14px, 2.6vmin, 32px)
+    clamp(14px, 2.6vmin, 36px)
+    clamp(20px, 3.4vmin, 44px);
+  transition:background-color .5s ease, color .5s ease;
+}
+
+.bg-gradient{
+  position:fixed; inset:0; z-index:-5;
+  background:linear-gradient(120deg,
+    var(--bg-top) 0%, var(--bg-mid) 25%, var(--bg-bot) 50%,
+    var(--bg-mid) 75%, var(--bg-top) 100%);
+  background-size:300% 300%;
+  animation:bgShift 32s ease-in-out infinite;
+}
+@keyframes bgShift{
+  0%,100%{ background-position:0% 50%; }
+  50%    { background-position:100% 50%; }
+}
+
+.blob{
+  position:fixed; border-radius:50%;
+  filter:blur(72px); z-index:-4;
+  pointer-events:none; will-change:transform;
+}
+.blob--1{ width:54vmin; height:54vmin; top:-14%; right:-12%;
+  background:radial-gradient(circle, rgba(43,120,255,.30), rgba(43,120,255,0) 70%);
+  animation:blobFloat 26s ease-in-out infinite; }
+.blob--2{ width:58vmin; height:58vmin; bottom:-18%; left:-14%;
+  background:radial-gradient(circle, rgba(42,212,232,.26), rgba(42,212,232,0) 70%);
+  animation:blobFloat 32s ease-in-out infinite reverse; }
+.blob--3{ width:38vmin; height:38vmin; top:40%; left:55%;
+  background:radial-gradient(circle, rgba(255,194,51,.14), rgba(255,194,51,0) 70%);
+  animation:blobFloat 38s ease-in-out infinite; }
+.blob--4{ width:34vmin; height:34vmin; top:60%; right:8%;
+  background:radial-gradient(circle, rgba(139,107,217,.14), rgba(139,107,217,0) 70%);
+  animation:blobFloat 30s ease-in-out infinite reverse; }
+@keyframes blobFloat{
+  0%,100%{ transform:translate3d(0,0,0) scale(1); }
+  50%    { transform:translate3d(-4vmin, 5vmin, 0) scale(1.12); }
+}
+
+.bg-particles{ position:fixed; inset:0; z-index:-3; pointer-events:none; overflow:hidden; }
+.bg-particles span{
+  position:absolute;
+  width:var(--size, 7px); height:var(--size, 7px);
+  border-radius:50%;
+  background:var(--color, rgba(27,95,217,.22));
+  left:var(--px, 50%); top:var(--py, 50%);
+  opacity:.6;
+  animation:pFloat var(--pd, 9s) ease-in-out infinite;
+  animation-delay:var(--pdelay, 0s);
+}
+@keyframes pFloat{
+  0%,100%{ transform:translate3d(0,0,0) scale(1);       opacity:.35; }
+  50%    { transform:translate3d(0,-26px,0) scale(1.25); opacity:.85; }
+}
+
+.bg-shapes{ position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden; }
+.bg-shapes .shape{
+  position:absolute; opacity:.10;
+  animation:shapeDrift var(--sd, 24s) ease-in-out infinite;
+}
+.bg-shapes .shape--ring{
+  width:var(--w, 60px); height:var(--w, 60px);
+  border:2px solid var(--sc, var(--blue-600)); border-radius:50%;
+}
+.bg-shapes .shape--square{
+  width:var(--w, 40px); height:var(--w, 40px);
+  border:2px solid var(--sc, var(--cyan-500)); border-radius:10px;
+  transform:rotate(45deg);
+}
+@keyframes shapeDrift{
+  0%,100%{ transform:translate3d(0,0,0) rotate(0deg); }
+  50%    { transform:translate3d(20px,-24px,0) rotate(180deg); }
+}
+
+.bg-edu{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+.bg-edu .edu{
+  position:absolute;
+  width:var(--ew, 42px); height:var(--ew, 42px);
+  opacity:var(--eo, .10);
+  animation:eduFloat var(--ed, 16s) ease-in-out infinite;
+  animation-delay:var(--edelay, 0s);
+  color:var(--ec, var(--blue-600));
+}
+.bg-edu .edu svg{ width:100%; height:100%; display:block; }
+@keyframes eduFloat{
+  0%,100%{ transform:translate3d(0,0,0) rotate(0deg); }
+  50%    { transform:translate3d(14px,-22px,0) rotate(8deg); }
+}
+
+.ticker{
+  position:relative; z-index:7;
+  max-width:var(--maxw);
+  margin:0 auto clamp(12px, 1.8vmin, 20px);
+  padding:12px 24px;
+  background:linear-gradient(135deg,
+    rgba(27,95,217,.08),
+    rgba(42,212,232,.08));
+  border:1px solid rgba(27,95,217,.15);
+  border-radius:999px;
+  overflow:hidden;
+  opacity:0;
+  animation:fadeUp .7s var(--ease-soft) .05s forwards;
+}
+[data-theme="dark"] .ticker{
+  background:linear-gradient(135deg,
+    rgba(27,95,217,.18),
+    rgba(42,212,232,.14));
+  border-color:rgba(120,170,255,.20);
+}
+.ticker__viewport{
+  overflow:hidden; position:relative; height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.ticker__track{
+  display:inline-flex; align-items:center; gap:80px;
+  white-space:nowrap;
+  animation:tickerScroll 45s linear infinite;
+  font-size:.85rem;
+  font-weight:700;
+  color:var(--ink-soft);
+  padding-inline-start:100%;
+}
+.ticker__track:hover{ animation-play-state:paused; }
+@keyframes tickerScroll{
+  from{ transform:translateX(0); }
+  to  { transform:translateX(-50%); }
+}
+.ticker__item{
+  display:inline-flex; align-items:center; gap:8px;
+}
+.ticker__item::before{
+  content:"●"; color:var(--cyan-500); font-size:8px;
+}
+
+.topbar-wrap{
+  position:relative; z-index:6;
+  max-width:var(--maxw);
+  margin:0 auto clamp(16px, 2.4vmin, 26px);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  opacity:0;
+  animation:fadeUp .7s var(--ease-soft) .15s forwards;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.topbar__brand{
+  display:inline-flex; align-items:center; gap:14px;
+  padding:8px 22px 8px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--card-border);
+  box-shadow:0 6px 22px rgba(18,72,184,.08);
+  text-decoration:none; color:inherit;
+  transition:transform .35s var(--ease-spring), box-shadow .35s ease;
+}
+[data-theme="dark"] .topbar__brand{ background:rgba(19,42,90,.78); }
+.topbar__brand:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px rgba(18,72,184,.16);
+}
+.brand-mark{ width:52px; height:52px; flex-shrink:0; display:block; }
+.topbar__brand-text{ display:flex; flex-direction:column; line-height:1.05; }
+.topbar__brand-ar{
+  font-size:1.25rem; font-weight:800;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.topbar__brand-en{
+  font-size:.62rem; font-weight:700; letter-spacing:.32em;
+  color:var(--blue-600); direction:ltr; margin-top:2px;
+}
+[data-theme="dark"] .topbar__brand-en{ color:var(--cyan-400); }
+
+.topbar__info{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+.topbar__info-pill{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 14px;
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--ink-soft);
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--card-border);
+  border-radius:999px;
+  transition:all .3s ease;
+}
+[data-theme="dark"] .topbar__info-pill{ background:rgba(19,42,90,.65); }
+.topbar__info-pill svg{
+  width:14px; height:14px; flex-shrink:0;
+}
+.topbar__info-pill--online svg{ color:var(--green-500); }
+.topbar__info-pill--time svg{ color:var(--cyan-500); }
+.topbar__info-pill--date svg{ color:var(--yellow-500); }
+.topbar__info-pill--online::before{
+  content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--green-400);
+  animation:pulseDot 2s ease-in-out infinite;
+}
+
+.topbar__actions{ display:flex; align-items:center; gap:8px; }
+.topbar__btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 16px;
+  font-family:inherit;
+  font-size:.85rem;
+  font-weight:700;
+  color:var(--ink);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--card-border);
+  border-radius:999px;
+  cursor:pointer;
+  transition:transform .3s var(--ease-spring), box-shadow .3s ease,
+             background .3s ease, color .3s ease;
+}
+[data-theme="dark"] .topbar__btn{ background:rgba(19,42,90,.78); }
+.topbar__btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(18,72,184,.16);
+  color:var(--blue-700);
+}
+[data-theme="dark"] .topbar__btn:hover{ color:var(--cyan-400); }
+.topbar__btn:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:3px; }
+.topbar__btn svg{ width:17px; height:17px; }
+.topbar__btn-label{ display:none; }
+@media (min-width:760px){ .topbar__btn-label{ display:inline; } }
+
+.topbar__meta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  padding:10px 30px;
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-md);
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--ink-soft);
+  text-align:center;
+}
+[data-theme="dark"] .topbar__meta{ background:rgba(19,42,90,.55); }
+.topbar__meta-item{
+  display:inline-flex; align-items:center; gap:6px;
+}
+.topbar__meta-item svg{
+  width:14px; height:14px;
+  color:var(--cyan-500);
+}
+.topbar__meta-divider{
+  width:1px; height:16px;
+  background:var(--card-border);
+}
+
+.page{
+  position:relative; z-index:5;
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(24px, 3.6vmin, 42px);
+}
+
+.hero{
+  display:flex; flex-direction:column; align-items:center;
+  text-align:center;
+  gap:clamp(12px, 1.8vmin, 20px);
+  max-width:940px;
+}
+
+.hero__logo{
+  position:relative;
+  width:clamp(190px, 28vmin, 280px);
+  aspect-ratio:500/560;
+  margin-bottom:clamp(4px, 1vmin, 12px);
+  opacity:0;
+  transform:scale(.85) translateY(-10px);
+  animation:heroLogoIn 1.1s var(--ease-spring) .25s forwards;
+}
+@keyframes heroLogoIn{
+  to{ opacity:1; transform:scale(1) translateY(0); }
+}
+.hero__logo .logo-svg{
+  width:100%; height:100%; display:block;
+  filter:drop-shadow(0 14px 32px rgba(18,72,184,.20));
+}
+
+.hero__badge{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:9px 20px;
+  font-size:.88rem;
+  font-weight:700;
+  color:var(--blue-700);
+  background:linear-gradient(135deg, rgba(27,95,217,.10), rgba(42,212,232,.10));
+  border:1px solid rgba(27,95,217,.18);
+  border-radius:999px;
+  opacity:0;
+  animation:fadeUp .8s var(--ease-soft) .55s forwards;
+}
+[data-theme="dark"] .hero__badge{
+  color:var(--cyan-400);
+  background:linear-gradient(135deg, rgba(27,95,217,.20), rgba(42,212,232,.18));
+  border-color:rgba(120,170,255,.25);
+}
+.hero__badge-emoji{
+  font-size:1.1rem;
+  display:inline-block;
+  animation:waveHand 2.4s ease-in-out infinite;
+  transform-origin:70% 70%;
+}
+@keyframes waveHand{
+  0%,100%{ transform:rotate(0deg); }
+  25%    { transform:rotate(14deg); }
+  50%    { transform:rotate(-8deg); }
+  75%    { transform:rotate(10deg); }
+}
+
+.hero__title{
+  margin:0;
+  font-size:clamp(28px, 5.2vmin, 54px);
+  font-weight:800;
+  line-height:1.2;
+  letter-spacing:-.012em;
+  color:var(--ink);
+  opacity:0;
+  animation:fadeUp .9s var(--ease-soft) .7s forwards;
+}
+.hero__title em{
+  font-style:normal;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+.hero__subtitle{
+  margin:0;
+  font-size:clamp(16px, 2.6vmin, 26px);
+  font-weight:700;
+  color:var(--blue-700);
+  line-height:1.4;
+  opacity:0;
+  animation:fadeUp .9s var(--ease-soft) .85s forwards;
+}
+[data-theme="dark"] .hero__subtitle{ color:var(--cyan-400); }
+
+.hero__desc{
+  margin:0;
+  font-size:clamp(13px, 1.85vmin, 16px);
+  font-weight:500;
+  color:var(--ink-soft);
+  max-width:62ch;
+  line-height:1.8;
+  opacity:0;
+  animation:fadeUp .9s var(--ease-soft) 1s forwards;
+}
+
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(16px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+@keyframes pulseDot{
+  0%,100%{ transform:scale(1);   box-shadow:0 0 0 3px rgba(34,197,94,.20); }
+  50%    { transform:scale(1.20); box-shadow:0 0 0 7px rgba(34,197,94,.06); }
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:clamp(18px, 2.6vmin, 30px);
+  width:100%;
+}
+@media (max-width:820px){
+  .cards{ grid-template-columns:1fr; }
+}
+
+.cards > .card:last-child:nth-child(odd){
+  grid-column:1 / -1;
+  justify-self:center;
+  max-width:calc(50% - 15px);
+}
+@media (max-width:820px){
+  .cards > .card:last-child:nth-child(odd){
+    grid-column:auto;
+    max-width:100%;
+  }
+}
+
+.card{
+  position:relative;
+  display:flex; flex-direction:column;
+  gap:clamp(14px, 1.8vmin, 20px);
+  padding:clamp(22px, 2.8vmin, 34px);
+  background:var(--card-bg);
+  border:1.5px solid var(--card-border);
+  border-radius:var(--radius-2xl);
+  box-shadow:var(--card-shadow);
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
+  overflow:hidden;
+  isolation:isolate;
+  transition:
+    transform .5s var(--ease-spring),
+    box-shadow .5s var(--ease-soft),
+    border-color .4s ease;
+  opacity:0;
+  animation:cardIn .95s var(--ease-spring) forwards;
+}
+.card:nth-child(1){ animation-delay:.95s; }
+.card:nth-child(2){ animation-delay:1.07s; }
+.card:nth-child(3){ animation-delay:1.19s; }
+.card:nth-child(4){ animation-delay:1.31s; }
+.card:nth-child(5){ animation-delay:1.43s; }
+.card:nth-child(6){ animation-delay:1.55s; }
+@keyframes cardIn{
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.card::before{
+  content:"";
+  position:absolute; top:0; right:0; left:0;
+  height:4px;
+  background:var(--accent-grad, linear-gradient(90deg, var(--blue-600), var(--cyan-500)));
+  opacity:0;
+  transform:scaleX(.4);
+  transform-origin:right center;
+  transition:opacity .4s ease, transform .6s var(--ease-soft);
+}
+.card:hover::before,
+.card:focus-visible::before,
+.card.is-selected::before{
+  opacity:1; transform:scaleX(1);
+}
+
+.card::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background:radial-gradient(120% 90% at 100% 0%,
+    var(--accent-soft, rgba(27,95,217,.10)) 0%,
+    transparent 60%);
+  opacity:0;
+  transition:opacity .5s ease;
+  z-index:-1;
+  pointer-events:none;
+}
+.card:hover::after,
+.card:focus-visible::after{ opacity:1; }
+
+.card:hover,
+.card:focus-visible{
+  transform:translateY(-8px) scale(1.012);
+  box-shadow:var(--card-shadow-hover);
+  border-color:var(--accent, var(--blue-600));
+  outline:none;
+}
+.card:focus-visible{
+  outline:3px solid var(--accent, var(--blue-600));
+  outline-offset:4px;
+}
+.card:active{
+  transform:translateY(-3px) scale(.99);
+  transition-duration:.15s;
+}
+.card.is-selected{
+  transform:translateY(-6px) scale(1.008);
+  border-color:var(--accent, var(--blue-600));
+  box-shadow:0 28px 60px rgba(18,72,184,.22),
+             0 0 0 5px var(--accent-soft, rgba(27,95,217,.14));
+}
+.card.is-selected .card__illustration{
+  animation:selectedBounce .9s var(--ease-spring) both;
+}
+@keyframes selectedBounce{
+  0%  { transform:scale(1)   translateY(0); }
+  35% { transform:scale(1.10) translateY(-5px); }
+  65% { transform:scale(.97) translateY(0); }
+  100%{ transform:scale(1)   translateY(0); }
+}
+
+.cards.is-choosing .card:not(.is-selected){
+  opacity:.45; filter:blur(1px) saturate(.7);
+  pointer-events:none;
+}
+
+/* ألوان الكروت */
+.card[data-role="student"]{
+  --accent:var(--blue-600);
+  --accent-grad:linear-gradient(90deg, var(--blue-700), var(--blue-600));
+  --accent-soft:rgba(27,95,217,.12);
+}
+.card[data-role="teacher"]{
+  --accent:#16a34a;
+  --accent-grad:linear-gradient(90deg, #15803d, #22c55e);
+  --accent-soft:rgba(22,163,74,.14);
+}
+.card[data-role="parent"]{
+  --accent:#f59e0b;
+  --accent-grad:linear-gradient(90deg, #d97706, #fbbf24);
+  --accent-soft:rgba(245,158,11,.16);
+}
+.card[data-role="discussion"]{
+  --accent:#0891b2;
+  --accent-grad:linear-gradient(90deg, #0e7490, #22d3ee);
+  --accent-soft:rgba(8,145,178,.14);
+}
+.card[data-role="library"]{
+  --accent:#7c3aed;
+  --accent-grad:linear-gradient(90deg, #6d28d9, #a855f7);
+  --accent-soft:rgba(124,58,237,.14);
+}
+.card[data-role="gallery"]{
+  --accent:#ec4899;
+  --accent-grad:linear-gradient(90deg, #db2777, #f472b6);
+  --accent-soft:rgba(236,72,153,.16);
+}
+
+/* منطقة الصورة */
+.card__illustration{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 10;
+  display:grid;
+  place-items:center;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(135deg, rgba(27,95,217,.06), rgba(42,212,232,.06));
+  overflow:hidden;
+  transition:transform .5s var(--ease-spring);
+  flex-shrink:0;
+  padding:0;
+}
+
+.card__illustration img,
+.card__illustration .card__illustration-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  border-radius:calc(var(--radius-lg) - 2px);
+  transition:transform .6s var(--ease-spring);
+  background:#eef5ff;
+}
+
+.card__illustration--svg{
+  padding:0;
+  background:none;
+}
+.card__illustration--svg .card__svg{
+  width:100%;
+  height:100%;
+  display:block;
+  border-radius:calc(var(--radius-lg) - 2px);
+  transition:transform .6s var(--ease-spring);
+}
+
+.card[data-role="student"] .card__illustration-img{
+  object-fit:cover;
+  object-position:center 15%;
+}
+
+.card:hover .card__illustration,
+.card:focus-visible .card__illustration{ transform:scale(1.02); }
+.card:hover .card__illustration img,
+.card:hover .card__illustration .card__svg{ transform:scale(1.05); }
+
+.card__badges{
+  position:absolute;
+  top:12px; left:12px;
+  display:flex; gap:6px;
+  z-index:2;
+}
+.card__badge{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 10px;
+  font-size:.62rem;
+  font-weight:800;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:var(--ink);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+[data-theme="dark"] .card__badge{
+  background:rgba(19,42,90,.92);
+  color:var(--ink);
+}
+.card__badge--live{
+  background:rgba(34,197,94,.95);
+  color:#ffffff;
+}
+.card__badge--live::before{
+  content:""; width:5px; height:5px; border-radius:50%;
+  background:#ffffff;
+  animation:pulseDot 2s ease-in-out infinite;
+}
+.card__badge--soon{
+  background:rgba(255,194,51,.95);
+  color:#7a4d00;
+}
+.card__badge--new{
+  background:rgba(59,130,246,.95);
+  color:#ffffff;
+}
+.card__badge--featured{
+  background:rgba(236,72,153,.95);
+  color:#ffffff;
+}
+.card__badge--active{
+  background:rgba(8,145,178,.95);
+  color:#ffffff;
+}
+
+.card__head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.card__num{
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.16em;
+  color:var(--accent, var(--blue-600));
+  opacity:.75;
+  direction:ltr;
+}
+.card__status{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px;
+  font-size:.68rem;
+  font-weight:800;
+  border-radius:999px;
+  background:rgba(34,197,94,.12);
+  color:var(--green-500);
+}
+.card__status::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:currentColor;
+  animation:pulseDot 2s ease-in-out infinite;
+}
+.card__status--soon{
+  background:rgba(255,194,51,.18);
+  color:#b07a00;
+}
+[data-theme="dark"] .card__status--soon{ color:var(--yellow-300); }
+
+.card__title-block{ display:flex; flex-direction:column; gap:5px; }
+.card__title{
+  margin:0;
+  font-size:clamp(21px, 3vmin, 30px);
+  font-weight:800;
+  color:var(--ink);
+  line-height:1.2;
+}
+.card__title-en{
+  margin:0;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.26em;
+  color:var(--accent, var(--blue-600));
+  opacity:.85;
+  direction:ltr;
+  text-align:right;
+}
+[dir="ltr"] .card__title-en{ text-align:left; }
+
+.card__desc{
+  margin:0;
+  font-size:clamp(13px, 1.8vmin, 16px);
+  font-weight:500;
+  color:var(--ink-soft);
+  line-height:1.75;
+}
+
+.card__features{
+  list-style:none; margin:2px 0 0; padding:0;
+  display:flex; flex-direction:column; gap:9px;
+}
+.card__features li{
+  display:flex; align-items:center; gap:10px;
+  font-size:clamp(12px, 1.65vmin, 14px);
+  font-weight:500;
+  color:var(--ink-soft);
+  line-height:1.5;
+}
+.card__features .check{
+  flex-shrink:0;
+  display:grid; place-items:center;
+  width:20px; height:20px;
+  border-radius:50%;
+  background:var(--accent-soft, rgba(27,95,217,.12));
+  color:var(--accent, var(--blue-600));
+}
+.card__features .check svg{ width:11px; height:11px; }
+
+.card__cta{
+  display:inline-flex; align-items:center; justify-content:space-between;
+  gap:12px;
+  margin-top:auto;
+  padding:13px 22px;
+  border-radius:999px;
+  font-size:clamp(13px, 1.75vmin, 15px);
+  font-weight:800;
+  color:#ffffff;
+  background:var(--accent-grad, linear-gradient(135deg, var(--blue-700), var(--cyan-500)));
+  box-shadow:0 10px 24px var(--accent-soft, rgba(27,95,217,.24));
+  transition:transform .35s var(--ease-spring), box-shadow .35s ease;
+}
+.card__cta svg{
+  width:20px; height:20px;
+  transition:transform .45s var(--ease-spring);
+}
+.card:hover .card__cta,
+.card:focus-visible .card__cta{
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px var(--accent-soft, rgba(27,95,217,.32));
+}
+.card:hover .card__cta svg,
+.card:focus-visible .card__cta svg{
+  transform:translateX(-6px);
+}
+[dir="ltr"] .card:hover .card__cta svg{
+  transform:translateX(6px);
+}
+
+.card__spinner{
+  position:absolute;
+  top:14px; right:14px;
+  width:22px; height:22px;
+  border-radius:50%;
+  border:3px solid rgba(18,72,184,.15);
+  border-top-color:var(--accent, var(--blue-600));
+  opacity:0;
+  transform:scale(.6);
+  transition:opacity .3s ease, transform .3s var(--ease-spring);
+}
+.card.is-selected .card__spinner{
+  opacity:1; transform:scale(1);
+  animation:spin .9s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.card__last{
+  position:absolute;
+  top:14px; right:14px;
+  font-size:.58rem;
+  font-weight:800;
+  padding:4px 9px;
+  border-radius:999px;
+  background:rgba(34,197,94,.14);
+  color:var(--green-500);
+  opacity:0;
+  transform:scale(.8);
+  transition:opacity .5s ease, transform .5s var(--ease-spring);
+}
+.card__last.is-visible{ opacity:1; transform:scale(1); }
+
+.security{
+  display:flex; align-items:center; gap:16px;
+  width:100%;
+  padding:clamp(16px, 2.2vmin, 24px) clamp(20px, 2.8vmin, 30px);
+  background:linear-gradient(135deg,
+    rgba(27,95,217,.06),
+    rgba(42,212,232,.06));
+  border:1px dashed rgba(27,95,217,.20);
+  border-radius:var(--radius-xl);
+  text-align:start;
+  opacity:0;
+  animation:fadeUp .9s var(--ease-soft) 1.5s forwards;
+}
+[data-theme="dark"] .security{
+  background:linear-gradient(135deg,
+    rgba(27,95,217,.14),
+    rgba(42,212,232,.12));
+  border-color:rgba(120,170,255,.25);
+}
+.security__icon{
+  flex-shrink:0;
+  display:grid; place-items:center;
+  width:54px; height:54px;
+  border-radius:var(--radius-md);
+  background:rgba(255,255,255,.75);
+  color:var(--blue-700);
+  box-shadow:0 6px 18px rgba(18,72,184,.10);
+}
+[data-theme="dark"] .security__icon{
+  background:rgba(19,42,90,.78);
+  color:var(--cyan-400);
+}
+.security__icon svg{ width:26px; height:26px; }
+.security__body{ display:flex; flex-direction:column; gap:4px; }
+.security__title{
+  margin:0;
+  font-size:clamp(14px, 1.9vmin, 16px);
+  font-weight:800;
+  color:var(--ink);
+}
+.security__text{
+  margin:0;
+  font-size:clamp(12px, 1.65vmin, 14px);
+  font-weight:500;
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+
+.footer{
+  width:100%;
+  display:flex; flex-direction:column; gap:20px;
+  padding:clamp(20px, 2.8vmin, 30px) 0 clamp(6px, 1vmin, 12px);
+  border-top:1px solid var(--card-border);
+  margin-top:clamp(10px, 1.8vmin, 18px);
+  opacity:0;
+  animation:fadeUp .9s var(--ease-soft) 1.65s forwards;
+}
+
+.footer__badges{
+  display:flex; flex-wrap:wrap; gap:10px;
+  justify-content:center;
+}
+.footer__badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 14px;
+  font-size:.72rem;
+  font-weight:700;
+  color:var(--ink-soft);
+  background:rgba(255,255,255,.60);
+  border:1px solid var(--card-border);
+  border-radius:999px;
+}
+[data-theme="dark"] .footer__badge{ background:rgba(19,42,90,.55); }
+.footer__badge svg{ width:13px; height:13px; color:var(--green-500); }
+
+.footer__main{
+  display:flex; flex-wrap:wrap; align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.footer__copy{
+  margin:0;
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+.footer__links{
+  display:flex; flex-wrap:wrap; gap:18px;
+}
+.footer__link{
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--ink-soft);
+  text-decoration:none;
+  transition:color .3s ease;
+  cursor:pointer;
+  background:none;
+  border:none;
+  font-family:inherit;
+  padding:0;
+}
+.footer__link:hover,
+.footer__link:focus-visible{
+  color:var(--blue-700);
+  outline:none;
+}
+[data-theme="dark"] .footer__link:hover,
+[data-theme="dark"] .footer__link:focus-visible{ color:var(--cyan-400); }
+
+.a11y-fab{
+  position:fixed;
+  bottom:clamp(18px, 2.6vmin, 28px);
+  left:clamp(18px, 2.6vmin, 28px);
+  z-index:40;
+  display:grid; place-items:center;
+  width:54px; height:54px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  color:#ffffff;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  box-shadow:0 14px 32px rgba(18,72,184,.30);
+  transition:transform .35s var(--ease-spring), box-shadow .35s ease;
+  opacity:0;
+  animation:fadeUp .8s var(--ease-soft) 2s forwards;
+}
+.a11y-fab:hover{
+  transform:translateY(-3px) rotate(10deg);
+  box-shadow:0 20px 40px rgba(18,72,184,.40);
+}
+.a11y-fab:focus-visible{ outline:3px solid var(--cyan-500); outline-offset:4px; }
+.a11y-fab svg{ width:26px; height:26px; }
+
+.a11y-panel{
+  position:fixed;
+  bottom:clamp(80px, 9vmin, 92px);
+  left:clamp(18px, 2.6vmin, 28px);
+  z-index:41;
+  width:min(340px, calc(100vw - 36px));
+  padding:20px;
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-xl);
+  box-shadow:0 24px 60px rgba(18,72,184,.22);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(12px) scale(.96);
+  transition:opacity .35s ease, visibility .35s ease,
+             transform .45s var(--ease-spring);
+  transform-origin:bottom left;
+}
+.a11y-panel.is-visible{
+  opacity:1; visibility:visible;
+  transform:translateY(0) scale(1);
+}
+.a11y-panel__header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+}
+.a11y-panel__title{
+  margin:0;
+  font-size:1rem;
+  font-weight:800;
+  color:var(--ink);
+}
+.a11y-panel__close{
+  display:grid; place-items:center;
+  width:32px; height:32px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  background:transparent;
+  color:var(--ink-soft);
+  transition:background .25s ease, color .25s ease;
+}
+.a11y-panel__close:hover{
+  background:rgba(18,72,184,.08);
+  color:var(--ink);
+}
+.a11y-panel__close svg{ width:18px; height:18px; }
+
+.a11y-group{
+  display:flex; flex-direction:column; gap:8px;
+  margin-bottom:14px;
+}
+.a11y-group:last-child{ margin-bottom:0; }
+.a11y-group__label{
+  font-size:.7rem;
+  font-weight:800;
+  color:var(--ink-soft);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.a11y-options{
+  display:flex; gap:6px; flex-wrap:wrap;
+}
+.a11y-option{
+  flex:1; min-width:52px;
+  padding:8px 6px;
+  font-family:inherit;
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--ink-soft);
+  background:rgba(18,72,184,.05);
+  border:1.5px solid transparent;
+  border-radius:12px;
+  cursor:pointer;
+  transition:all .3s var(--ease-soft);
+}
+.a11y-option:hover{ color:var(--blue-700); }
+.a11y-option.is-active{
+  color:#ffffff;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  box-shadow:0 6px 16px rgba(18,72,184,.25);
+}
+.a11y-option:focus-visible{
+  outline:2px solid var(--cyan-500);
+  outline-offset:2px;
+}
+
+.a11y-toggle{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
+  padding:10px 14px;
+  background:rgba(18,72,184,.05);
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition:background .3s ease;
+  font-family:inherit;
+  width:100%;
+  text-align:start;
+}
+.a11y-toggle:hover{ background:rgba(18,72,184,.09); }
+.a11y-toggle__label{
+  font-size:.85rem;
+  font-weight:700;
+  color:var(--ink);
+}
+.a11y-toggle__switch{
+  position:relative;
+  width:42px; height:22px;
+  flex-shrink:0;
+  background:rgba(18,72,184,.18);
+  border-radius:999px;
+  transition:background .3s ease;
+}
+.a11y-toggle__switch::after{
+  content:"";
+  position:absolute;
+  top:3px; right:3px;
+  width:16px; height:16px;
+  background:#ffffff;
+  border-radius:50%;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+  transition:transform .35s var(--ease-spring);
+}
+.a11y-toggle.is-on .a11y-toggle__switch{
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+}
+.a11y-toggle.is-on .a11y-toggle__switch::after{
+  transform:translateX(-20px);
+}
+[dir="ltr"] .a11y-toggle__switch::after{
+  right:auto; left:3px;
+}
+[dir="ltr"] .a11y-toggle.is-on .a11y-toggle__switch::after{
+  transform:translateX(20px);
+}
+
+.modal-backdrop{
+  position:fixed; inset:0; z-index:55;
+  display:grid; place-items:center;
+  padding:20px;
+  background:rgba(10,30,70,.45);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  opacity:0; visibility:hidden;
+  transition:opacity .35s ease, visibility .35s ease;
+}
+.modal-backdrop.is-visible{ opacity:1; visibility:visible; }
+
+.modal{
+  width:min(680px, 100%);
+  max-height:min(85vh, 780px);
+  overflow-y:auto;
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-2xl);
+  box-shadow:0 30px 80px rgba(0,0,0,.30);
+  padding:clamp(22px, 3.4vmin, 36px);
+  transform:scale(.94) translateY(10px);
+  transition:transform .45s var(--ease-spring);
+}
+.modal-backdrop.is-visible .modal{ transform:scale(1) translateY(0); }
+
+.modal__header{
+  display:flex; align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:22px;
+}
+.modal__title{
+  margin:0;
+  font-size:clamp(19px, 2.8vmin, 24px);
+  font-weight:800;
+  color:var(--ink);
+}
+.modal__subtitle{
+  margin:6px 0 0;
+  font-size:.85rem;
+  font-weight:500;
+  color:var(--ink-soft);
+}
+.modal__close{
+  flex-shrink:0;
+  display:grid; place-items:center;
+  width:36px; height:36px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  background:rgba(18,72,184,.08);
+  color:var(--ink);
+  transition:background .25s ease, transform .3s ease;
+}
+.modal__close:hover{
+  background:rgba(18,72,184,.16);
+  transform:rotate(90deg);
+}
+.modal__close svg{ width:20px; height:20px; }
+
+.support-team{
+  display:flex; flex-direction:column; gap:12px;
+  padding:clamp(16px, 2.2vmin, 22px);
+  background:linear-gradient(135deg,
+    rgba(27,95,217,.06),
+    rgba(42,212,232,.06));
+  border:1px solid rgba(27,95,217,.15);
+  border-radius:var(--radius-lg);
+  margin-bottom:22px;
+}
+[data-theme="dark"] .support-team{
+  background:linear-gradient(135deg,
+    rgba(27,95,217,.14),
+    rgba(42,212,232,.12));
+  border-color:rgba(120,170,255,.20);
+}
+.support-team__header{
+  display:flex; align-items:center; gap:10px;
+}
+.support-team__icon{
+  display:grid; place-items:center;
+  width:38px; height:38px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  color:#ffffff;
+  flex-shrink:0;
+}
+.support-team__icon svg{ width:20px; height:20px; }
+.support-team__title{
+  margin:0;
+  font-size:1rem;
+  font-weight:800;
+  color:var(--ink);
+}
+.support-team__subtitle{
+  margin:2px 0 0;
+  font-size:.75rem;
+  font-weight:500;
+  color:var(--ink-soft);
+}
+
+.support-team__list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:4px;
+}
+@media (max-width:520px){
+  .support-team__list{ grid-template-columns:1fr; }
+}
+
+.support-person{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-md);
+  transition:transform .3s var(--ease-spring), box-shadow .3s ease;
+}
+[data-theme="dark"] .support-person{ background:rgba(19,42,90,.72); }
+.support-person:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(18,72,184,.14);
+}
+.support-person__avatar{
+  flex-shrink:0;
+  display:grid; place-items:center;
+  width:44px; height:44px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  color:#ffffff;
+  font-size:1.05rem;
+  font-weight:800;
+}
+.support-person__body{
+  display:flex; flex-direction:column; gap:3px;
+  min-width:0;
+  flex:1;
+}
+.support-person__name{
+  margin:0;
+  font-size:.85rem;
+  font-weight:800;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.support-person__role{
+  margin:0;
+  font-size:.68rem;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+.support-person__phone{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:.82rem;
+  font-weight:800;
+  color:var(--blue-700);
+  text-decoration:none;
+  direction:ltr;
+  transition:color .3s ease;
+}
+[data-theme="dark"] .support-person__phone{ color:var(--cyan-400); }
+.support-person__phone:hover{ color:var(--cyan-500); }
+.support-person__phone svg{ width:14px; height:14px; }
+
+.faq{
+  display:flex; flex-direction:column; gap:10px;
+}
+.faq__item{
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  background:rgba(18,72,184,.03);
+  transition:background .3s ease;
+}
+.faq__item:hover{ background:rgba(18,72,184,.06); }
+.faq__q{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
+  padding:14px 16px;
+  font-size:.88rem;
+  font-weight:700;
+  color:var(--ink);
+  cursor:pointer;
+  border:none;
+  background:transparent;
+  width:100%;
+  text-align:start;
+  font-family:inherit;
+  transition:color .3s ease;
+}
+.faq__q:hover{ color:var(--blue-700); }
+.faq__q:focus-visible{ outline:2px solid var(--cyan-500); outline-offset:-2px; }
+.faq__q-icon{
+  flex-shrink:0;
+  width:20px; height:20px;
+  display:grid; place-items:center;
+  color:var(--blue-600);
+  transition:transform .35s var(--ease-spring);
+}
+.faq__q[aria-expanded="true"] .faq__q-icon{ transform:rotate(180deg); }
+.faq__a{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s var(--ease-soft), padding .3s ease;
+  padding:0 16px;
+  font-size:.82rem;
+  font-weight:500;
+  color:var(--ink-soft);
+  line-height:1.8;
+}
+.faq__q[aria-expanded="true"] + .faq__a{
+  max-height:240px;
+  padding:0 16px 14px;
+}
+
+.modal__footer{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--card-border);
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap;
+}
+.modal__footer-text{
+  margin:0;
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+.modal__btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 20px;
+  font-family:inherit;
+  font-size:.82rem;
+  font-weight:700;
+  color:#ffffff;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 8px 20px rgba(18,72,184,.24);
+  transition:transform .3s var(--ease-spring), box-shadow .3s ease;
+}
+.modal__btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(18,72,184,.32);
+}
+
+.transition-overlay{
+  position:fixed; inset:0; z-index:50;
+  display:grid; place-items:center;
+  background:rgba(238,245,255,.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  opacity:0; visibility:hidden;
+  transition:opacity .35s ease, visibility .35s ease;
+}
+[data-theme="dark"] .transition-overlay{ background:rgba(10,22,51,.88); }
+.transition-overlay.is-visible{ opacity:1; visibility:visible; }
+
+.transition-overlay__inner{
+  display:flex; flex-direction:column; align-items:center;
+  gap:18px;
+  text-align:center;
+  padding:36px 44px;
+  border-radius:var(--radius-2xl);
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  box-shadow:0 24px 60px rgba(18,72,184,.18);
+  max-width:min(90vw, 460px);
+}
+.transition-overlay__dots{ display:flex; gap:10px; }
+.transition-overlay__dots span{
+  width:12px; height:12px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--blue-600), var(--cyan-500));
+  animation:dotPulse 1.4s ease-in-out infinite;
+}
+.transition-overlay__dots span:nth-child(1){ animation-delay:0s; }
+.transition-overlay__dots span:nth-child(2){
+  animation-delay:.18s;
+  background:linear-gradient(135deg, var(--cyan-500), var(--cyan-400));
+}
+.transition-overlay__dots span:nth-child(3){
+  animation-delay:.36s;
+  background:linear-gradient(135deg, var(--yellow-300), var(--yellow-400));
+}
+@keyframes dotPulse{
+  0%,100%{ transform:translateY(0) scale(.8); opacity:.5; }
+  50%    { transform:translateY(-10px) scale(1.18); opacity:1; }
+}
+.transition-overlay__text{
+  margin:0;
+  font-size:clamp(16px, 2.1vmin, 19px);
+  font-weight:800;
+  color:var(--blue-700);
+}
+[data-theme="dark"] .transition-overlay__text{ color:var(--cyan-400); }
+.transition-overlay__sub{
+  margin:0;
+  font-size:.9rem;
+  color:var(--ink-soft);
+  font-weight:600;
+}
+
+.unauthorized{
+  position:fixed; inset:0; z-index:60;
+  display:grid; place-items:center;
+  padding:20px;
+  background:rgba(238,245,255,.92);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  opacity:0; visibility:hidden;
+  transition:opacity .4s ease, visibility .4s ease;
+}
+[data-theme="dark"] .unauthorized{ background:rgba(10,22,51,.92); }
+.unauthorized.is-visible{ opacity:1; visibility:visible; }
+.unauthorized__card{
+  display:flex; flex-direction:column; align-items:center;
+  gap:22px; text-align:center;
+  max-width:min(92vw, 500px);
+  padding:clamp(28px, 4vmin, 48px);
+  background:var(--card-bg);
+  border:1.5px solid var(--card-border);
+  border-radius:var(--radius-2xl);
+  box-shadow:0 24px 60px rgba(18,72,184,.16);
+}
+.unauthorized__icon{
+  width:clamp(76px, 12vmin, 104px);
+  height:clamp(76px, 12vmin, 104px);
+  display:grid; place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg, rgba(255,194,51,.18), rgba(255,194,51,.06));
+  color:var(--yellow-400);
+}
+.unauthorized__icon svg{ width:56%; height:56%; }
+.unauthorized__title{
+  margin:0;
+  font-size:clamp(20px, 3vmin, 28px);
+  font-weight:800;
+  color:var(--ink);
+}
+.unauthorized__text{
+  margin:0;
+  font-size:clamp(13px, 1.8vmin, 15px);
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+.unauthorized__btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:13px 26px;
+  font-family:inherit;
+  font-size:.9rem;
+  font-weight:700;
+  color:#ffffff;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 10px 26px rgba(18,72,184,.24);
+  transition:transform .3s var(--ease-spring), box-shadow .3s ease;
+}
+.unauthorized__btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px rgba(18,72,184,.32);
+}
+
+@media (max-width:900px){
+  .hero__title{ font-size:clamp(24px, 5.6vmin, 40px); }
+  .hero__logo{ width:clamp(160px, 34vmin, 220px); }
+  .brand-mark{ width:44px; height:44px; }
+}
+
+@media (max-width:640px){
+  .topbar{ justify-content:center; }
+  .topbar__actions{ width:100%; justify-content:center; }
+  .topbar__info{ width:100%; justify-content:center; }
+  .ticker__track{ font-size:.75rem; gap:50px; }
+  .footer__main{ justify-content:center; text-align:center; }
+  .topbar__meta{ gap:12px; padding:10px 16px; }
+}
+
+@media (max-height:640px) and (orientation:landscape){
+  .hero__logo{ width:130px; margin-bottom:0; }
+  .card{ padding:16px 18px; gap:10px; }
+  .card__illustration{ aspect-ratio:20 / 9; }
+  .card__title{ font-size:1.15rem; }
+  .card__features li{ font-size:.72rem; }
+  .ticker{ display:none; }
+  .topbar__meta{ display:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .bg-gradient, .blob, .bg-particles span, .bg-shapes .shape, .bg-edu .edu,
+  .hero__badge-emoji, .card__status::before, .ticker__track{
+    animation:none !important;
+  }
+}
+
+@media print{
+  .bg-gradient, .blob, .bg-particles, .bg-shapes, .bg-edu,
+  .transition-overlay, .unauthorized, .topbar__actions,
+  .a11y-fab, .a11y-panel, .modal-backdrop, .ticker{
+    display:none !important;
+  }
+  .card{ box-shadow:none; border:1px solid #999; page-break-inside:avoid; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-gradient" aria-hidden="true"></div>
+<div aria-hidden="true">
+  <span class="blob blob--1"></span>
+  <span class="blob blob--2"></span>
+  <span class="blob blob--3"></span>
+  <span class="blob blob--4"></span>
+</div>
+<div class="bg-particles" aria-hidden="true">
+  <span style="--px:10%; --py:20%; --size:6px; --pd:16s; --pdelay:0s;"></span>
+  <span style="--px:82%; --py:14%; --size:7px; --pd:19s; --pdelay:.8s; --color:rgba(42,212,232,.30);"></span>
+  <span style="--px:18%; --py:72%; --size:8px; --pd:22s; --pdelay:1.6s;"></span>
+  <span style="--px:74%; --py:82%; --size:5px; --pd:17s; --pdelay:.4s; --color:rgba(42,212,232,.28);"></span>
+  <span style="--px:48%; --py:8%;  --size:6px; --pd:24s; --pdelay:2.1s; --color:rgba(255,194,51,.35);"></span>
+  <span style="--px:6%;  --py:52%; --size:6px; --pd:18s; --pdelay:1.2s;"></span>
+  <span style="--px:92%; --py:56%; --size:7px; --pd:20s; --pdelay:2.6s; --color:rgba(255,194,51,.30);"></span>
+  <span style="--px:34%; --py:92%; --size:6px; --pd:21s; --pdelay:.2s;"></span>
+</div>
+<div class="bg-shapes" aria-hidden="true">
+  <span class="shape shape--ring" style="top:12%; left:8%; --w:66px; --sd:26s; --sc:#1b5fd9;"></span>
+  <span class="shape shape--ring" style="top:76%; right:12%; --w:54px; --sd:30s; --sc:#12b6d8;"></span>
+  <span class="shape shape--square" style="top:22%; right:6%; --w:46px; --sd:28s; --sc:#2ad4e8;"></span>
+  <span class="shape shape--square" style="bottom:18%; left:14%; --w:42px; --sd:32s; --sc:#8b6bd9;"></span>
+</div>
+<div class="bg-edu" aria-hidden="true">
+  <span class="edu" style="top:14%; left:16%; --ew:52px; --ed:17s; --eo:.10; --ec:#1b5fd9; --edelay:.3s;">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 8 Q10 6 16 8 Q22 6 28 8 V26 Q22 24 16 26 Q10 24 4 26 Z"/>
+      <path d="M16 8 V26"/>
+    </svg>
+  </span>
+  <span class="edu" style="top:72%; left:6%; --ew:44px; --ed:19s; --eo:.09; --ec:#12b6d8; --edelay:1.2s;">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 26 L10 16 L22 4 L28 10 L16 22 Z"/>
+      <path d="M10 16 L16 22"/>
+    </svg>
+  </span>
+  <span class="edu" style="top:22%; right:20%; --ew:40px; --ed:14s; --eo:.13; --ec:#ffc233; --edelay:.6s;">
+    <svg viewBox="0 0 32 32" fill="currentColor">
+      <path d="M16 3 L19.2 11.2 L28 12 L21.2 18 L23.4 27 L16 22.2 L8.6 27 L10.8 18 L4 12 L12.8 11.2 Z"/>
+    </svg>
+  </span>
+  <span class="edu" style="top:44%; left:44%; --ew:42px; --ed:18s; --eo:.08; --ec:#ffc233; --edelay:.9s;">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 20 Q10 14 16 14 Q22 14 22 20 L20 22 H12 Z"/>
+      <path d="M13 22 V24 H19 V22"/>
+    </svg>
+  </span>
+</div>
+
+<div class="ticker" role="region" aria-label="إعلانات المنصة">
+  <div class="ticker__viewport">
+    <div class="ticker__track" aria-hidden="true">
+      <span class="ticker__item">🎉 مرحبًا بكم في منصة أقدر التعليمية — نسخة جديدة كاملة</span>
+      <span class="ticker__item">📚 دروس تفاعلية جديدة للأسبوع الحالي في جميع المواد</span>
+      <span class="ticker__item">🔐 جميع البيانات مشفّرة ومحمية وفق أعلى المعايير</span>
+      <span class="ticker__item">♿ المنصة حاصلة على معايير الوصول WCAG 2.2 AA</span>
+      <span class="ticker__item">🎉 مرحبًا بكم في منصة أقدر التعليمية — نسخة جديدة كاملة</span>
+      <span class="ticker__item">📚 دروس تفاعلية جديدة للأسبوع الحالي في جميع المواد</span>
+      <span class="ticker__item">🔐 جميع البيانات مشفّرة ومحمية وفق أعلى المعايير</span>
+      <span class="ticker__item">♿ المنصة حاصلة على معايير الوصول WCAG 2.2 AA</span>
+    </div>
+  </div>
+</div>
+
+<div class="topbar-wrap">
+  <header class="topbar">
+    <a class="topbar__brand" href="#" aria-label="أقدر AQDAR">
+      <svg class="brand-mark" viewBox="0 0 240 240" aria-hidden="true">
+        <defs>
+          <linearGradient id="bmShirt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4A7CEC"/><stop offset="100%" stop-color="#2457D6"/>
+          </linearGradient>
+          <linearGradient id="bmStar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFE066"/><stop offset="100%" stop-color="#F5A623"/>
+          </linearGradient>
+          <radialGradient id="bmInner">
+            <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eaf3ff"/>
+          </radialGradient>
+        </defs>
+        <circle cx="120" cy="120" r="108" fill="url(#bmInner)"/>
+        <circle cx="120" cy="120" r="108" fill="none" stroke="#1248b8" stroke-width="1.6" stroke-dasharray="3 10" opacity=".28"/>
+        <path d="M92 158 Q84 180 82 196" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+        <circle cx="82" cy="198" r="6" fill="#FFD3AE"/>
+        <rect x="114" y="138" width="12" height="22" rx="6" fill="#FFD3AE"/>
+        <path d="M92 168 Q92 152 110 150 L130 150 Q148 152 148 168 L148 200 Q148 212 138 212 L102 212 Q92 212 92 200 Z" fill="url(#bmShirt)"/>
+        <path d="M148 168 Q170 148 184 122" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+        <g transform="translate(186, 116)">
+          <ellipse cx="0" cy="0" rx="7" ry="6" fill="#FFD3AE"/>
+          <rect x="-4" y="-9" width="3.5" height="9" rx="1.6" fill="#FFD3AE" transform="rotate(-18)"/>
+          <rect x="0" y="-11" width="3.5" height="10" rx="1.6" fill="#FFD3AE" transform="rotate(-4)"/>
+          <rect x="4" y="-10" width="3.5" height="9" rx="1.6" fill="#FFD3AE" transform="rotate(10)"/>
+        </g>
+        <path d="M94 204 h52 v32 q0 6 -6 6 h-6 q-6 0 -6 -6 v-10 l-4 -6 l-4 6 v10 q0 6 -6 6 h-6 q-6 0 -6 -6 Z" fill="#17315F"/>
+        <ellipse cx="106" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+        <ellipse cx="134" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+        <circle cx="120" cy="120" r="28" fill="#FFD3AE"/>
+        <path d="M92 120 Q90 94 112 88 Q134 84 148 96 Q156 108 148 124 Q142 110 130 104 Q112 96 100 106 Q94 112 92 120 Z" fill="#1A2B4C"/>
+        <path d="M108 122 Q112 118 116 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M126 122 Q130 118 134 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M110 132 Q120 142 130 132" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M196 36 L203 58 L226 60 L208 74 L213 96 L196 84 L179 96 L184 74 L166 60 L189 58 Z" fill="url(#bmStar)"/>
+        <path d="M196 48 L201 60 L214 62 L204 70 L207 82 L196 76 L185 82 L188 70 L178 62 L191 60 Z" fill="#FFE890" opacity=".55"/>
+      </svg>
+      <span class="topbar__brand-text">
+        <span class="topbar__brand-ar" data-i18n="brand.ar">أقدر</span>
+        <span class="topbar__brand-en">AQDAR</span>
+      </span>
+    </a>
+
+    <div class="topbar__info">
+      <span class="topbar__info-pill topbar__info-pill--online" data-i18n="status.online">جميع الأنظمة تعمل</span>
+      <span class="topbar__info-pill topbar__info-pill--time" id="liveClock" aria-live="off">--:--</span>
+      <span class="topbar__info-pill topbar__info-pill--date" id="liveDate">--</span>
+    </div>
+
+    <nav class="topbar__actions" aria-label="إجراءات سريعة">
+      <button class="topbar__btn" id="langBtn" type="button" aria-label="تغيير اللغة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M3 12 H21"/>
+          <path d="M12 3 Q15 8 15 12 Q15 16 12 21 Q9 16 9 12 Q9 8 12 3 Z"/>
+        </svg>
+        <span class="topbar__btn-label" id="langLabel">English</span>
+      </button>
+      <button class="topbar__btn" id="themeBtn" type="button" aria-label="تبديل الوضع الليلي">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.8 A9 9 0 1 1 11.2 3 A7 7 0 0 0 21 12.8 Z"/>
+        </svg>
+        <span class="topbar__btn-label" id="themeLabel" data-i18n="btn.theme.night">ليلي</span>
+      </button>
+      <button class="topbar__btn" id="helpBtn" type="button" aria-label="المساعدة والدعم">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9.5 9 A2.5 2.5 0 1 1 12 11.5 V14"/>
+          <circle cx="12" cy="17.5" r=".8" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="topbar__btn-label" data-i18n="btn.help">مساعدة</span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="topbar__meta">
+    <span class="topbar__meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3 L4 6 V12 Q4 18 12 21 Q20 18 20 12 V6 Z"/><path d="M9 12 L11 14 L15 9"/>
+      </svg>
+      <span data-i18n="meta.secure">منصة معتمدة لذوي الاحتياجات الخاصة</span>
+    </span>
+    <span class="topbar__meta-divider" aria-hidden="true"></span>
+    <span class="topbar__meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7 V12 L15 15"/>
+      </svg>
+      <span data-i18n="meta.uptime">أدوار مختلفة لتناسب احتياجك</span>
+    </span>
+    <span class="topbar__meta-divider" aria-hidden="true"></span>
+    <span class="topbar__meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M17 21 V19 A4 4 0 0 0 13 15 H5 A4 4 0 0 0 1 19 V21"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21 V19 A4 4 0 0 0 20 15"/>
+      </svg>
+      <span data-i18n="meta.users">اختر دورك وابدأ في أقل من دقيقة</span>
+    </span>
+    <span class="topbar__meta-divider" aria-hidden="true"></span>
+    <span class="topbar__meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2 L15.09 8.26 L22 9.27 L17 14.14 L18.18 21.02 L12 17.77 L5.82 21.02 L7 14.14 L2 9.27 L8.91 8.26 Z"/>
+      </svg>
+      <span data-i18n="meta.rating">دعم كامل لإمكانيات الوصول</span>
+    </span>
+  </div>
+</div>
+
+<main class="page" id="page">
+
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero__logo" aria-hidden="true">
+      <svg class="logo-svg" viewBox="0 0 500 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="gBlueArc" x1="0" y1="0" x2="1" y2="0.6">
+            <stop offset="0" stop-color="#3B6FEC"/><stop offset="1" stop-color="#18BFD4"/>
+          </linearGradient>
+          <linearGradient id="gGreenArc" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#7DD24D"/><stop offset="1" stop-color="#4DA830"/>
+          </linearGradient>
+          <linearGradient id="gSwoosh1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#7DD24D"/><stop offset="0.6" stop-color="#5CB83C"/><stop offset="1" stop-color="#4DA830"/>
+          </linearGradient>
+          <linearGradient id="gSwoosh2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#FFC94A"/><stop offset="0.7" stop-color="#F5A623"/><stop offset="1" stop-color="#E88B10"/>
+          </linearGradient>
+          <linearGradient id="gShirt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4A7CEC"/><stop offset="1" stop-color="#2457D6"/>
+          </linearGradient>
+          <linearGradient id="gStar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE066"/><stop offset="1" stop-color="#F5A623"/>
+          </linearGradient>
+          <radialGradient id="gCheek">
+            <stop offset="0" stop-color="#FFB0B0" stop-opacity=".75"/><stop offset="1" stop-color="#FFB0B0" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="starGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softShadow" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="3.5" flood-color="#0A1530" flood-opacity=".14"/>
+          </filter>
+          <clipPath id="arcClip"><circle cx="245" cy="235" r="200"/></clipPath>
+        </defs>
+        <g clip-path="url(#arcClip)">
+          <path d="M48 340 Q38 165 195 92 Q360 20 448 170" stroke="url(#gBlueArc)" stroke-width="8.5" fill="none" stroke-linecap="round" opacity=".95"/>
+          <path d="M448 170 Q472 305 400 415 Q355 480 270 495" stroke="url(#gGreenArc)" stroke-width="8.5" fill="none" stroke-linecap="round" opacity=".9"/>
+        </g>
+        <g filter="url(#softShadow)">
+          <rect x="108" y="78" width="62" height="56" rx="15" fill="#2457D6"/>
+          <path d="M124 96 Q135 90 144 96 V122 Q135 118 124 122 Z" fill="#fff" opacity=".95"/>
+          <path d="M144 96 Q153 90 162 96 V122 Q153 118 144 122 Z" fill="#fff" opacity=".82"/>
+          <line x1="144" y1="96" x2="144" y2="122" stroke="#2457D6" stroke-width="1.6"/>
+        </g>
+        <g filter="url(#softShadow)">
+          <rect x="72" y="160" width="62" height="56" rx="15" fill="#5CB83C"/>
+          <path d="M103 174 Q93 174 93 184 Q93 191 98 194 V200 H108 V194 Q113 191 113 184 Q113 174 103 174 Z" fill="#fff" opacity=".95"/>
+          <rect x="98" y="200" width="10" height="3" rx="1.5" fill="#fff"/>
+          <line x1="103" y1="168" x2="103" y2="165" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g filter="url(#softShadow)">
+          <rect x="98" y="240" width="62" height="56" rx="15" fill="#F5A623"/>
+          <circle cx="122" cy="260" r="9" fill="#fff" opacity=".95"/>
+          <path d="M111 284 Q111 274 122 274 Q133 274 133 284 Z" fill="#fff" opacity=".85"/>
+          <circle cx="143" cy="262" r="7" fill="#fff" opacity=".72"/>
+        </g>
+        <g>
+          <path d="M178 382 Q225 362 275 380 Q325 398 370 360" stroke="url(#gSwoosh1)" stroke-width="15" fill="none" stroke-linecap="round" filter="url(#softGlow)"/>
+          <path d="M160 404 Q225 384 285 402 Q344 420 394 382" stroke="url(#gSwoosh2)" stroke-width="15" fill="none" stroke-linecap="round" filter="url(#softGlow)"/>
+        </g>
+        <g filter="url(#softShadow)">
+          <path d="M212 260 Q202 298 200 334" stroke="#2457D6" stroke-width="17" stroke-linecap="round" fill="none"/>
+          <circle cx="200" cy="337" r="7.5" fill="#FFD3AE"/>
+          <rect x="238" y="216" width="14" height="38" rx="7" fill="#FFD3AE"/>
+          <path d="M274 258 Q304 226 330 196" stroke="#2457D6" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <path d="M209 268 Q209 250 231 247 L259 247 Q281 250 281 268 L281 320 Q281 336 265 336 L225 336 Q209 336 209 320 Z" fill="url(#gShirt)"/>
+          <g transform="translate(332, 192)">
+            <ellipse cx="0" cy="0" rx="8" ry="7" fill="#FFD3AE"/>
+            <rect x="-5.5" y="-12" width="4.5" height="12" rx="2.2" fill="#FFD3AE" transform="rotate(-20)"/>
+            <rect x="-1" y="-14" width="4.5" height="13" rx="2.2" fill="#FFD3AE" transform="rotate(-6)"/>
+            <rect x="3.5" y="-13" width="4.5" height="12" rx="2.2" fill="#FFD3AE" transform="rotate(8)"/>
+          </g>
+          <path d="M212 326 h66 v50 q0 9 -9 9 h-10 q-9 0 -9 -9 v-12 l-5 -8 l-5 8 v12 q0 9 -9 9 h-10 q-9 0 -9 -9 Z" fill="#17315F"/>
+          <ellipse cx="226" cy="386" rx="14" ry="7" fill="#17315F"/>
+          <ellipse cx="264" cy="386" rx="14" ry="7" fill="#17315F"/>
+          <circle cx="245" cy="200" r="36" fill="#FFD3AE"/>
+          <path d="M209 200 Q205 166 231 156 Q259 146 283 162 Q301 178 285 202 Q281 184 267 172 Q245 162 225 170 Q213 178 209 200 Z" fill="#1A2B4C"/>
+          <path d="M226 202 Q232 196 238 202" stroke="#1A2B4C" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M252 202 Q258 196 264 202" stroke="#1A2B4C" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M230 216 Q237 228 245 228 Q253 228 260 216 Q258 232 245 234 Q232 232 230 216 Z" fill="#1A2B4C"/>
+          <circle cx="222" cy="212" r="8.5" fill="url(#gCheek)"/>
+          <circle cx="268" cy="212" r="8.5" fill="url(#gCheek)"/>
+        </g>
+        <g filter="url(#starGlow)">
+          <path d="M408 42 L424 82 L468 88 L435 116 L444 160 L408 138 L372 160 L381 116 L348 88 L392 82 Z" fill="url(#gStar)"/>
+          <path d="M408 56 L418 82 L444 88 L423 106 L430 132 L408 118 L386 132 L393 106 L372 88 L398 82 Z" fill="#FFE890" opacity=".48"/>
+        </g>
+        <text x="250" y="470" font-size="78" font-weight="800" text-anchor="middle" fill="#2457D6" style="font-family:'Noto Kufi Arabic','Cairo',sans-serif" filter="url(#softGlow)">أقدر</text>
+        <path d="M168 488 Q250 502 332 488" stroke="#5CB83C" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>
+        <text x="250" y="528" font-size="26" font-weight="700" text-anchor="middle" fill="#2457D6" letter-spacing="7" style="font-family:'Segoe UI','Arial',sans-serif">AQDAR</text>
+      </svg>
+    </div>
+
+    <span class="hero__badge">
+      <span class="hero__badge-emoji" id="greetEmoji" aria-hidden="true">👋</span>
+      <span id="greetText" data-i18n="greet.welcome">أهلًا بك</span>
+    </span>
+
+    <h1 class="hero__title" id="heroTitle">
+      <span data-i18n="hero.title.1">أهلًا بك في</span>
+      <em data-i18n="hero.title.2">منصة أقدر</em>
+    </h1>
+
+    <h2 class="hero__subtitle" data-i18n="hero.subtitle">
+      اختر مساحتك للدخول والمتابعة
+    </h2>
+
+    <p class="hero__desc" data-i18n="hero.desc">
+      كل دور ومساحة لها أدواتها المصمّمة خصيصًا لتناسب احتياجك — سواء كنت طالبًا أو معلمًا أو ولي أمر، أو تريد استكشاف النقاشات والمكتبة والمعرض.
+    </p>
+  </section>
+
+  <div class="cards" id="cards" role="list" aria-label="اختر مساحتك">
+
+    <!-- ===== 01 — الطالب ===== -->
+    <a class="card" href="student-login.html" data-role="student" role="listitem" aria-label="الدخول كطالب">
+      <div class="card__illustration" aria-hidden="true">
+        <div class="card__badges"><span class="card__badge card__badge--live">متاح</span></div>
+        <img src="student.jfif" alt="" class="card__illustration-img" loading="lazy">
+      </div>
+      <div class="card__head">
+        <span class="card__num" aria-hidden="true">01</span>
+        <span class="card__status" data-i18n="status.available">متاح الآن</span>
+      </div>
+      <div class="card__title-block">
+        <h3 class="card__title" data-i18n="role.student">الطالب</h3>
+        <p class="card__title-en">STUDENT</p>
+      </div>
+      <p class="card__desc" data-i18n="role.student.desc">تعلّم واستمتع بدروس تفاعلية مبسّطة مصمّمة خصيصًا لك.</p>
+      <ul class="card__features" aria-label="مميزات">
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.student.f1">دروس مبسّطة بالصور والصوت</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.student.f2">ألعاب وأنشطة تفاعلية ممتعة</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.student.f3">شارات ومكافآت على تقدّمك</span></li>
+      </ul>
+      <span class="card__cta">
+        <span data-i18n="role.student.cta">ابدأ رحلتك</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12 H5"/><path d="M12 5 L5 12 L12 19"/></svg>
+      </span>
+      <span class="card__last" data-last-for="student">آخر دخول</span>
+      <span class="card__spinner" aria-hidden="true"></span>
+    </a>
+
+    <!-- ===== 02 — المعلم ===== -->
+    <a class="card" href="teacher-login.html" data-role="teacher" role="listitem" aria-label="الدخول كمعلم">
+      <div class="card__illustration card__illustration--svg" aria-hidden="true">
+        <div class="card__badges"><span class="card__badge card__badge--live">متاح</span></div>
+        <svg class="card__svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#dcfce7"/><stop offset="1" stop-color="#bbf7d0"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="200" fill="url(#tBg)"/>
+          <rect x="30" y="25" width="150" height="100" rx="8" fill="#14532d"/>
+          <rect x="38" y="33" width="134" height="84" rx="4" fill="#166534"/>
+          <line x1="55" y1="52" x2="115" y2="52" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+          <line x1="55" y1="68" x2="145" y2="68" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+          <line x1="55" y1="84" x2="95" y2="84" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+          <rect x="30" y="125" width="150" height="6" rx="3" fill="#78350f"/>
+          <line x1="55" y1="131" x2="45" y2="180" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+          <line x1="155" y1="131" x2="165" y2="180" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="245" cy="178" rx="55" ry="5" fill="#000" opacity="0.08"/>
+          <path d="M215 165 Q215 133 245 133 Q275 133 275 165 L275 178 L215 178 Z" fill="#16a34a"/>
+          <path d="M215 148 L180 128" stroke="#16a34a" stroke-width="10" stroke-linecap="round"/>
+          <line x1="180" y1="128" x2="145" y2="112" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+          <path d="M275 148 L298 140" stroke="#16a34a" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="245" cy="108" r="27" fill="#fcd34d"/>
+          <path d="M218 103 Q218 78 245 78 Q272 78 272 103 Q262 86 245 86 Q228 86 218 103 Z" fill="#1f2937"/>
+          <circle cx="236" cy="106" r="3" fill="#1f2937"/>
+          <circle cx="254" cy="106" r="3" fill="#1f2937"/>
+          <path d="M235 118 Q245 126 255 118" stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card__head">
+        <span class="card__num" aria-hidden="true">02</span>
+        <span class="card__status" data-i18n="status.available">متاح الآن</span>
+      </div>
+      <div class="card__title-block">
+        <h3 class="card__title" data-i18n="role.teacher">المعلم</h3>
+        <p class="card__title-en">TEACHER</p>
+      </div>
+      <p class="card__desc" data-i18n="role.teacher.desc">أدِر دروسك وتابع طلابك بأدوات تعليمية متطورة.</p>
+      <ul class="card__features" aria-label="مميزات">
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.teacher.f1">إنشاء وإدارة الدروس بسهولة</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.teacher.f2">متابعة تقدم الطلاب لحظيًا</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.teacher.f3">أدوات تفاعلية للفصول الافتراضية</span></li>
+      </ul>
+      <span class="card__cta">
+        <span data-i18n="role.teacher.cta">دخول المعلم</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12 H5"/><path d="M12 5 L5 12 L12 19"/></svg>
+      </span>
+      <span class="card__last" data-last-for="teacher">آخر دخول</span>
+      <span class="card__spinner" aria-hidden="true"></span>
+    </a>
+
+    <!-- ===== 03 — ولي الأمر ===== -->
+    <a class="card" href="parent-login.html" data-role="parent" role="listitem" aria-label="الدخول كولي أمر">
+      <div class="card__illustration card__illustration--svg" aria-hidden="true">
+        <div class="card__badges"><span class="card__badge card__badge--live">متاح</span></div>
+        <svg class="card__svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fde68a"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="200" fill="url(#pBg)"/>
+          <path d="M50 55 Q45 43 55 43 Q65 43 60 55 L55 60 Z" fill="#f59e0b" opacity="0.45"/>
+          <path d="M275 65 Q270 53 280 53 Q290 53 285 65 L280 70 Z" fill="#f59e0b" opacity="0.35"/>
+          <path d="M75 90 Q70 78 80 78 Q90 78 85 90 L80 95 Z" fill="#f59e0b" opacity="0.3"/>
+          <ellipse cx="120" cy="178" rx="48" ry="5" fill="#000" opacity="0.08"/>
+          <circle cx="120" cy="92" r="30" fill="#fdba74"/>
+          <path d="M90 87 Q90 58 120 58 Q150 58 150 87 Q140 68 120 68 Q100 68 90 87 Z" fill="#78350f"/>
+          <circle cx="109" cy="90" r="3" fill="#1f2937"/>
+          <circle cx="131" cy="90" r="3" fill="#1f2937"/>
+          <path d="M107 103 Q120 113 133 103" stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M82 178 Q82 128 120 128 Q158 128 158 178 Z" fill="#ffb020"/>
+          <path d="M158 158 L188 152" stroke="#ffb020" stroke-width="10" stroke-linecap="round"/>
+          <ellipse cx="215" cy="178" rx="32" ry="4" fill="#000" opacity="0.08"/>
+          <circle cx="215" cy="122" r="22" fill="#fcd34d"/>
+          <path d="M193 118 Q193 100 215 100 Q237 100 237 118 Q228 106 215 106 Q202 106 193 118 Z" fill="#1f2937"/>
+          <circle cx="207" cy="120" r="2.6" fill="#1f2937"/>
+          <circle cx="223" cy="120" r="2.6" fill="#1f2937"/>
+          <path d="M207 132 Q215 138 223 132" stroke="#1f2937" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <path d="M192 178 Q192 148 215 148 Q238 148 238 178 Z" fill="#16a34a"/>
+          <path d="M192 165 L188 152" stroke="#16a34a" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card__head">
+        <span class="card__num" aria-hidden="true">03</span>
+        <span class="card__status" data-i18n="status.available">متاح الآن</span>
+      </div>
+      <div class="card__title-block">
+        <h3 class="card__title" data-i18n="role.parent">ولي الأمر</h3>
+        <p class="card__title-en">PARENT</p>
+      </div>
+      <p class="card__desc" data-i18n="role.parent.desc">تابع تقدّم طفلك وكن على تواصل دائم مع معلميه.</p>
+      <ul class="card__features" aria-label="مميزات">
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.parent.f1">متابعة مستوى طفلك أولًا بأول</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.parent.f2">تقارير دورية عن الأداء</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.parent.f3">تواصل مباشر مع المعلمين</span></li>
+      </ul>
+      <span class="card__cta">
+        <span data-i18n="role.parent.cta">دخول ولي الأمر</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12 H5"/><path d="M12 5 L5 12 L12 19"/></svg>
+      </span>
+      <span class="card__last" data-last-for="parent">آخر دخول</span>
+      <span class="card__spinner" aria-hidden="true"></span>
+    </a>
+
+    <!-- ===== 04 — ساحة نقاش ===== -->
+    <a class="card" href="discussion.html" data-role="discussion" role="listitem" aria-label="ساحة النقاش">
+      <div class="card__illustration card__illustration--svg" aria-hidden="true">
+        <div class="card__badges"><span class="card__badge card__badge--active">نشط</span></div>
+        <svg class="card__svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#cffafe"/><stop offset="1" stop-color="#a5f3fc"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="200" fill="url(#dBg)"/>
+          <path d="M50 45 Q50 30 65 30 L200 30 Q215 30 215 45 L215 105 Q215 120 200 120 L105 120 L82 142 L85 120 L65 120 Q50 120 50 105 Z" fill="#0e7490"/>
+          <line x1="75" y1="60" x2="185" y2="60" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+          <line x1="75" y1="78" x2="165" y2="78" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.75"/>
+          <line x1="75" y1="96" x2="140" y2="96" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+          <path d="M215 108 Q215 95 228 95 L285 95 Q298 95 298 108 L298 145 Q298 158 285 158 L280 158 L268 172 L270 158 L228 158 Q215 158 215 145 Z" fill="#22d3ee"/>
+          <line x1="235" y1="115" x2="278" y2="115" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity="0.95"/>
+          <line x1="235" y1="130" x2="265" y2="130" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity="0.8"/>
+          <line x1="235" y1="145" x2="250" y2="145" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity="0.65"/>
+          <circle cx="125" cy="170" r="13" fill="#0e7490"/>
+          <circle cx="160" cy="170" r="13" fill="#155e75"/>
+          <circle cx="195" cy="170" r="13" fill="#0891b2"/>
+          <text x="125" y="175" font-size="12" font-weight="800" text-anchor="middle" fill="#fff">أ</text>
+          <text x="160" y="175" font-size="12" font-weight="800" text-anchor="middle" fill="#fff">ب</text>
+          <text x="195" y="175" font-size="12" font-weight="800" text-anchor="middle" fill="#fff">ج</text>
+        </svg>
+      </div>
+      <div class="card__head">
+        <span class="card__num" aria-hidden="true">04</span>
+        <span class="card__status" data-i18n="status.available">متاح الآن</span>
+      </div>
+      <div class="card__title-block">
+        <h3 class="card__title" data-i18n="role.discussion">ساحة نقاش</h3>
+        <p class="card__title-en">DISCUSSION</p>
+      </div>
+      <p class="card__desc" data-i18n="role.discussion.desc">شارك أفكارك وناقش زملاءك في بيئة تعليمية آمنة.</p>
+      <ul class="card__features" aria-label="مميزات">
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.discussion.f1">مواضيع نقاش متنوعة</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.discussion.f2">تفاعل مع المعلمين والزملاء</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.discussion.f3">بيئة محمية وآمنة للجميع</span></li>
+      </ul>
+      <span class="card__cta">
+        <span data-i18n="role.discussion.cta">دخول الساحة</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12 H5"/><path d="M12 5 L5 12 L12 19"/></svg>
+      </span>
+      <span class="card__last" data-last-for="discussion">آخر زيارة</span>
+      <span class="card__spinner" aria-hidden="true"></span>
+    </a>
+
+    <!-- ===== 05 — مكتبة مصادر ===== -->
+    <a class="card" href="library.html" data-role="library" role="listitem" aria-label="مكتبة المصادر">
+      <div class="card__illustration card__illustration--svg" aria-hidden="true">
+        <div class="card__badges"><span class="card__badge card__badge--new">جديد</span></div>
+        <svg class="card__svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ede9fe"/><stop offset="1" stop-color="#ddd6fe"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="200" fill="url(#lBg)"/>
+          <rect x="30" y="160" width="260" height="12" rx="3" fill="#5b21b6"/>
+          <rect x="30" y="172" width="260" height="6" rx="2" fill="#4c1d95"/>
+          <rect x="55" y="112" width="24" height="48" rx="2" fill="#7c3aed"/>
+          <rect x="83" y="118" width="20" height="42" rx="2" fill="#a855f7"/>
+          <rect x="107" y="108" width="26" height="52" rx="2" fill="#8b5cf6"/>
+          <rect x="137" y="115" width="22" height="45" rx="2" fill="#6d28d9"/>
+          <rect x="163" y="110" width="24" height="50" rx="2" fill="#9333ea"/>
+          <g transform="translate(192 112) rotate(15)"><rect width="22" height="48" rx="2" fill="#c084fc"/></g>
+          <rect x="222" y="104" width="26" height="56" rx="2" fill="#7e22ce"/>
+          <rect x="252" y="115" width="22" height="45" rx="2" fill="#a855f7"/>
+          <g transform="translate(95 30)">
+            <path d="M0 20 Q25 10 50 20 L50 80 Q25 70 0 80 Z" fill="#fff"/>
+            <path d="M50 20 Q75 10 100 20 L100 80 Q75 70 50 80 Z" fill="#f3f4f6"/>
+            <line x1="50" y1="20" x2="50" y2="80" stroke="#c084fc" stroke-width="2"/>
+            <line x1="12" y1="34" x2="38" y2="32" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="12" y1="46" x2="38" y2="44" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="12" y1="58" x2="38" y2="56" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="62" y1="32" x2="88" y2="34" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="62" y1="44" x2="88" y2="46" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="62" y1="56" x2="88" y2="58" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card__head">
+        <span class="card__num" aria-hidden="true">05</span>
+        <span class="card__status" data-i18n="status.available">متاح الآن</span>
+      </div>
+      <div class="card__title-block">
+        <h3 class="card__title" data-i18n="role.library">مكتبة مصادر</h3>
+        <p class="card__title-en">LIBRARY</p>
+      </div>
+      <p class="card__desc" data-i18n="role.library.desc">مكتبة غنية بالكتب والمراجع والمواد التعليمية.</p>
+      <ul class="card__features" aria-label="مميزات">
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.library.f1">كتب ومراجع متنوعة</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.library.f2">بحث سهل وسريع</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.library.f3">محتوى محدّث باستمرار</span></li>
+      </ul>
+      <span class="card__cta">
+        <span data-i18n="role.library.cta">تصفّح المكتبة</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12 H5"/><path d="M12 5 L5 12 L12 19"/></svg>
+      </span>
+      <span class="card__last" data-last-for="library">آخر زيارة</span>
+      <span class="card__spinner" aria-hidden="true"></span>
+    </a>
+
+    <!-- ===== 06 — معرض أنشطة ===== -->
+    <a class="card" href="gallery.html" data-role="gallery" role="listitem" aria-label="معرض الأنشطة">
+      <div class="card__illustration card__illustration--svg" aria-hidden="true">
+        <div class="card__badges"><span class="card__badge card__badge--featured">مميز</span></div>
+        <svg class="card__svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ggBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fce7f3"/><stop offset="1" stop-color="#fbcfe8"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="200" fill="url(#ggBg)"/>
+          <rect x="30" y="30" width="120" height="95" rx="4" fill="#ec4899"/>
+          <rect x="36" y="36" width="108" height="83" rx="2" fill="#fff"/>
+          <circle cx="90" cy="68" r="14" fill="#fbbf24"/>
+          <path d="M36 119 L68 82 L98 102 L130 70 L144 119 Z" fill="#22c55e"/>
+          <rect x="175" y="45" width="110" height="75" rx="4" fill="#db2777"/>
+          <rect x="180" y="50" width="100" height="65" rx="2" fill="#fff"/>
+          <circle cx="230" cy="78" r="11" fill="#38bdf8"/>
+          <path d="M180 115 L207 82 L240 100 L275 78 L275 115 Z" fill="#a3e635"/>
+          <rect x="55" y="140" width="80" height="45" rx="3" fill="#be185d"/>
+          <rect x="60" y="145" width="70" height="35" rx="2" fill="#fff"/>
+          <path d="M60 180 L85 158 L105 170 L130 152 L130 180 Z" fill="#f472b6"/>
+          <rect x="155" y="135" width="135" height="55" rx="3" fill="#f43f5e"/>
+          <rect x="161" y="141" width="123" height="43" rx="2" fill="#fff"/>
+          <circle cx="192" cy="164" r="9" fill="#8b5cf6"/>
+          <circle cx="228" cy="158" r="7" fill="#fbbf24"/>
+          <circle cx="262" cy="168" r="11" fill="#22d3ee"/>
+        </svg>
+      </div>
+      <div class="card__head">
+        <span class="card__num" aria-hidden="true">06</span>
+        <span class="card__status" data-i18n="status.available">متاح الآن</span>
+      </div>
+      <div class="card__title-block">
+        <h3 class="card__title" data-i18n="role.gallery">معرض أنشطة</h3>
+        <p class="card__title-en">GALLERY</p>
+      </div>
+      <p class="card__desc" data-i18n="role.gallery.desc">استكشف أنشطة وإبداعات الطلاب والمعلمين.</p>
+      <ul class="card__features" aria-label="مميزات">
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.gallery.f1">معرض أعمال الطلاب</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.gallery.f2">أنشطة تفاعلية ممتعة</span></li>
+        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span><span data-i18n="role.gallery.f3">مشاركة الإبداعات</span></li>
+      </ul>
+      <span class="card__cta">
+        <span data-i18n="role.gallery.cta">زيارة المعرض</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12 H5"/><path d="M12 5 L5 12 L12 19"/></svg>
+      </span>
+      <span class="card__last" data-last-for="gallery">آخر زيارة</span>
+      <span class="card__spinner" aria-hidden="true"></span>
+    </a>
+
+  </div>
+
+  <aside class="security" aria-label="معلومات الأمان">
+    <div class="security__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 L4 6 V12 Q4 18 12 21 Q20 18 20 12 V6 Z"/><path d="M9 12 L11 14 L15 9"/>
+      </svg>
+    </div>
+    <div class="security__body">
+      <p class="security__title" data-i18n="secure.title">بيئة آمنة ومحمية</p>
+      <p class="security__text" data-i18n="secure.text">
+        جميع البيانات محمية، وكل دور له صلاحيات محددة. لن تتمكن من الوصول
+        إلا إلى المساحة المصرّح لك بها فقط — بأمان تام وبخصوصية كاملة.
+      </p>
+    </div>
+  </aside>
+
+  <footer class="footer">
+    <div class="footer__badges">
+      <span class="footer__badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 L11 14 L15 9"/><circle cx="12" cy="12" r="9"/></svg>
+        <span>WCAG 2.2 AA</span>
+      </span>
+      <span class="footer__badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 L11 14 L15 9"/><circle cx="12" cy="12" r="9"/></svg>
+        <span data-i18n="footer.ssl">اتصال مشفّر SSL</span>
+      </span>
+      <span class="footer__badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 L11 14 L15 9"/><circle cx="12" cy="12" r="9"/></svg>
+        <span data-i18n="footer.privacy">حماية الخصوصية</span>
+      </span>
+      <span class="footer__badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 L11 14 L15 9"/><circle cx="12" cy="12" r="9"/></svg>
+        <span data-i18n="footer.arabic">دعم كامل للعربية</span>
+      </span>
+    </div>
+
+    <div class="footer__main">
+      <p class="footer__copy">
+        © <span id="year">2025</span>
+        <span data-i18n="footer.copy">منصة أقدر التعليمية — جميع الحقوق محفوظة.</span>
+      </p>
+      <nav class="footer__links" aria-label="روابط الفوتر">
+        <button class="footer__link" type="button" data-open-modal="about" data-i18n="footer.link.about">عن منصة أقدر</button>
+        <button class="footer__link" type="button" data-open-modal="support" data-i18n="footer.link.support">فريق الدعم الفني</button>
+        <button class="footer__link" type="button" data-open-modal="guide" data-i18n="footer.link.guide">دليل الاستخدام السريع</button>
+        <button class="footer__link" type="button" data-open-modal="contact" data-i18n="footer.link.contact">تواصل معنا</button>
+      </nav>
+    </div>
+  </footer>
+
+</main>
+
+<button class="a11y-fab" id="a11yFab" type="button" aria-label="خيارات الوصول" aria-haspopup="dialog" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="4.5" r="2"/><path d="M12 7 V14"/><path d="M6 9 H18"/><path d="M9 21 L12 14 L15 21"/>
+  </svg>
+</button>
+
+<aside class="a11y-panel" id="a11yPanel" role="dialog" aria-label="خيارات الوصول" aria-hidden="true">
+  <div class="a11y-panel__header">
+    <h3 class="a11y-panel__title" data-i18n="a11y.title">خيارات الوصول</h3>
+    <button class="a11y-panel__close" id="a11yClose" type="button" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+    </button>
+  </div>
+  <div class="a11y-group">
+    <span class="a11y-group__label" data-i18n="a11y.font">حجم الصفحة</span>
+    <div class="a11y-options" role="group">
+      <button class="a11y-option" data-font="0.9" type="button" data-i18n="a11y.font.small">صغير</button>
+      <button class="a11y-option is-active" data-font="1" type="button" data-i18n="a11y.font.normal">متوسط</button>
+      <button class="a11y-option" data-font="1.15" type="button" data-i18n="a11y.font.large">كبير</button>
+      <button class="a11y-option" data-font="1.3" type="button" data-i18n="a11y.font.xlarge">أكبر</button>
+    </div>
+  </div>
+  <div class="a11y-group">
+    <button class="a11y-toggle" id="motionToggle" type="button" aria-pressed="false">
+      <span class="a11y-toggle__label" data-i18n="a11y.reduce">إيقاف الحركة</span>
+      <span class="a11y-toggle__switch" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="a11y-group">
+    <button class="a11y-toggle" id="contrastToggle" type="button" aria-pressed="false">
+      <span class="a11y-toggle__label" data-i18n="a11y.contrast">تباين عالٍ</span>
+      <span class="a11y-toggle__switch" aria-hidden="true"></span>
+    </button>
+  </div>
+</aside>
+
+<div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle" aria-hidden="true">
+  <div class="modal" role="document">
+    <div class="modal__header">
+      <div>
+        <h2 class="modal__title" id="helpModalTitle" data-i18n="help.title">كيف يمكننا مساعدتك؟</h2>
+        <p class="modal__subtitle" data-i18n="help.subtitle">إجابات سريعة + فريق الدعم الفني</p>
+      </div>
+      <button class="modal__close" id="helpClose" type="button" aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+      </button>
+    </div>
+    <div class="support-team">
+      <div class="support-team__header">
+        <div class="support-team__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6 H20 V18 H13 L8 22 V18 H4 Z"/><path d="M9 12 H15"/><path d="M9 9 H15"/>
+          </svg>
+        </div>
+        <div>
+          <p class="support-team__title" data-i18n="support.title">فريق الدعم الفني</p>
+          <p class="support-team__subtitle" data-i18n="support.subtitle">متاحون للرد على استفساراتك عبر الهاتف</p>
+        </div>
+      </div>
+      <div class="support-team__list">
+        <div class="support-person">
+          <div class="support-person__avatar" aria-hidden="true">م</div>
+          <div class="support-person__body">
+            <p class="support-person__name">الأستاذ مصطفى مناع</p>
+            <p class="support-person__role" data-i18n="support.role.supervisor">المشرف العام على الدعم</p>
+            <a class="support-person__phone" href="tel:01005252256">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9 V20 A2 2 0 0 1 19.8 22 A19.8 19.8 0 0 1 2 4.2 A2 2 0 0 1 4 2 H7.1 A2 2 0 0 1 9 3.7 L9.9 6.6 A2 2 0 0 1 9.3 8.7 L7.9 10 A16 16 0 0 0 14 16.1 L15.3 14.7 A2 2 0 0 1 17.4 14.1 L20.3 15 A2 2 0 0 1 22 16.9 Z"/></svg>
+              01005252256
+            </a>
+          </div>
+        </div>
+        <div class="support-person">
+          <div class="support-person__avatar" aria-hidden="true">م</div>
+          <div class="support-person__body">
+            <p class="support-person__name">محمد طارق عبدالحافظ</p>
+            <p class="support-person__role" data-i18n="support.role.tech">مسؤول الدعم التقني</p>
+            <a class="support-person__phone" href="tel:01272210420">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9 V20 A2 2 0 0 1 19.8 22 A19.8 19.8 0 0 1 2 4.2 A2 2 0 0 1 4 2 H7.1 A2 2 0 0 1 9 3.7 L9.6 6.6 A2 2 0 0 1 9.3 8.7 L7.9 10 A16 16 0 0 0 14 16.1 L15.3 14.7 A2 2 0 0 1 17.4 14.1 L20.3 15 A2 2 0 0 1 22 16.9 Z"/></svg>
+              01272210420
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="faq">
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" type="button">
+          <span data-i18n="faq.1.q">كيف أعرف أي دور أختار؟</span>
+          <span class="faq__q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9 L12 15 L18 9"/></svg></span>
+        </button>
+        <div class="faq__a" data-i18n="faq.1.a">إذا كنت طالبًا تتعلم على المنصة، اختر «الطالب». وإذا كنت معلمًا اختر «المعلم»، وولي الأمر يختار «ولي الأمر».</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" type="button">
+          <span data-i18n="faq.2.q">لا أملك بيانات دخول — ماذا أفعل؟</span>
+          <span class="faq__q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9 L12 15 L18 9"/></svg></span>
+        </button>
+        <div class="faq__a" data-i18n="faq.2.a">بيانات الدخول تُصرف من إدارة المدرسة أو الجهة المسؤولة عن التسجيل. يمكنك التواصل مع فريق الدعم مباشرة على الأرقام أعلاه.</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" type="button">
+          <span data-i18n="faq.3.q">هل المنصة مناسبة لذوي الإعاقة الفكرية؟</span>
+          <span class="faq__q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9 L12 15 L18 9"/></svg></span>
+        </button>
+        <div class="faq__a" data-i18n="faq.3.a">نعم، المنصة مصمّمة خصيصًا لتناسب ذوي الإعاقة الفكرية: خطوط كبيرة، ألوان هادئة، دعم كامل للعربية، وقابلية لتقليل الحركة وتغيير حجم الصفحة كاملة.</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" type="button">
+          <span data-i18n="faq.4.q">كيف أُغيّر حجم الخط أو أُقلّل الحركة؟</span>
+          <span class="faq__q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9 L12 15 L18 9"/></svg></span>
+        </button>
+        <div class="faq__a" data-i18n="faq.4.a">اضغط على الزر العائم أسفل الشاشة (أيقونة الشخص). ستظهر لوحة الوصول لاختيار حجم الصفحة الكامل، تقليل الحركة، أو تفعيل التباين العالي.</div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <p class="modal__footer-text" data-i18n="help.footer">لم تجد ما تبحث عنه؟</p>
+      <a class="modal__btn" href="tel:01005252256">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9 V20 A2 2 0 0 1 19.8 22 A19.8 19.8 0 0 1 2 4.2 A2 2 0 0 1 4 2 H7.1 A2 2 0 0 1 9 3.7 L9.6 6.6 A2 2 0 0 1 9.3 8.7 L7.9 10 A16 16 0 0 0 14 16.1 L15.3 14.7 A2 2 0 0 1 17.4 14.1 L20.3 15 A2 2 0 0 1 22 16.9 Z"/></svg>
+        <span data-i18n="help.call">اتصل بالدعم</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle" aria-hidden="true">
+  <div class="modal" role="document">
+    <div class="modal__header">
+      <div>
+        <h2 class="modal__title" id="infoModalTitle">معلومات</h2>
+        <p class="modal__subtitle" id="infoModalSubtitle"></p>
+      </div>
+      <button class="modal__close" id="infoClose" type="button" aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>
+      </button>
+    </div>
+    <div id="infoModalBody" style="font-size:.9rem; line-height:1.9; color:var(--ink-soft);"></div>
+  </div>
+</div>
+
+<div class="transition-overlay" id="transitionOverlay" role="status" aria-live="polite" aria-hidden="true">
+  <div class="transition-overlay__inner">
+    <div class="transition-overlay__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="transition-overlay__text" data-i18n="transition.text">جارٍ تجهيز مساحة الدخول...</p>
+    <p class="transition-overlay__sub" id="transitionRoleName">الطالب</p>
+  </div>
+</div>
+
+<div class="unauthorized" id="unauthorized" role="alertdialog" aria-labelledby="unauthTitle" aria-hidden="true" hidden>
+  <div class="unauthorized__card">
+    <div class="unauthorized__icon" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="12" y="22" width="24" height="18" rx="4"/>
+        <path d="M18 22 V15 A6 6 0 0 1 30 15 V22"/>
+        <circle cx="24" cy="31" r="2.2" fill="currentColor"/>
+      </svg>
+    </div>
+    <h2 class="unauthorized__title" id="unauthTitle" data-i18n="unauth.title">غير مصرح بالوصول</h2>
+    <p class="unauthorized__text" id="unauthText" data-i18n="unauth.text">هذا القسم متاح للمستخدمين المصرح لهم فقط.</p>
+    <a class="unauthorized__btn" href="#" id="unauthBack">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 5 L5 12 L12 19"/><path d="M5 12 H19"/>
+      </svg>
+      <span data-i18n="unauth.back">العودة إلى الرئيسية</span>
+    </a>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   أقدر | AQDAR — منطق الصفحة (بدون كارت مسؤول المنصة)
+   ============================================================ */
+(function () {
+  'use strict';
+
+  const ROLE_PAGES = {
+    student:    'student-login.html',
+    teacher:    'teacher-login.html',
+    parent:     'parent-login.html',
+    discussion: 'discussion.html',
+    library:    'library.html',
+    gallery:    'gallery.html'
+  };
+
+  const STORAGE = {
+    session:  'aqdar_role',
+    persist:  'aqdar_last_role',
+    theme:    'aqdar_theme',
+    lang:     'aqdar_lang',
+    font:     'aqdar_font_scale',
+    motion:   'aqdar_reduce_motion',
+    contrast: 'aqdar_high_contrast'
+  };
+
+  const TRANSITION_DELAY = 650;
+
+  const I18N = {
+    ar: {
+      'brand.ar': 'أقدر',
+      'status.online': 'جميع الأنظمة تعمل',
+      'meta.secure': 'منصة معتمدة لذوي الاحتياجات الخاصة',
+      'meta.uptime': 'أدوار مختلفة لتناسب احتياجك',
+      'meta.users':  'اختر دورك وابدأ في أقل من دقيقة',
+      'meta.rating': 'دعم كامل لإمكانيات الوصول',
+      'btn.theme.night': 'ليلي',
+      'btn.theme.day': 'نهاري',
+      'btn.help': 'مساعدة',
+      'greet.welcome': 'أهلًا بك',
+      'greet.morning': 'صباح الخير',
+      'greet.noon': 'نهارك سعيد',
+      'greet.evening': 'مساء الخير',
+      'greet.night': 'أهلًا بك',
+      'hero.title.1': 'أهلًا بك في',
+      'hero.title.2': 'منصة أقدر',
+      'hero.subtitle': 'اختر مساحتك للدخول والمتابعة',
+      'hero.desc': 'كل دور ومساحة لها أدواتها المصمّمة خصيصًا لتناسب احتياجك — سواء كنت طالبًا أو معلمًا أو ولي أمر، أو تريد استكشاف النقاشات والمكتبة والمعرض.',
+      'status.available': 'متاح الآن',
+      'status.soon': 'دخول مقيّد',
+      'role.student': 'الطالب',
+      'role.student.desc': 'تعلّم واستمتع بدروس تفاعلية مبسّطة مصمّمة خصيصًا لك.',
+      'role.student.f1': 'دروس مبسّطة بالصور والصوت',
+      'role.student.f2': 'ألعاب وأنشطة تفاعلية ممتعة',
+      'role.student.f3': 'شارات ومكافآت على تقدّمك',
+      'role.student.cta': 'ابدأ رحلتك',
+      'role.teacher': 'المعلم',
+      'role.teacher.desc': 'أدِر دروسك وتابع طلابك بأدوات تعليمية متطورة.',
+      'role.teacher.f1': 'إنشاء وإدارة الدروس بسهولة',
+      'role.teacher.f2': 'متابعة تقدم الطلاب لحظيًا',
+      'role.teacher.f3': 'أدوات تفاعلية للفصول الافتراضية',
+      'role.teacher.cta': 'دخول المعلم',
+      'role.parent': 'ولي الأمر',
+      'role.parent.desc': 'تابع تقدّم طفلك وكن على تواصل دائم مع معلميه.',
+      'role.parent.f1': 'متابعة مستوى طفلك أولًا بأول',
+      'role.parent.f2': 'تقارير دورية عن الأداء',
+      'role.parent.f3': 'تواصل مباشر مع المعلمين',
+      'role.parent.cta': 'دخول ولي الأمر',
+      'role.discussion': 'ساحة نقاش',
+      'role.discussion.desc': 'شارك أفكارك وناقش زملاءك في بيئة تعليمية آمنة.',
+      'role.discussion.f1': 'مواضيع نقاش متنوعة',
+      'role.discussion.f2': 'تفاعل مع المعلمين والزملاء',
+      'role.discussion.f3': 'بيئة محمية وآمنة للجميع',
+      'role.discussion.cta': 'دخول الساحة',
+      'role.library': 'مكتبة مصادر',
+      'role.library.desc': 'مكتبة غنية بالكتب والمراجع والمواد التعليمية.',
+      'role.library.f1': 'كتب ومراجع متنوعة',
+      'role.library.f2': 'بحث سهل وسريع',
+      'role.library.f3': 'محتوى محدّث باستمرار',
+      'role.library.cta': 'تصفّح المكتبة',
+      'role.gallery': 'معرض أنشطة',
+      'role.gallery.desc': 'استكشف أنشطة وإبداعات الطلاب والمعلمين.',
+      'role.gallery.f1': 'معرض أعمال الطلاب',
+      'role.gallery.f2': 'أنشطة تفاعلية ممتعة',
+      'role.gallery.f3': 'مشاركة الإبداعات',
+      'role.gallery.cta': 'زيارة المعرض',
+      'secure.title': 'بيئة آمنة ومحمية',
+      'secure.text': 'جميع البيانات محمية، وكل دور له صلاحيات محددة. لن تتمكن من الوصول إلا إلى المساحة المصرّح لك بها فقط — بأمان تام وبخصوصية كاملة.',
+      'footer.ssl': 'اتصال مشفّر SSL',
+      'footer.privacy': 'حماية الخصوصية',
+      'footer.arabic': 'دعم كامل للعربية',
+      'footer.copy': 'منصة أقدر التعليمية — جميع الحقوق محفوظة.',
+      'footer.link.about': 'عن منصة أقدر',
+      'footer.link.support': 'فريق الدعم الفني',
+      'footer.link.guide': 'دليل الاستخدام السريع',
+      'footer.link.contact': 'تواصل معنا',
+      'a11y.title': 'خيارات الوصول',
+      'a11y.font': 'حجم الصفحة',
+      'a11y.font.small': 'صغير',
+      'a11y.font.normal': 'متوسط',
+      'a11y.font.large': 'كبير',
+      'a11y.font.xlarge': 'أكبر',
+      'a11y.reduce': 'إيقاف الحركة',
+      'a11y.contrast': 'تباين عالٍ',
+      'help.title': 'كيف يمكننا مساعدتك؟',
+      'help.subtitle': 'إجابات سريعة + فريق الدعم الفني',
+      'help.footer': 'لم تجد ما تبحث عنه؟',
+      'help.call': 'اتصل بالدعم',
+      'support.title': 'فريق الدعم الفني',
+      'support.subtitle': 'متاحون للرد على استفساراتك عبر الهاتف',
+      'support.role.supervisor': 'المشرف العام على الدعم',
+      'support.role.tech': 'مسؤول الدعم التقني',
+      'faq.1.q': 'كيف أعرف أي دور أختار؟',
+      'faq.1.a': 'إذا كنت طالبًا تتعلم على المنصة، اختر «الطالب». وإذا كنت معلمًا اختر «المعلم»، وولي الأمر يختار «ولي الأمر».',
+      'faq.2.q': 'لا أملك بيانات دخول — ماذا أفعل؟',
+      'faq.2.a': 'بيانات الدخول تُصرف من إدارة المدرسة أو الجهة المسؤولة عن التسجيل. يمكنك التواصل مع فريق الدعم مباشرة على الأرقام أعلاه.',
+      'faq.3.q': 'هل المنصة مناسبة لذوي الإعاقة الفكرية؟',
+      'faq.3.a': 'نعم، المنصة مصمّمة خصيصًا لتناسب ذوي الإعاقة الفكرية: خطوط كبيرة، ألوان هادئة، دعم كامل للعربية، وقابلية لتقليل الحركة وتغيير حجم الصفحة كاملة.',
+      'faq.4.q': 'كيف أُغيّر حجم الخط أو أُقلّل الحركة؟',
+      'faq.4.a': 'اضغط على الزر العائم أسفل الشاشة (أيقونة الشخص). ستظهر لوحة الوصول لاختيار حجم الصفحة الكامل، تقليل الحركة، أو تفعيل التباين العالي.',
+      'transition.text': 'جارٍ تجهيز مساحة الدخول...',
+      'unauth.title': 'غير مصرح بالوصول',
+      'unauth.text': 'هذا القسم متاح للمستخدمين المصرح لهم فقط.',
+      'unauth.back': 'العودة إلى الرئيسية',
+      'info.about.title': 'عن منصة أقدر',
+      'info.about.subtitle': 'منصة تعليمية متخصصة',
+      'info.about.body': '<p><strong>منصة أقدر التعليمية</strong> هي منصة عربية مخصّصة للطلاب ذوي الإعاقة الفكرية.</p><p>المنصة مصمّمة وفق أعلى معايير الوصول العالمية (WCAG 2.2 AA).</p>',
+      'info.support.title': 'فريق الدعم الفني',
+      'info.support.subtitle': 'نحن هنا لمساعدتك',
+      'info.support.body': '<p>📞 الأستاذ مصطفى مناع — 01005252256</p><p>📞 محمد طارق عبدالحافظ — 01272210420</p>',
+      'info.guide.title': 'دليل الاستخدام السريع',
+      'info.guide.subtitle': '3 خطوات فقط للبدء',
+      'info.guide.body': '<p>1) اختر دورك</p><p>2) أدخل بياناتك</p><p>3) ابدأ رحلتك</p>',
+      'info.contact.title': 'تواصل معنا',
+      'info.contact.subtitle': 'نحن نسمعك دائمًا',
+      'info.contact.body': '<p>📞 01005252256</p><p>📧 support@aqdar.edu</p>'
+    },
+    en: {
+      'brand.ar': 'AQDAR',
+      'status.online': 'All Systems Operational',
+      'meta.secure': 'Platform certified for special needs',
+      'meta.uptime': 'Different roles to suit you',
+      'meta.users':  'Choose your role in under a minute',
+      'meta.rating': 'Full accessibility support',
+      'btn.theme.night': 'Dark',
+      'btn.theme.day': 'Light',
+      'btn.help': 'Help',
+      'greet.welcome': 'Welcome',
+      'greet.morning': 'Good Morning',
+      'greet.noon': 'Good Afternoon',
+      'greet.evening': 'Good Evening',
+      'greet.night': 'Welcome',
+      'hero.title.1': 'Welcome to',
+      'hero.title.2': 'AQDAR Platform',
+      'hero.subtitle': 'Choose your space to access and continue',
+      'hero.desc': 'Each role and space has its own tools designed for your needs — whether you are a student, teacher, parent, or want to explore discussions, library, and gallery.',
+      'status.available': 'Available now',
+      'status.soon': 'Restricted',
+      'role.student': 'Student',
+      'role.student.desc': 'Learn and enjoy simplified interactive lessons designed for you.',
+      'role.student.f1': 'Simplified lessons with images and audio',
+      'role.student.f2': 'Fun interactive games and activities',
+      'role.student.f3': 'Badges and rewards for your progress',
+      'role.student.cta': 'Start your journey',
+      'role.teacher': 'Teacher',
+      'role.teacher.desc': 'Manage your lessons and follow your students with advanced tools.',
+      'role.teacher.f1': 'Create and manage lessons easily',
+      'role.teacher.f2': 'Track student progress in real time',
+      'role.teacher.f3': 'Interactive tools for virtual classrooms',
+      'role.teacher.cta': 'Teacher access',
+      'role.parent': 'Parent',
+      'role.parent.desc': 'Follow your child\'s progress and stay in touch with teachers.',
+      'role.parent.f1': 'Track your child\'s level continuously',
+      'role.parent.f2': 'Periodic performance reports',
+      'role.parent.f3': 'Direct communication with teachers',
+      'role.parent.cta': 'Parent access',
+      'role.discussion': 'Discussion Forum',
+      'role.discussion.desc': 'Share your thoughts and discuss with colleagues in a safe environment.',
+      'role.discussion.f1': 'Diverse discussion topics',
+      'role.discussion.f2': 'Interact with teachers and colleagues',
+      'role.discussion.f3': 'Protected and safe environment',
+      'role.discussion.cta': 'Enter forum',
+      'role.library': 'Resource Library',
+      'role.library.desc': 'A rich library of books, references, and educational materials.',
+      'role.library.f1': 'Diverse books and references',
+      'role.library.f2': 'Easy and fast search',
+      'role.library.f3': 'Content constantly updated',
+      'role.library.cta': 'Browse library',
+      'role.gallery': 'Activities Gallery',
+      'role.gallery.desc': 'Explore the activities and creations of students and teachers.',
+      'role.gallery.f1': 'Student work gallery',
+      'role.gallery.f2': 'Fun interactive activities',
+      'role.gallery.f3': 'Share your creations',
+      'role.gallery.cta': 'Visit gallery',
+      'secure.title': 'Safe and protected environment',
+      'secure.text': 'All data is protected, and each role has specific permissions.',
+      'footer.ssl': 'SSL Encrypted',
+      'footer.privacy': 'Privacy Protected',
+      'footer.arabic': 'Full Arabic Support',
+      'footer.copy': 'AQDAR Educational Platform — All rights reserved.',
+      'footer.link.about': 'About AQDAR',
+      'footer.link.support': 'Support Team',
+      'footer.link.guide': 'Quick Start Guide',
+      'footer.link.contact': 'Contact Us',
+      'a11y.title': 'Accessibility Options',
+      'a11y.font': 'Page Size',
+      'a11y.font.small': 'Small',
+      'a11y.font.normal': 'Normal',
+      'a11y.font.large': 'Large',
+      'a11y.font.xlarge': 'X-Large',
+      'a11y.reduce': 'Stop Motion',
+      'a11y.contrast': 'High Contrast',
+      'help.title': 'How can we help you?',
+      'help.subtitle': 'Quick answers + support team',
+      'help.footer': 'Didn\'t find what you need?',
+      'help.call': 'Call Support',
+      'support.title': 'Technical Support Team',
+      'support.subtitle': 'Available to answer your calls',
+      'support.role.supervisor': 'Support Supervisor',
+      'support.role.tech': 'Technical Support',
+      'faq.1.q': 'How do I know which role to choose?',
+      'faq.1.a': 'If you are a student learning on the platform, choose "Student". If you are a teacher, choose "Teacher", and parents choose "Parent".',
+      'faq.2.q': 'I don\'t have login credentials — what should I do?',
+      'faq.2.a': 'Login credentials are issued by the school administration.',
+      'faq.3.q': 'Is the platform suitable for students with intellectual disabilities?',
+      'faq.3.a': 'Yes, the platform is specifically designed for them.',
+      'faq.4.q': 'How do I change the font size or stop motion?',
+      'faq.4.a': 'Click the floating button at the bottom of the screen.',
+      'transition.text': 'Preparing your login space...',
+      'unauth.title': 'Access Not Authorized',
+      'unauth.text': 'This section is only available to authorized users.',
+      'unauth.back': 'Back to Home',
+      'info.about.title': 'About AQDAR',
+      'info.about.subtitle': 'A specialized educational platform',
+      'info.about.body': '<p><strong>AQDAR Platform</strong> is an Arabic platform for students with intellectual disabilities.</p>',
+      'info.support.title': 'Technical Support Team',
+      'info.support.subtitle': 'We\'re here to help',
+      'info.support.body': '<p>📞 Mr. Mustafa Manna — 01005252256</p><p>📞 Mohamed Tarek — 01272210420</p>',
+      'info.guide.title': 'Quick Start Guide',
+      'info.guide.subtitle': 'Just 3 steps to begin',
+      'info.guide.body': '<p>1) Choose your role</p><p>2) Enter your credentials</p><p>3) Start your journey</p>',
+      'info.contact.title': 'Contact Us',
+      'info.contact.subtitle': 'We always hear you',
+      'info.contact.body': '<p>📞 01005252256</p><p>📧 support@aqdar.edu</p>'
+    }
+  };
+
+  const RBAC = {
+    ROLES: {
+      STUDENT: { key: 'student', permissions: ['VIEW_LESSONS','VIEW_ACTIVITIES','VIEW_PROGRESS','SUBMIT_ANSWERS'] },
+      TEACHER: { key: 'teacher', permissions: ['CREATE_LESSONS','MANAGE_LESSONS','VIEW_STUDENTS','GRADE_SUBMISSIONS'] },
+      PARENT:  { key: 'parent',  permissions: ['VIEW_CHILD_PROGRESS','MESSAGE_TEACHERS'] }
+    },
+    hasPermission: function (roleKey, permission) {
+      for (const k in this.ROLES) {
+        if (this.ROLES[k].key === roleKey) {
+          return this.ROLES[k].permissions.indexOf(permission) !== -1;
+        }
+      }
+      return false;
+    }
+  };
+
+  const els = {};
+  let isLeaving = false;
+  let currentLang = 'ar';
+
+  function $(id) { return document.getElementById(id); }
+
+  function init() {
+    els.cards         = $('cards');
+    els.transition    = $('transitionOverlay');
+    els.transitionRole= $('transitionRoleName');
+    els.unauthorized  = $('unauthorized');
+    els.unauthBack    = $('unauthBack');
+    els.year          = $('year');
+    els.themeBtn      = $('themeBtn');
+    els.themeLabel    = $('themeLabel');
+    els.langBtn       = $('langBtn');
+    els.langLabel     = $('langLabel');
+    els.helpBtn       = $('helpBtn');
+    els.helpModal     = $('helpModal');
+    els.helpClose     = $('helpClose');
+    els.infoModal     = $('infoModal');
+    els.infoClose     = $('infoClose');
+    els.infoTitle     = $('infoModalTitle');
+    els.infoSubtitle  = $('infoModalSubtitle');
+    els.infoBody      = $('infoModalBody');
+    els.greetEmoji    = $('greetEmoji');
+    els.greetText     = $('greetText');
+    els.a11yFab       = $('a11yFab');
+    els.a11yPanel     = $('a11yPanel');
+    els.a11yClose     = $('a11yClose');
+    els.motionToggle  = $('motionToggle');
+    els.contrastToggle= $('contrastToggle');
+    els.liveClock     = $('liveClock');
+    els.liveDate      = $('liveDate');
+
+    if (els.year) els.year.textContent = new Date().getFullYear();
+
+    if (els.cards) {
+      els.cards.querySelectorAll('.card').forEach(function (card) {
+        card.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          handleCardClick(card);
+        });
+        card.addEventListener('keydown', function (ev) {
+          if (ev.key === ' ' || ev.key === 'Spacebar') {
+            ev.preventDefault();
+            handleCardClick(card);
+          }
+        });
+      });
+    }
+
+    if (els.unauthBack) els.unauthBack.addEventListener('click', function (e) { e.preventDefault(); hideUnauthorized(); });
+    if (els.themeBtn)  els.themeBtn.addEventListener('click', toggleTheme);
+    if (els.langBtn)   els.langBtn.addEventListener('click', toggleLang);
+    if (els.helpBtn)   els.helpBtn.addEventListener('click', openHelp);
+    if (els.helpClose) els.helpClose.addEventListener('click', closeHelp);
+    if (els.infoClose) els.infoClose.addEventListener('click', closeInfo);
+
+    if (els.helpModal) {
+      els.helpModal.addEventListener('click', function (ev) {
+        if (ev.target === els.helpModal) closeHelp();
+      });
+    }
+    if (els.infoModal) {
+      els.infoModal.addEventListener('click', function (ev) {
+        if (ev.target === els.infoModal) closeInfo();
+      });
+    }
+
+    document.querySelectorAll('.faq__q').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('.faq__q').forEach(function (o) {
+          o.setAttribute('aria-expanded', 'false');
+        });
+        btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      });
+    });
+
+    if (els.a11yFab)   els.a11yFab.addEventListener('click', toggleA11yPanel);
+    if (els.a11yClose) els.a11yClose.addEventListener('click', closeA11yPanel);
+
+    document.querySelectorAll('.a11y-option[data-font]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setFontScale(parseFloat(btn.getAttribute('data-font')));
+        document.querySelectorAll('.a11y-option[data-font]').forEach(function (b) {
+          b.classList.toggle('is-active', b === btn);
+        });
+      });
+    });
+
+    if (els.motionToggle)   els.motionToggle.addEventListener('click', toggleMotion);
+    if (els.contrastToggle) els.contrastToggle.addEventListener('click', toggleContrast);
+
+    document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openInfo(btn.getAttribute('data-open-modal'));
+      });
+    });
+
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'Escape') return;
+      closeHelp();
+      closeInfo();
+      closeA11yPanel();
+      hideUnauthorized();
+    });
+
+    restoreTheme();
+    restoreLang();
+    restoreA11y();
+    setGreeting();
+    markLastRole();
+    startClock();
+    startBackgroundMotion();
+  }
+
+  function startClock() {
+    function tick() {
+      const now = new Date();
+      if (els.liveClock) {
+        let h = now.getHours();
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12
+          ? (currentLang === 'en' ? 'PM' : 'م')
+          : (currentLang === 'en' ? 'AM' : 'ص');
+        h = h % 12 || 12;
+        els.liveClock.textContent = h + ':' + mm + ' ' + ampm;
+      }
+      if (els.liveDate) {
+        const daysAr  = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+        const daysEn  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const monthsAr= ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+        const monthsEn= ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const d = now.getDate(), m = now.getMonth(), day = now.getDay();
+        els.liveDate.textContent = currentLang === 'en'
+          ? daysEn[day] + ', ' + monthsEn[m] + ' ' + d
+          : daysAr[day] + '، ' + d + ' ' + monthsAr[m];
+      }
+    }
+    tick();
+    setInterval(tick, 30000);
+  }
+
+  function setGreeting() {
+    if (!els.greetText) return;
+    const hour = new Date().getHours();
+    let key = 'greet.welcome';
+    let emoji = '👋';
+    if (hour >= 5 && hour < 12) { key = 'greet.morning'; emoji = '🌅'; }
+    else if (hour >= 12 && hour < 17) { key = 'greet.noon'; emoji = '☀️'; }
+    else if (hour >= 17 && hour < 22) { key = 'greet.evening'; emoji = '🌇'; }
+    else { key = 'greet.night'; emoji = '🌙'; }
+    els.greetText.setAttribute('data-i18n', key);
+    els.greetText.textContent = I18N[currentLang][key] || I18N.ar[key];
+    if (els.greetEmoji) els.greetEmoji.textContent = emoji;
+  }
+
+  function handleCardClick(card) {
+    if (isLeaving) return;
+    const role = card.getAttribute('data-role');
+    if (!role || !ROLE_PAGES[role]) return;
+    els.cards.classList.add('is-choosing');
+    card.classList.add('is-selected');
+    card.setAttribute('aria-pressed', 'true');
+    saveRole(role);
+    showTransition(role);
+    isLeaving = true;
+    setTimeout(function () { goToRolePage(role); }, TRANSITION_DELAY);
+  }
+
+  function saveRole(role) {
+    try { sessionStorage.setItem(STORAGE.session, role); } catch (e) {}
+    try { localStorage.setItem(STORAGE.persist, role); } catch (e) {}
+  }
+
+  function markLastRole() {
+    let last = null;
+    try { last = localStorage.getItem(STORAGE.persist); } catch (e) {}
+    if (!last || !els.cards) return;
+    const card = els.cards.querySelector('.card[data-role="' + last + '"]');
+    if (!card) return;
+    card.style.transition = 'box-shadow .8s ease';
+    card.style.boxShadow = '0 8px 28px rgba(18,72,184,.12)';
+    setTimeout(function () { card.style.boxShadow = ''; }, 1800);
+    const badge = card.querySelector('.card__last');
+    if (badge) {
+      badge.textContent = currentLang === 'en' ? 'Last used' : 'آخر دور اخترته';
+      badge.classList.add('is-visible');
+    }
+  }
+
+  function showTransition(role) {
+    if (!els.transition) return;
+    if (els.transitionRole) {
+      const key = 'role.' + role;
+      els.transitionRole.textContent = I18N[currentLang][key] || I18N.ar[key] || '';
+    }
+    els.transition.classList.add('is-visible');
+    els.transition.setAttribute('aria-hidden', 'false');
+  }
+
+  function hideTransition() {
+    if (!els.transition) return;
+    els.transition.classList.remove('is-visible');
+    els.transition.setAttribute('aria-hidden', 'true');
+  }
+
+  function goToRolePage(role) {
+    const target = ROLE_PAGES[role];
+    if (!target) { showPendingState(role); return; }
+    try {
+      window.location.href = target;
+    } catch (e) {
+      showPendingState(role);
+    }
+  }
+
+  function showPendingState(role) {
+    isLeaving = false;
+    hideTransition();
+    if (els.cards) els.cards.classList.remove('is-choosing');
+    const card = els.cards && els.cards.querySelector('.card[data-role="' + role + '"]');
+    if (!card) return;
+    card.classList.remove('is-selected');
+    card.setAttribute('aria-pressed', 'false');
+  }
+
+  function showUnauthorized(msg) {
+    if (!els.unauthorized) return;
+    const text = els.unauthorized.querySelector('#unauthText');
+    if (msg && text) text.textContent = msg;
+    els.unauthorized.hidden = false;
+    els.unauthorized.classList.add('is-visible');
+  }
+  function hideUnauthorized() {
+    if (!els.unauthorized) return;
+    els.unauthorized.classList.remove('is-visible');
+    setTimeout(function () { els.unauthorized.hidden = true; }, 400);
+  }
+
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'light';
+    const next = cur === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem(STORAGE.theme, next); } catch (e) {}
+  }
+  function applyTheme(t) {
+    if (t === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      if (els.themeLabel) {
+        els.themeLabel.setAttribute('data-i18n', 'btn.theme.day');
+        els.themeLabel.textContent = I18N[currentLang]['btn.theme.day'];
+      }
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (els.themeLabel) {
+        els.themeLabel.setAttribute('data-i18n', 'btn.theme.night');
+        els.themeLabel.textContent = I18N[currentLang]['btn.theme.night'];
+      }
+    }
+  }
+  function restoreTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(STORAGE.theme); } catch (e) {}
+    if (!saved) {
+      saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    applyTheme(saved);
+  }
+
+  function toggleLang() {
+    const next = currentLang === 'ar' ? 'en' : 'ar';
+    applyLang(next);
+    try { localStorage.setItem(STORAGE.lang, next); } catch (e) {}
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang === 'en' ? 'ltr' : 'rtl');
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n');
+      const val = I18N[lang][key];
+      if (val !== undefined) {
+        if (el.getAttribute('data-i18n-html') === 'true') el.innerHTML = val;
+        else el.textContent = val;
+      }
+    });
+    if (els.langLabel) {
+      els.langLabel.textContent = lang === 'ar' ? 'English' : 'العربية';
+    }
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (els.themeLabel) {
+      const key = isDark ? 'btn.theme.day' : 'btn.theme.night';
+      els.themeLabel.setAttribute('data-i18n', key);
+      els.themeLabel.textContent = I18N[lang][key];
+    }
+    setGreeting();
+    startClock();
+    const visibleBadge = document.querySelector('.card__last.is-visible');
+    if (visibleBadge) {
+      visibleBadge.textContent = lang === 'en' ? 'Last used' : 'آخر دور اخترته';
+    }
+  }
+
+  function restoreLang() {
+    let saved = null;
+    try { saved = localStorage.getItem(STORAGE.lang); } catch (e) {}
+    applyLang(saved === 'en' ? 'en' : 'ar');
+  }
+
+  function toggleA11yPanel() {
+    if (!els.a11yPanel) return;
+    const open = els.a11yPanel.classList.contains('is-visible');
+    if (open) closeA11yPanel(); else openA11yPanel();
+  }
+  function openA11yPanel() {
+    els.a11yPanel.classList.add('is-visible');
+    els.a11yPanel.setAttribute('aria-hidden', 'false');
+    els.a11yFab.setAttribute('aria-expanded', 'true');
+  }
+  function closeA11yPanel() {
+    if (!els.a11yPanel) return;
+    els.a11yPanel.classList.remove('is-visible');
+    els.a11yPanel.setAttribute('aria-hidden', 'true');
+    if (els.a11yFab) els.a11yFab.setAttribute('aria-expanded', 'false');
+  }
+
+  function setFontScale(scale) {
+    document.documentElement.style.setProperty('--font-scale', String(scale));
+    document.documentElement.setAttribute('data-font-scale', String(scale));
+    try { localStorage.setItem(STORAGE.font, String(scale)); } catch (e) {}
+  }
+
+  function toggleMotion() {
+    const isOn = els.motionToggle.classList.toggle('is-on');
+    els.motionToggle.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+    document.documentElement.setAttribute('data-no-motion', isOn ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE.motion, isOn ? '1' : '0'); } catch (e) {}
+  }
+
+  function toggleContrast() {
+    const isOn = els.contrastToggle.classList.toggle('is-on');
+    els.contrastToggle.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+    if (isOn) document.documentElement.setAttribute('data-contrast', 'high');
+    else document.documentElement.removeAttribute('data-contrast');
+    try { localStorage.setItem(STORAGE.contrast, isOn ? '1' : '0'); } catch (e) {}
+  }
+
+  function restoreA11y() {
+    let scale = '1', motion = '0', contrast = '0';
+    try { scale = localStorage.getItem(STORAGE.font) || '1'; } catch (e) {}
+    try { motion = localStorage.getItem(STORAGE.motion) || '0'; } catch (e) {}
+    try { contrast = localStorage.getItem(STORAGE.contrast) || '0'; } catch (e) {}
+    if (!localStorage.getItem(STORAGE.motion) &&
+        window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      motion = '1';
+    }
+    setFontScale(parseFloat(scale));
+    document.querySelectorAll('.a11y-option[data-font]').forEach(function (b) {
+      b.classList.toggle('is-active',
+        parseFloat(b.getAttribute('data-font')) === parseFloat(scale));
+    });
+    if (motion === '1') {
+      els.motionToggle.classList.add('is-on');
+      els.motionToggle.setAttribute('aria-pressed', 'true');
+      document.documentElement.setAttribute('data-no-motion', 'true');
+    }
+    if (contrast === '1') {
+      els.contrastToggle.classList.add('is-on');
+      els.contrastToggle.setAttribute('aria-pressed', 'true');
+      document.documentElement.setAttribute('data-contrast', 'high');
+    }
+  }
+
+  function openHelp() {
+    if (!els.helpModal) return;
+    els.helpModal.classList.add('is-visible');
+    els.helpModal.setAttribute('aria-hidden', 'false');
+    const q = els.helpModal.querySelector('.faq__q');
+    if (q) q.focus();
+  }
+  function closeHelp() {
+    if (!els.helpModal) return;
+    els.helpModal.classList.remove('is-visible');
+    els.helpModal.setAttribute('aria-hidden', 'true');
+    document.querySelectorAll('.faq__q').forEach(function (q) {
+      q.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function openInfo(type) {
+    if (!els.infoModal) return;
+    const tKey = 'info.' + type + '.title';
+    const sKey = 'info.' + type + '.subtitle';
+    const bKey = 'info.' + type + '.body';
+    els.infoTitle.textContent = I18N[currentLang][tKey] || I18N.ar[tKey] || '';
+    els.infoSubtitle.textContent = I18N[currentLang][sKey] || I18N.ar[sKey] || '';
+    els.infoBody.innerHTML = I18N[currentLang][bKey] || I18N.ar[bKey] || '';
+    els.infoModal.classList.add('is-visible');
+    els.infoModal.setAttribute('aria-hidden', 'false');
+  }
+  function closeInfo() {
+    if (!els.infoModal) return;
+    els.infoModal.classList.remove('is-visible');
+    els.infoModal.setAttribute('aria-hidden', 'true');
+  }
+
+  function startBackgroundMotion() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    const brand = document.querySelector('.topbar__brand');
+    const heroLogo = document.querySelector('.hero__logo');
+    if (!brand && !heroLogo) return;
+    let rafId = null, tx = 0, ty = 0, cx = 0, cy = 0;
+    function onMove(ev) {
+      if (document.documentElement.getAttribute('data-no-motion') === 'true') return;
+      const w = innerWidth / 2, h = innerHeight / 2;
+      tx = (ev.clientX - w) / w * 6;
+      ty = (ev.clientY - h) / h * 6;
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+    function tick() {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      if (brand) brand.style.transform = 'translate3d(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px,0)';
+      if (heroLogo) heroLogo.style.transform = 'translate3d(' + (-cx * 0.6).toFixed(2) + 'px,' + (-cy * 0.6).toFixed(2) + 'px,0)';
+      if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) rafId = requestAnimationFrame(tick);
+      else rafId = null;
+    }
+    window.addEventListener('mousemove', onMove, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.addEventListener('pageshow', function () {
+    isLeaving = false;
+    if (els.transition) {
+      els.transition.classList.remove('is-visible');
+      els.transition.setAttribute('aria-hidden', 'true');
+    }
+    if (els.cards) {
+      els.cards.classList.remove('is-choosing');
+      els.cards.querySelectorAll('.card').forEach(function (c) {
+        c.classList.remove('is-selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+    }
+  });
+
+  window.AQDAR = {
+    roles: ROLE_PAGES,
+    rbac: RBAC,
+    hasPermission: function (roleKey, permission) { return RBAC.hasPermission(roleKey, permission); },
+    showUnauthorized: showUnauthorized,
+    hideUnauthorized: hideUnauthorized,
+    setLang: applyLang,
+    getLang: function () { return currentLang; },
+    setFontScale: setFontScale,
+    setMotion: toggleMotion,
+    setContrast: toggleContrast
+  };
+
+})();
+</script>
+
+</body>
+</html>

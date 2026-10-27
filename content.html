@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2b6b">
+<meta name="description" content="منصة أقدر — المحتوى التعليمي التفاعلي بأفضل المعلمين">
+<title>المحتوى التعليمي | منصة أقدر</title>
+
+<style>
+/* ============================================================
+   أقدر | AQDAR — صفحة المحتوى التعليمي
+   نسخة احترافية + الوصولية الكاملة (WCAG AA)
+   ============================================================ */
+:root{
+  --blue-700:#1248b8; --blue-600:#1b5fd9;
+  --cyan-500:#0e9bb8; --cyan-400:#12b6d8;   /* معدّل لتوافق التباين */
+  --yellow-500:#ffb020; --yellow-300:#ffd86b;
+  --green-500:#16a34a; --green-400:#22c55e;
+  --red-500:#dc2626; --red-400:#ef4444;
+  --purple-600:#5b3bb5; --purple-400:#8b5cf6;
+  --bg:#eef4ff; --surface:#ffffff; --surface-soft:#f7faff;
+  --border:#d5e1f5; --border-strong:#a8c1e8;
+  --ink:#0d2350; --ink-soft:#3d5a8c; --ink-mute:#5d6f94;  /* تباين مُحسَّن */
+  --focus-ring: 0 0 0 3px #ffffff, 0 0 0 6px var(--blue-700);
+  --radius-md:12px; --radius-lg:16px; --radius-xl:20px; --radius-2xl:28px;
+  --shadow-sm:0 2px 8px rgba(18,72,184,.06);
+  --shadow-md:0 6px 20px rgba(18,72,184,.10);
+  --shadow-lg:0 24px 60px rgba(11,43,107,.18);
+  --shadow-glow:0 0 0 4px rgba(18,182,216,.15), 0 20px 40px rgba(18,72,184,.20);
+  --ease:cubic-bezier(.22,.9,.28,1);
+  --ease-bounce:cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"]{
+  --bg:#060f26; --surface:#0f2150; --surface-soft:#152a5e;
+  --border:#28477f; --border-strong:#3d5fa0;
+  --ink:#eef3ff; --ink-soft:#b8c9e8; --ink-mute:#9ab0d6;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.3);
+  --shadow-md:0 6px 20px rgba(0,0,0,.35);
+  --shadow-lg:0 24px 60px rgba(0,0,0,.5);
+  --focus-ring: 0 0 0 3px #060f26, 0 0 0 6px var(--cyan-400);
+}
+[data-theme="dark"] body{ background:#060f26; }
+
+*{ box-sizing:border-box; }
+html, body{ margin:0; padding:0; min-height:100%; }
+body{
+  font-family:"Cairo","Tajawal","Noto Sans Arabic","Segoe UI",Tahoma,system-ui,-apple-system,sans-serif;
+  color:var(--ink); background:var(--bg); font-size:1rem; line-height:1.7;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  min-height:100vh; min-height:100dvh;
+  transition:background .4s var(--ease), color .4s var(--ease);
+}
+
+/* ---------- Screen-reader-only ---------- */
+.sr-only{
+  position:absolute !important; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* ---------- Skip Link ---------- */
+.skip-link{
+  position:absolute; top:-100px; inset-inline-start:16px;
+  padding:12px 20px;
+  background:var(--blue-700); color:#fff;
+  border-radius:0 0 12px 12px;
+  font-weight:800; text-decoration:none;
+  z-index:300;
+  transition:top .2s var(--ease);
+}
+.skip-link:focus{ top:0; outline:3px solid var(--yellow-300); outline-offset:3px; }
+
+/* ---------- Global Focus Styles ---------- */
+:focus-visible{ outline:none; box-shadow:var(--focus-ring); border-radius:var(--radius-md); }
+
+/* ---------- Loading ---------- */
+.loading-overlay{
+  position:fixed; inset:0; z-index:999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:18px; background:var(--bg);
+  transition:opacity .4s var(--ease), visibility .4s var(--ease);
+}
+.loading-overlay.is-hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+.loading-spinner{
+  width:56px; height:56px; border-radius:50%;
+  border:4px solid rgba(18,72,184,.15);
+  border-top-color:var(--blue-700);
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.loading-text{ font-size:.95rem; font-weight:700; color:var(--ink-soft); }
+
+/* ---------- Layout ---------- */
+.app{ min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; }
+.app[hidden]{ display:none; }
+
+/* ---------- Header ---------- */
+.header{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--surface) 92%, transparent);
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.header::before{
+  content:""; position:absolute; top:0; right:0; left:0; height:3px;
+  background:linear-gradient(90deg, var(--blue-700), var(--cyan-400), var(--yellow-500), var(--purple-600));
+  background-size:200% 100%;
+  animation:gradientShift 8s linear infinite;
+}
+@keyframes gradientShift{ 0%{ background-position:0% 50%; } 100%{ background-position:200% 50%; } }
+.header__inner{
+  max-width:1200px; margin:0 auto;
+  padding:12px clamp(16px, 3vmin, 32px);
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
+}
+.header__brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; border-radius:12px; padding:4px; }
+.header__logo{ width:44px; height:44px; flex-shrink:0; filter:drop-shadow(0 4px 12px rgba(18,72,184,.20)); }
+.header__brand-text{ display:flex; flex-direction:column; line-height:1.05; }
+.header__brand-ar{ font-size:1.25rem; font-weight:800; color:var(--blue-700); letter-spacing:-.01em; }
+[data-theme="dark"] .header__brand-ar{ color:var(--cyan-400); }
+.header__brand-en{ font-size:.62rem; font-weight:700; letter-spacing:.28em; color:var(--ink-soft); direction:ltr; }
+
+.header__user{ display:flex; align-items:center; gap:8px; }
+
+/* Icon button */
+.header__icon-btn{
+  display:grid; place-items:center;
+  width:42px; height:42px;
+  border-radius:12px;
+  border:1.5px solid var(--border);
+  background:var(--surface);
+  color:var(--ink);
+  cursor:pointer;
+  transition:all .25s var(--ease);
+}
+.header__icon-btn:hover{ border-color:var(--blue-700); color:var(--blue-700); background:rgba(18,72,184,.05); transform:translateY(-1px); }
+.header__icon-btn svg{ width:18px; height:18px; }
+.header__icon-btn .icon-moon{ display:block; }
+.header__icon-btn .icon-sun{ display:none; }
+[data-theme="dark"] .header__icon-btn .icon-moon{ display:none; }
+[data-theme="dark"] .header__icon-btn .icon-sun{ display:block; }
+
+/* ---------- User Menu (dropdown) ---------- */
+.user-menu{ position:relative; }
+.user-menu__trigger{
+  display:flex; align-items:center; gap:10px;
+  padding:4px 10px 4px 4px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:999px;
+  cursor:pointer;
+  font-family:inherit;
+  color:var(--ink);
+  transition:all .25s var(--ease);
+  min-height:42px;
+}
+.user-menu__trigger:hover{ border-color:var(--blue-700); background:rgba(18,72,184,.04); }
+.user-menu__trigger[aria-expanded="true"]{ border-color:var(--blue-700); background:rgba(18,72,184,.06); }
+.user-menu__trigger-info{
+  display:none; flex-direction:column; line-height:1.1;
+  text-align:right; padding:0 4px;
+}
+@media (min-width:640px){ .user-menu__trigger-info{ display:flex; } }
+.user-menu__trigger-name{ font-size:.82rem; font-weight:800; color:var(--ink); max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.user-menu__trigger-role{ font-size:.68rem; font-weight:700; color:var(--ink-mute); }
+.user-menu__chevron{ width:14px; height:14px; color:var(--ink-mute); transition:transform .25s var(--ease); }
+.user-menu__trigger[aria-expanded="true"] .user-menu__chevron{ transform:rotate(180deg); }
+
+.header__user-avatar{
+  display:grid; place-items:center;
+  width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-400));
+  color:#fff; font-weight:800; font-size:.9rem;
+  box-shadow:0 4px 12px rgba(18,72,184,.25);
+  flex-shrink:0;
+}
+
+/* Dropdown panel */
+.user-menu__panel{
+  position:absolute; top:calc(100% + 10px); inset-inline-end:0;
+  width:min(320px, calc(100vw - 32px));
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+  padding:8px;
+  z-index:60;
+  animation:menuIn .22s var(--ease) both;
+}
+@keyframes menuIn{
+  from{ opacity:0; transform:translateY(-6px) scale(.97); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+.user-menu__panel[hidden]{ display:none; }
+
+.user-menu__header{
+  display:flex; align-items:center; gap:12px;
+  padding:12px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:6px;
+}
+.user-menu__avatar{
+  display:grid; place-items:center;
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-400));
+  color:#fff; font-weight:800; font-size:1rem;
+  flex-shrink:0;
+}
+.user-menu__header-text{ min-width:0; flex:1; }
+.user-menu__name{
+  display:block; font-size:.95rem; font-weight:800; color:var(--ink);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.user-menu__email{
+  display:block; font-size:.78rem; color:var(--ink-mute);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  direction:ltr; text-align:right; unicode-bidi:plaintext;
+}
+
+.user-menu__meta{
+  margin:0; padding:8px 12px;
+  display:flex; flex-direction:column; gap:8px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:14px;
+}
+.user-menu__meta-row{
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:.82rem;
+}
+.user-menu__meta-row dt{ color:var(--ink-mute); font-weight:700; margin:0; }
+.user-menu__meta-row dd{ margin:0; font-weight:800; color:var(--ink); }
+
+.badge{
+  display:inline-flex; align-items:center; gap:4px;
+  padding:2px 10px; border-radius:999px;
+  font-size:.72rem; font-weight:800;
+}
+.badge--success{ background:rgba(22,163,74,.12); color:var(--green-500); }
+[data-theme="dark"] .badge--success{ background:rgba(34,197,94,.18); color:#4ade80; }
+
+.user-menu__logout{
+  display:flex; align-items:center; gap:10px; width:100%;
+  margin-top:6px;
+  padding:11px 12px;
+  border:none; border-radius:10px;
+  background:transparent;
+  color:var(--red-500);
+  font-family:inherit; font-size:.88rem; font-weight:800;
+  cursor:pointer;
+  transition:all .2s var(--ease);
+  text-align:right;
+}
+.user-menu__logout:hover{ background:rgba(220,38,38,.08); }
+.user-menu__logout svg{ width:16px; height:16px; }
+
+/* ---------- Main ---------- */
+.main{
+  flex:1; max-width:1200px; width:100%;
+  margin:0 auto;
+  padding:clamp(20px, 4vmin, 40px) clamp(16px, 3vmin, 32px) clamp(40px, 6vmin, 72px);
+}
+
+/* ---------- Hero ---------- */
+.intro{
+  position:relative;
+  padding:clamp(24px, 4vmin, 44px);
+  border-radius:var(--radius-2xl);
+  background:
+    radial-gradient(700px 400px at 100% 0%, rgba(42,212,232,.22), transparent 60%),
+    radial-gradient(600px 400px at 0% 100%, rgba(255,176,32,.16), transparent 55%),
+    linear-gradient(135deg, #0b2b6b 0%, #0e3490 45%, #103a9c 100%);
+  color:#fff;
+  overflow:hidden;
+  margin-bottom:clamp(20px, 4vmin, 36px);
+  box-shadow:0 24px 60px rgba(11,43,107,.28);
+  isolation:isolate;
+}
+.intro::before{
+  content:""; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:36px 36px;
+  mask-image:radial-gradient(ellipse at 50% 40%, #000 40%, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 40%, #000 40%, transparent 80%);
+  pointer-events:none; z-index:0;
+}
+.intro__orb{ position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; pointer-events:none; z-index:0; }
+.intro__orb--1{ width:340px; height:340px; background:#12b6d8; top:-120px; right:-80px; animation:float1 9s ease-in-out infinite; }
+.intro__orb--2{ width:280px; height:280px; background:#ffb020; bottom:-120px; left:-60px; animation:float2 11s ease-in-out infinite; }
+.intro__orb--3{ width:200px; height:200px; background:#5b3bb5; top:40%; left:35%; opacity:.35; animation:float1 13s ease-in-out infinite reverse; }
+@keyframes float1{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(30px,-40px) scale(1.05); } }
+@keyframes float2{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-30px,30px) scale(1.08); } }
+
+.intro__inner{ position:relative; z-index:1; }
+.intro__badge{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 14px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;
+  font-size:.76rem; font-weight:700; color:#e8f4ff;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  margin-bottom:14px;
+}
+.intro__badge svg{ width:13px; height:13px; color:var(--yellow-300); }
+.intro__title{
+  margin:0 0 10px;
+  font-size:clamp(1.4rem, 3.2vmin, 2.1rem);
+  font-weight:800; line-height:1.3; color:#fff;
+}
+.intro__title-accent{
+  background:linear-gradient(135deg, #2ad4e8, #ffd86b);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+}
+.intro__desc{
+  margin:0; font-size:.94rem;
+  color:rgba(255,255,255,.88);
+  line-height:1.7; max-width:56ch;
+}
+.intro__stats{
+  display:flex; gap:clamp(18px, 4vmin, 40px); flex-wrap:wrap;
+  margin-top:22px; padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.16);
+}
+.intro__stat{ display:flex; flex-direction:column; gap:2px; }
+.intro__stat-value{
+  font-size:clamp(1.25rem, 2.6vmin, 1.6rem);
+  font-weight:800;
+  background:linear-gradient(135deg, #2ad4e8, #ffd86b);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  line-height:1;
+}
+.intro__stat-label{ font-size:.74rem; font-weight:700; color:rgba(255,255,255,.78); }
+
+/* ---------- Continue Banner ---------- */
+.continue-banner{
+  margin-bottom:20px;
+  border-radius:var(--radius-xl);
+  background:linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border:1.5px solid rgba(18,182,216,.35);
+  box-shadow:0 8px 24px rgba(18,182,216,.12);
+  overflow:hidden;
+  animation:cardIn .5s var(--ease-bounce) both;
+}
+[data-theme="dark"] .continue-banner{
+  background:linear-gradient(135deg, rgba(18,182,216,.14), rgba(91,59,181,.10));
+  border-color:rgba(42,212,232,.28);
+}
+.continue-banner[hidden]{ display:none; }
+.continue-banner__inner{
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px; flex-wrap:wrap;
+}
+.continue-banner__icon{
+  display:grid; place-items:center;
+  width:42px; height:42px; border-radius:12px;
+  background:linear-gradient(135deg, var(--cyan-500), var(--blue-600));
+  color:#fff; flex-shrink:0;
+  box-shadow:0 8px 18px rgba(18,182,216,.30);
+}
+.continue-banner__icon svg{ width:22px; height:22px; }
+.continue-banner__text{ flex:1; min-width:140px; }
+.continue-banner__label{
+  display:block; font-size:.72rem; font-weight:800;
+  color:var(--ink-mute);
+}
+.continue-banner__title{
+  margin:0; font-size:.98rem; font-weight:800;
+  color:var(--ink); line-height:1.3;
+}
+.continue-banner__btn{
+  padding:10px 20px;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  color:#fff; font-family:inherit; font-size:.85rem; font-weight:800;
+  border:none; border-radius:var(--radius-md);
+  cursor:pointer;
+  transition:all .25s var(--ease);
+  box-shadow:0 6px 16px rgba(18,72,184,.30);
+}
+.continue-banner__btn:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(18,72,184,.40); }
+
+/* ---------- Toolbar ---------- */
+.toolbar{
+  display:flex; flex-direction:column; gap:14px;
+  margin-bottom:22px;
+}
+@media (min-width:768px){
+  .toolbar{ flex-direction:row; align-items:center; justify-content:space-between; }
+}
+.search{ position:relative; flex:1; max-width:420px; }
+.search svg.search-icon{
+  position:absolute; top:50%; inset-inline-start:14px;
+  transform:translateY(-50%);
+  width:18px; height:18px; color:var(--ink-mute);
+  pointer-events:none;
+}
+.search input{
+  width:100%;
+  padding:13px 46px 13px 60px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  font-family:inherit; font-size:.9rem; font-weight:600;
+  color:var(--ink);
+  transition:all .25s var(--ease);
+  outline:none;
+}
+.search input::placeholder{ color:var(--ink-mute); }
+.search input:focus{ border-color:var(--blue-700); box-shadow:0 0 0 4px rgba(18,72,184,.12); }
+.search kbd{
+  position:absolute; top:50%; inset-inline-end:14px;
+  transform:translateY(-50%);
+  padding:2px 6px; border-radius:6px;
+  background:var(--surface-soft);
+  border:1.5px solid var(--border);
+  font-family:ui-monospace,monospace;
+  font-size:.72rem; font-weight:700;
+  color:var(--ink-mute);
+  pointer-events:none;
+}
+
+.toolbar__right{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.sort-wrap{ position:relative; display:inline-flex; align-items:center; }
+.sort-wrap svg{
+  position:absolute; inset-inline-start:12px;
+  width:16px; height:16px; color:var(--ink-mute);
+  pointer-events:none;
+}
+.sort-select{
+  appearance:none; -webkit-appearance:none;
+  padding:11px 16px 11px 40px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  font-family:inherit; font-size:.85rem; font-weight:700;
+  color:var(--ink);
+  cursor:pointer;
+  outline:none;
+  transition:all .25s var(--ease);
+}
+.sort-select:focus{ border-color:var(--blue-700); box-shadow:0 0 0 4px rgba(18,72,184,.12); }
+
+.filters{ display:flex; gap:8px; flex-wrap:wrap; }
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:9px 16px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:999px;
+  font-family:inherit; font-size:.82rem; font-weight:800;
+  color:var(--ink-soft);
+  cursor:pointer;
+  transition:all .25s var(--ease);
+}
+.chip svg{ width:14px; height:14px; }
+.chip:hover{ border-color:var(--blue-700); color:var(--blue-700); transform:translateY(-1px); }
+.chip[aria-pressed="true"]{
+  background:linear-gradient(135deg, var(--blue-700), var(--blue-600));
+  color:#fff; border-color:transparent;
+  box-shadow:0 6px 16px rgba(18,72,184,.30);
+}
+.chip__count{
+  padding:1px 7px; border-radius:999px;
+  background:rgba(0,0,0,.08);
+  font-size:.7rem; font-weight:800;
+}
+.chip[aria-pressed="true"] .chip__count{ background:rgba(255,255,255,.25); }
+
+/* ---------- Section Title ---------- */
+.section-title{
+  margin:24px 0 18px;
+  font-size:1.15rem; font-weight:800; color:var(--ink);
+  display:flex; align-items:center; gap:10px;
+}
+.section-title__icon{
+  flex-shrink:0; width:34px; height:34px;
+  border-radius:10px;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  color:#fff;
+  display:grid; place-items:center;
+  box-shadow:0 6px 14px rgba(18,72,184,.25);
+}
+.section-title__icon svg{ width:18px; height:18px; }
+.section-title__count{
+  margin-inline-start:auto;
+  padding:4px 12px;
+  border-radius:999px;
+  background:var(--surface-soft);
+  border:1.5px solid var(--border);
+  font-size:.78rem; font-weight:800;
+  color:var(--ink-soft);
+}
+
+/* ---------- Courses Grid ---------- */
+.courses-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:18px;
+  margin-bottom:clamp(28px, 4vmin, 44px);
+}
+
+.course-card{
+  position:relative;
+  display:flex; flex-direction:column;
+  gap:14px;
+  padding:22px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-xl);
+  text-align:right;
+  color:var(--ink);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  animation:cardIn .55s var(--ease-bounce) both;
+  animation-delay:calc(var(--i, 0) * 60ms);
+}
+@keyframes cardIn{
+  from{ opacity:0; transform:translateY(16px) scale(.97); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+.course-card::before{
+  content:""; position:absolute;
+  top:0; right:0; width:4px; height:100%;
+  background:linear-gradient(180deg, var(--blue-700), var(--cyan-500));
+  transform:scaleY(0); transform-origin:top;
+  transition:transform .3s var(--ease);
+  z-index:0;
+}
+.course-card:hover{
+  border-color:var(--border-strong);
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-glow);
+}
+.course-card:hover::before{ transform:scaleY(1); }
+.course-card[hidden]{ display:none; }
+
+/* Stretched-link pattern: whole card clickable via title link */
+.course-card__title-link{
+  color:inherit; text-decoration:none;
+  transition:color .25s var(--ease);
+}
+.course-card__title-link::after{
+  content:"";
+  position:absolute; inset:0;
+  z-index:1;
+  border-radius:inherit;
+  cursor:pointer;
+}
+.course-card__title-link:focus-visible{ outline:none; }
+.course-card:has(.course-card__title-link:focus-visible){
+  outline:none;
+  box-shadow:var(--focus-ring);
+}
+
+/* Bookmark button */
+.bookmark-btn{
+  position:absolute;
+  top:14px; left:14px;
+  width:36px; height:36px;
+  border-radius:50%;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  display:grid; place-items:center;
+  color:var(--ink-mute);
+  cursor:pointer;
+  z-index:2;
+  transition:all .25s var(--ease);
+}
+.bookmark-btn:hover{
+  border-color:var(--yellow-500);
+  color:var(--yellow-500);
+  background:rgba(255,176,32,.08);
+  transform:scale(1.08);
+}
+.bookmark-btn svg{ width:16px; height:16px; transition:fill .25s var(--ease); }
+.bookmark-btn[aria-pressed="true"]{
+  border-color:var(--yellow-500);
+  color:var(--yellow-500);
+  background:rgba(255,176,32,.12);
+}
+.bookmark-btn[aria-pressed="true"] svg{ fill:currentColor; }
+
+.course-card__top{
+  display:flex; align-items:flex-start; gap:10px;
+  position:relative; z-index:0;
+}
+.course-card__icon{
+  display:grid; place-items:center;
+  width:56px; height:56px;
+  border-radius:16px;
+  color:#fff; flex-shrink:0;
+  box-shadow:0 10px 22px rgba(18,72,184,.25);
+}
+.course-card__icon svg{ width:28px; height:28px; }
+.course-card__icon--math{ background:linear-gradient(135deg, #f97316, #ffb020); box-shadow:0 10px 22px rgba(249,115,22,.30); }
+.course-card__icon--sci{ background:linear-gradient(135deg, #16a34a, #22c55e); box-shadow:0 10px 22px rgba(22,163,74,.30); }
+.course-card__icon--ar{ background:linear-gradient(135deg, #5b3bb5, #8b5cf6); box-shadow:0 10px 22px rgba(91,59,181,.30); }
+.course-card__icon--en{ background:linear-gradient(135deg, #0e9bb8, #12b6d8); box-shadow:0 10px 22px rgba(18,182,216,.30); }
+
+.course-card__level{
+  font-size:.7rem; font-weight:800;
+  padding:4px 10px; border-radius:999px;
+  border:1.5px solid currentColor;
+  white-space:nowrap;
+  align-self:flex-start;
+  margin-top:8px;
+  position:relative; z-index:0;
+}
+.level--beginner{ color:var(--green-500); }
+.level--intermediate{ color:#b87400; }
+[data-theme="dark"] .level--intermediate{ color:var(--yellow-500); }
+.level--advanced{ color:var(--red-500); }
+
+.course-card__title{
+  margin:0;
+  font-size:1.12rem; font-weight:800;
+  color:var(--ink); line-height:1.3;
+  position:relative; z-index:0;
+}
+.course-card__desc{
+  margin:0;
+  font-size:.85rem; color:var(--ink-soft);
+  line-height:1.6; flex:1;
+  position:relative; z-index:0;
+}
+.course-card__teacher{
+  display:flex; align-items:center; gap:8px;
+  font-size:.8rem; font-weight:700; color:var(--ink-soft);
+  position:relative; z-index:0;
+}
+.teacher-avatar{
+  display:grid; place-items:center;
+  width:26px; height:26px; border-radius:50%;
+  background:linear-gradient(135deg, var(--purple-600), var(--purple-400));
+  color:#fff; font-size:.72rem; font-weight:800;
+  flex-shrink:0;
+}
+
+.course-card__progress{
+  display:flex; flex-direction:column; gap:6px;
+  padding-top:12px;
+  border-top:1px dashed var(--border);
+  position:relative; z-index:0;
+}
+.progress-label{
+  display:flex; justify-content:space-between;
+  font-size:.72rem; font-weight:700; color:var(--ink-mute);
+}
+.progress-value{ color:var(--blue-700); font-weight:800; }
+[data-theme="dark"] .progress-value{ color:var(--cyan-400); }
+.progress-track{
+  height:6px; border-radius:999px;
+  background:rgba(18,72,184,.10);
+  overflow:hidden;
+}
+[data-theme="dark"] .progress-track{ background:rgba(255,255,255,.10); }
+.progress-fill{
+  height:100%; border-radius:999px;
+  background:linear-gradient(90deg, var(--blue-700), var(--cyan-500));
+  box-shadow:0 0 10px rgba(18,182,216,.4);
+  transition:width 1.2s var(--ease-bounce);
+}
+
+.course-card__meta{
+  display:flex; align-items:center; gap:12px;
+  font-size:.72rem; font-weight:700;
+  color:var(--ink-mute);
+  flex-wrap:wrap;
+  position:relative; z-index:0;
+}
+.course-card__meta span{ display:inline-flex; align-items:center; gap:4px; }
+.course-card__meta svg{ width:13px; height:13px; }
+.course-card__meta .star{ color:#c47b00; }
+[data-theme="dark"] .course-card__meta .star{ color:var(--yellow-500); }
+
+/* Empty state */
+.empty-state{
+  grid-column:1/-1;
+  text-align:center;
+  padding:60px 20px;
+  color:var(--ink-mute);
+  font-weight:700;
+}
+.empty-state svg{ width:56px; height:56px; opacity:.4; margin-bottom:12px; }
+.empty-state p{ margin:0 0 16px; font-size:1rem; }
+.empty-state__btn{
+  padding:10px 22px;
+  background:var(--blue-700); color:#fff;
+  border:none; border-radius:var(--radius-md);
+  font-family:inherit; font-size:.85rem; font-weight:800;
+  cursor:pointer;
+  transition:all .25s var(--ease);
+}
+.empty-state__btn:hover{ background:var(--blue-600); transform:translateY(-1px); }
+
+/* ---------- Back to Top ---------- */
+.back-to-top{
+  position:fixed; bottom:24px; left:24px; z-index:40;
+  width:48px; height:48px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--blue-700), var(--cyan-500));
+  color:#fff;
+  border:none; cursor:pointer;
+  display:grid; place-items:center;
+  box-shadow:0 10px 26px rgba(18,72,184,.35);
+  transform:translateY(80px); opacity:0; visibility:hidden;
+  transition:all .3s var(--ease-bounce);
+}
+.back-to-top.is-visible{ transform:translateY(0); opacity:1; visibility:visible; }
+.back-to-top:hover{ transform:translateY(-3px) scale(1.05); }
+.back-to-top svg{ width:22px; height:22px; }
+
+/* ---------- Modal ---------- */
+.modal-backdrop{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(6,15,38,.65);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:grid; place-items:center;
+  padding:20px;
+  opacity:0; visibility:hidden;
+  transition:opacity .25s var(--ease), visibility .25s var(--ease);
+}
+.modal-backdrop.is-open{ opacity:1; visibility:visible; }
+.modal-backdrop[hidden]{ display:none; }
+.modal{
+  background:var(--surface);
+  border-radius:var(--radius-2xl);
+  padding:32px 28px 24px;
+  max-width:420px; width:100%;
+  box-shadow:var(--shadow-lg);
+  text-align:center;
+  position:relative;
+  transform:scale(.9) translateY(20px);
+  transition:transform .35s var(--ease-bounce);
+  border:1.5px solid var(--border);
+}
+.modal-backdrop.is-open .modal{ transform:scale(1) translateY(0); }
+.modal__icon{
+  display:grid; place-items:center;
+  width:64px; height:64px;
+  margin:0 auto 16px;
+  border-radius:50%;
+  background:linear-gradient(135deg, rgba(220,38,38,.15), rgba(239,68,68,.08));
+  color:var(--red-500);
+}
+.modal__icon svg{ width:28px; height:28px; }
+.modal__title{ margin:0 0 8px; font-size:1.15rem; font-weight:800; color:var(--ink); }
+.modal__desc{ margin:0 0 24px; font-size:.9rem; color:var(--ink-soft); line-height:1.65; }
+.modal__actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.modal__actions .btn{ flex:1; min-width:120px; }
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:13px 24px;
+  font-family:inherit; font-size:.9rem; font-weight:800;
+  line-height:1; border-radius:var(--radius-md);
+  border:1.5px solid transparent;
+  cursor:pointer; text-decoration:none;
+  min-height:48px;
+  transition:all .25s var(--ease);
+}
+.btn svg{ width:18px; height:18px; flex-shrink:0; }
+.btn--ghost{ color:var(--ink); background:var(--surface); border:1.5px solid var(--border); }
+.btn--ghost:hover{ border-color:var(--blue-700); color:var(--blue-700); background:rgba(18,72,184,.05); transform:translateY(-1px); }
+.btn--danger-solid{
+  color:#fff;
+  background:linear-gradient(135deg, var(--red-500), var(--red-400));
+  border:none;
+  box-shadow:0 8px 20px rgba(220,38,38,.30);
+}
+.btn--danger-solid:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(220,38,38,.40); }
+
+/* ---------- Toast ---------- */
+.toast-stack{
+  position:fixed; top:20px; inset-inline-end:20px; z-index:250;
+  display:flex; flex-direction:column; gap:10px;
+  max-width:min(380px, calc(100vw - 40px));
+  pointer-events:none;
+}
+.toast{
+  pointer-events:auto;
+  display:flex; align-items:flex-start; gap:12px;
+  padding:14px 16px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+  color:var(--ink); font-size:.88rem; line-height:1.55;
+  animation:toastIn .4s var(--ease-bounce) both;
+}
+.toast.is-leaving{ animation:toastOut .3s var(--ease) forwards; }
+@keyframes toastIn{ from{ opacity:0; transform:translateX(40px) scale(.9); } to{ opacity:1; transform:translateX(0) scale(1); } }
+@keyframes toastOut{ to{ opacity:0; transform:translateX(40px) scale(.9); } }
+.toast__icon{
+  flex-shrink:0; width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center; color:#fff;
+}
+.toast__icon svg{ width:17px; height:17px; }
+.toast--info .toast__icon{ background:linear-gradient(135deg, var(--blue-700), var(--cyan-500)); }
+.toast--success .toast__icon{ background:linear-gradient(135deg, var(--green-500), var(--green-400)); }
+.toast--error .toast__icon{ background:linear-gradient(135deg, var(--red-500), var(--red-400)); }
+.toast__body{ flex:1; }
+.toast__title{ font-weight:800; margin:0 0 2px; font-size:.92rem; }
+.toast__msg{ margin:0; color:var(--ink-soft); font-size:.82rem; }
+.toast__close{
+  flex-shrink:0;
+  width:26px; height:26px;
+  border:none; background:transparent;
+  color:var(--ink-mute);
+  border-radius:6px;
+  cursor:pointer;
+  display:grid; place-items:center;
+  transition:all .2s var(--ease);
+}
+.toast__close:hover{ background:var(--surface-soft); color:var(--ink); }
+.toast__close svg{ width:14px; height:14px; }
+
+/* ---------- Keyboard hint ---------- */
+.kbd-hint{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  justify-content:center;
+  margin-top:20px;
+  padding:12px 16px;
+  font-size:.78rem; font-weight:700;
+  color:var(--ink-mute);
+  background:var(--surface-soft);
+  border:1px dashed var(--border);
+  border-radius:var(--radius-md);
+}
+.kbd-hint kbd{
+  padding:2px 8px; border-radius:6px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  font-family:ui-monospace,monospace;
+  font-size:.72rem; font-weight:700;
+  color:var(--ink);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:520px){
+  .courses-grid{ grid-template-columns:1fr; }
+  .header__brand-ar{ font-size:1.05rem; }
+  .header__logo{ width:38px; height:38px; }
+  .intro__stats{ gap:18px; }
+  .search kbd{ display:none; }
+  .toolbar__right{ width:100%; }
+  .sort-wrap{ flex:1; }
+  .sort-select{ width:100%; }
+  .user-menu__trigger{ padding:3px; border-radius:50%; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* ---------- High contrast / forced colors ---------- */
+@media (forced-colors: active){
+  .course-card, .chip, .header__icon-btn, .bookmark-btn, .btn{
+    border:2px solid ButtonText;
+  }
+  .course-card:has(.course-card__title-link:focus-visible){
+    outline:3px solid Highlight;
+  }
+}
+@media (prefers-contrast: more){
+  :root{ --ink-mute:#3d5a8c; --border:#a8c1e8; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Skip link -->
+<a href="#main-content" class="skip-link">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- Screen reader live region -->
+<div class="sr-only" id="sr-announcer" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loading-overlay" role="status" aria-busy="true" aria-label="جاري التحقق من الجلسة">
+  <div class="loading-spinner" aria-hidden="true"></div>
+  <p class="loading-text">جاري التحقق من الجلسة...</p>
+</div>
+
+<!-- Toast stack -->
+<div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+<!-- App -->
+<div class="app" id="app" hidden>
+
+  <!-- ============ Header ============ -->
+  <header class="header">
+    <div class="header__inner">
+
+      <a href="content.html" class="header__brand" aria-label="منصة أقدر — الصفحة الرئيسية">
+        <svg class="header__logo" viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <linearGradient id="hShirt" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4A7CEC"/><stop offset="100%" stop-color="#2457D6"/>
+            </linearGradient>
+            <linearGradient id="hStar" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFE066"/><stop offset="100%" stop-color="#F5A623"/>
+            </linearGradient>
+            <radialGradient id="hInner">
+              <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eaf3ff"/>
+            </radialGradient>
+          </defs>
+          <circle cx="120" cy="120" r="108" fill="url(#hInner)"/>
+          <circle cx="120" cy="120" r="108" fill="none" stroke="#1248b8" stroke-width="1.6" stroke-dasharray="3 10" opacity=".28"/>
+          <path d="M92 158 Q84 180 82 196" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+          <circle cx="82" cy="198" r="6" fill="#FFD3AE"/>
+          <rect x="114" y="138" width="12" height="22" rx="6" fill="#FFD3AE"/>
+          <path d="M92 168 Q92 152 110 150 L130 150 Q148 152 148 168 L148 200 Q148 212 138 212 L102 212 Q92 212 92 200 Z" fill="url(#hShirt)"/>
+          <path d="M148 168 Q170 148 184 122" stroke="#2457D6" stroke-width="12" stroke-linecap="round" fill="none"/>
+          <path d="M94 204 h52 v32 q0 6 -6 6 h-6 q-6 0 -6 -6 v-10 l-4 -6 l-4 6 v10 q0 6 -6 6 h-6 q-6 0 -6 -6 Z" fill="#17315F"/>
+          <ellipse cx="106" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+          <ellipse cx="134" cy="244" rx="11" ry="5.5" fill="#17315F"/>
+          <circle cx="120" cy="120" r="28" fill="#FFD3AE"/>
+          <path d="M92 120 Q90 94 112 88 Q134 84 148 96 Q156 108 148 124 Q142 110 130 104 Q112 96 100 106 Q94 112 92 120 Z" fill="#1A2B4C"/>
+          <path d="M108 122 Q112 118 116 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M126 122 Q130 118 134 122" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M110 132 Q120 142 130 132" stroke="#1A2B4C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M196 36 L203 58 L226 60 L208 74 L213 96 L196 84 L179 96 L184 74 L166 60 L189 58 Z" fill="url(#hStar)"/>
+        </svg>
+        <div class="header__brand-text">
+          <span class="header__brand-ar">أقدر</span>
+          <span class="header__brand-en">AQDAR</span>
+        </div>
+      </a>
+
+      <div class="header__user">
+
+        <!-- Theme toggle -->
+        <button type="button" class="header__icon-btn" id="theme-toggle"
+                aria-label="تبديل المظهر الليلي" aria-pressed="false" title="تبديل المظهر">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2 V4"/><path d="M12 20 V22"/>
+            <path d="M4.93 4.93 L6.34 6.34"/><path d="M17.66 17.66 L19.07 19.07"/>
+            <path d="M2 12 H4"/><path d="M20 12 H22"/>
+            <path d="M4.93 19.07 L6.34 17.66"/><path d="M17.66 6.34 L19.07 4.93"/>
+          </svg>
+        </button>
+
+        <!-- User menu (dropdown) -->
+        <div class="user-menu" id="user-menu">
+          <button type="button"
+                  class="user-menu__trigger"
+                  id="user-menu-trigger"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="user-menu-panel"
+                  aria-label="قائمة المستخدم — بيانات الحساب">
+            <div class="header__user-avatar" id="header-avatar" aria-hidden="true">ط</div>
+            <div class="user-menu__trigger-info" aria-hidden="true">
+              <span class="user-menu__trigger-name" id="header-name">مستخدم</span>
+              <span class="user-menu__trigger-role">طالب</span>
+            </div>
+            <svg class="user-menu__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 9 L12 15 L18 9"/>
+            </svg>
+          </button>
+
+          <div class="user-menu__panel" id="user-menu-panel" role="menu" aria-labelledby="user-menu-trigger" hidden>
+            <div class="user-menu__header">
+              <div class="user-menu__avatar" id="dropdown-avatar" aria-hidden="true">ط</div>
+              <div class="user-menu__header-text">
+                <strong class="user-menu__name" id="dropdown-name">—</strong>
+                <span class="user-menu__email" id="dropdown-email">—</span>
+              </div>
+            </div>
+
+            <dl class="user-menu__meta">
+              <div class="user-menu__meta-row">
+                <dt>حالة الحساب</dt>
+                <dd><span class="badge badge--success" id="dropdown-status">مفعّل</span></dd>
+              </div>
+              <div class="user-menu__meta-row">
+                <dt>عضو منذ</dt>
+                <dd id="dropdown-joined">—</dd>
+              </div>
+              <div class="user-menu__meta-row">
+                <dt>آخر دخول</dt>
+                <dd id="dropdown-last-login">—</dd>
+              </div>
+            </dl>
+
+            <button type="button" class="user-menu__logout" id="logout-btn" role="menuitem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 3 H5 A2 2 0 0 0 3 5 V19 A2 2 0 0 0 5 21 H9"/>
+                <path d="M16 17 L21 12 L16 7"/><path d="M21 12 H9"/>
+              </svg>
+              تسجيل الخروج
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Main ============ -->
+  <main class="main" id="main-content" tabindex="-1">
+
+    <!-- Hero -->
+    <section class="intro" aria-labelledby="intro-heading">
+      <span class="intro__orb intro__orb--1" aria-hidden="true"></span>
+      <span class="intro__orb intro__orb--2" aria-hidden="true"></span>
+      <span class="intro__orb intro__orb--3" aria-hidden="true"></span>
+      <div class="intro__inner">
+        <span class="intro__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L14 8 L20 10 L14 12 L12 18 L10 12 L4 10 L10 8 Z"/>
+          </svg>
+          المحتوى التعليمي
+        </span>
+        <h1 class="intro__title" id="intro-heading">
+          أهلًا <span id="intro-name">بيك</span>!
+          <span class="intro__title-accent">جاهز تتعلم؟</span>
+        </h1>
+        <p class="intro__desc">
+          اختار المادة اللي عايز تبدأ بيها، وابدأ رحلة التعلّم مع أفضل المعلمين.
+        </p>
+
+        <div class="intro__stats" role="list" aria-label="إحصائيات المنصة">
+          <div class="intro__stat" role="listitem">
+            <span class="intro__stat-value" data-stat="courses">4</span>
+            <span class="intro__stat-label">مواد دراسية</span>
+          </div>
+          <div class="intro__stat" role="listitem">
+            <span class="intro__stat-value" data-stat="lessons">39</span>
+            <span class="intro__stat-label">درس تفاعلي</span>
+          </div>
+          <div class="intro__stat" role="listitem">
+            <span class="intro__stat-value">4.8</span>
+            <span class="intro__stat-label">متوسط التقييم</span>
+          </div>
+          <div class="intro__stat" role="listitem">
+            <span class="intro__stat-value">+12</span>
+            <span class="intro__stat-label">معلم خبير</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Continue Banner -->
+    <section class="continue-banner" id="continue-banner" hidden aria-labelledby="continue-title">
+      <div class="continue-banner__inner">
+        <div class="continue-banner__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7 V12 L15 14"/>
+          </svg>
+        </div>
+        <div class="continue-banner__text">
+          <span class="continue-banner__label">أكمل من حيث توقفت</span>
+          <h3 class="continue-banner__title" id="continue-title">—</h3>
+        </div>
+        <button type="button" class="continue-banner__btn" id="continue-btn">متابعة</button>
+      </div>
+    </section>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="M21 21 L16.5 16.5"/>
+        </svg>
+        <label for="search-input" class="sr-only">بحث في المواد الدراسية</label>
+        <input type="search" id="search-input" placeholder="ابحث عن مادة..."
+               autocomplete="off">
+        <kbd title="اضغط / للتركيز" aria-hidden="true">/</kbd>
+      </div>
+
+      <div class="toolbar__right">
+        <div class="sort-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6 H21"/><path d="M6 12 H18"/><path d="M10 18 H14"/>
+          </svg>
+          <label for="sort-select" class="sr-only">ترتيب المواد</label>
+          <select class="sort-select" id="sort-select">
+            <option value="default">افتراضي</option>
+            <option value="rating">الأعلى تقييمًا</option>
+            <option value="progress">الأكثر تقدمًا</option>
+            <option value="lessons">الأكثر دروسًا</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters" id="filters" role="group" aria-label="تصفية المواد الدراسية">
+      <button type="button" class="chip" data-filter="all" aria-pressed="true">
+        الكل <span class="chip__count" data-count="all" aria-hidden="true">4</span>
+      </button>
+      <button type="button" class="chip" data-filter="math" aria-pressed="false">
+        الرياضيات <span class="chip__count" data-count="math" aria-hidden="true">1</span>
+      </button>
+      <button type="button" class="chip" data-filter="sci" aria-pressed="false">
+        العلوم <span class="chip__count" data-count="sci" aria-hidden="true">1</span>
+      </button>
+      <button type="button" class="chip" data-filter="ar" aria-pressed="false">
+        العربية <span class="chip__count" data-count="ar" aria-hidden="true">1</span>
+      </button>
+      <button type="button" class="chip" data-filter="en" aria-pressed="false">
+        English <span class="chip__count" data-count="en" aria-hidden="true">1</span>
+      </button>
+      <button type="button" class="chip" data-filter="bookmarks" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/>
+        </svg>
+        المفضلة <span class="chip__count" data-count="bookmarks" aria-hidden="true">0</span>
+      </button>
+    </div>
+
+    <!-- Section title -->
+    <h2 class="section-title" id="courses-heading">
+      <span class="section-title__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 9 L12 4 L22 9 L12 14 Z"/>
+          <path d="M6 11 V16 C6 17.5 9 19 12 19 C15 19 18 17.5 18 16 V11"/>
+        </svg>
+      </span>
+      المواد الدراسية
+      <span class="section-title__count" id="results-count" role="status" aria-live="polite">4</span>
+    </h2>
+
+    <div class="courses-grid" id="courses-grid" aria-labelledby="courses-heading">
+
+      <!-- Math -->
+      <article class="course-card" data-course="math" data-title="الرياضيات"
+               data-lessons="12" data-duration="8.5" data-rating="4.8" data-progress="35"
+               aria-labelledby="course-math-title" style="--i:0">
+        <button type="button" class="bookmark-btn" data-bookmark="math"
+                aria-pressed="false" aria-label="أضف الرياضيات للمفضلة">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/>
+          </svg>
+        </button>
+        <div class="course-card__top">
+          <span class="course-card__icon course-card__icon--math" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4 H20 V20 H4 Z"/><path d="M8 8 H16"/><path d="M8 12 H16"/>
+              <path d="M8 16 H12"/><path d="M12 8 V12"/>
+            </svg>
+          </span>
+          <span class="course-card__level level--intermediate">متوسط</span>
+        </div>
+        <h3 class="course-card__title" id="course-math-title">
+          <a href="#" class="course-card__title-link" data-course-link="math">الرياضيات</a>
+        </h3>
+        <p class="course-card__desc">جبر، هندسة، حساب مثلثات — دروس مبسطة مع تمارين تفاعلية.</p>
+        <div class="course-card__teacher">
+          <span class="teacher-avatar" aria-hidden="true">م</span>
+          <span>أ. محمد عبدالله</span>
+        </div>
+        <div class="course-card__progress">
+          <div class="progress-label">
+            <span>التقدم</span>
+            <span class="progress-value">35%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" aria-label="التقدم في الرياضيات">
+            <div class="progress-fill" style="width:35%"></div>
+          </div>
+        </div>
+        <div class="course-card__meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5 V6 A2 2 0 0 1 6 4 H20 V20 H6 A2 2 0 0 1 4 18"/></svg> 12 درس</span>
+          <span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg> 4.8</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7 V12 L15 14"/></svg> 8.5 س</span>
+        </div>
+      </article>
+
+      <!-- Science -->
+      <article class="course-card" data-course="sci" data-title="العلوم"
+               data-lessons="10" data-duration="7" data-rating="4.9" data-progress="60"
+               aria-labelledby="course-sci-title" style="--i:1">
+        <button type="button" class="bookmark-btn" data-bookmark="sci"
+                aria-pressed="false" aria-label="أضف العلوم للمفضلة">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/>
+          </svg>
+        </button>
+        <div class="course-card__top">
+          <span class="course-card__icon course-card__icon--sci" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3 H15 V8 L20 20 A2 2 0 0 1 18 22 H6 A2 2 0 0 1 4 20 L9 8 Z"/>
+              <path d="M9 8 H15"/><circle cx="10" cy="16" r="1"/><circle cx="14" cy="18" r="1"/>
+            </svg>
+          </span>
+          <span class="course-card__level level--beginner">مبتدئ</span>
+        </div>
+        <h3 class="course-card__title" id="course-sci-title">
+          <a href="#" class="course-card__title-link" data-course-link="sci">العلوم</a>
+        </h3>
+        <p class="course-card__desc">فيزياء، كيمياء، أحياء — شرح سلس مع تجارب مصوّرة.</p>
+        <div class="course-card__teacher">
+          <span class="teacher-avatar" aria-hidden="true">س</span>
+          <span>أ. سارة إبراهيم</span>
+        </div>
+        <div class="course-card__progress">
+          <div class="progress-label">
+            <span>التقدم</span>
+            <span class="progress-value">60%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="التقدم في العلوم">
+            <div class="progress-fill" style="width:60%"></div>
+          </div>
+        </div>
+        <div class="course-card__meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5 V6 A2 2 0 0 1 6 4 H20 V20 H6 A2 2 0 0 1 4 18"/></svg> 10 دروس</span>
+          <span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg> 4.9</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7 V12 L15 14"/></svg> 7 س</span>
+        </div>
+      </article>
+
+      <!-- Arabic -->
+      <article class="course-card" data-course="ar" data-title="اللغة العربية"
+               data-lessons="8" data-duration="6" data-rating="4.7" data-progress="15"
+               aria-labelledby="course-ar-title" style="--i:2">
+        <button type="button" class="bookmark-btn" data-bookmark="ar"
+                aria-pressed="false" aria-label="أضف اللغة العربية للمفضلة">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/>
+          </svg>
+        </button>
+        <div class="course-card__top">
+          <span class="course-card__icon course-card__icon--ar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4 H14 A2 2 0 0 1 16 6 V20 A2 2 0 0 0 18 18 H4 Z"/>
+              <path d="M20 4 H18 A2 2 0 0 0 16 6 V20 A2 2 0 0 1 18 18 H20 Z" opacity=".55"/>
+            </svg>
+          </span>
+          <span class="course-card__level level--intermediate">متوسط</span>
+        </div>
+        <h3 class="course-card__title" id="course-ar-title">
+          <a href="#" class="course-card__title-link" data-course-link="ar">اللغة العربية</a>
+        </h3>
+        <p class="course-card__desc">نحو، صرف، بلاغة، وأدب — بالتفصيل وبأمثلة سهلة.</p>
+        <div class="course-card__teacher">
+          <span class="teacher-avatar" aria-hidden="true">أ</span>
+          <span>أ. أحمد فتحي</span>
+        </div>
+        <div class="course-card__progress">
+          <div class="progress-label">
+            <span>التقدم</span>
+            <span class="progress-value">15%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" aria-label="التقدم في اللغة العربية">
+            <div class="progress-fill" style="width:15%"></div>
+          </div>
+        </div>
+        <div class="course-card__meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5 V6 A2 2 0 0 1 6 4 H20 V20 H6 A2 2 0 0 1 4 18"/></svg> 8 دروس</span>
+          <span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg> 4.7</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7 V12 L15 14"/></svg> 6 س</span>
+        </div>
+      </article>
+
+      <!-- English -->
+      <article class="course-card" data-course="en" data-title="English"
+               data-lessons="9" data-duration="7.5" data-rating="4.9" data-progress="45"
+               aria-labelledby="course-en-title" style="--i:3">
+        <button type="button" class="bookmark-btn" data-bookmark="en"
+                aria-pressed="false" aria-label="Add English to favorites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/>
+          </svg>
+        </button>
+        <div class="course-card__top">
+          <span class="course-card__icon course-card__icon--en" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12 H21"/><path d="M12 3 A14 14 0 0 1 12 21"/>
+              <path d="M12 3 A14 14 0 0 0 12 21"/>
+            </svg>
+          </span>
+          <span class="course-card__level level--beginner">مبتدئ</span>
+        </div>
+        <h3 class="course-card__title" id="course-en-title">
+          <a href="#" class="course-card__title-link" data-course-link="en" lang="en">English</a>
+        </h3>
+        <p class="course-card__desc" lang="en">Grammar, Vocabulary, Reading &amp; Writing — step by step.</p>
+        <div class="course-card__teacher">
+          <span class="teacher-avatar" aria-hidden="true">L</span>
+          <span>Ms. Layla Hassan</span>
+        </div>
+        <div class="course-card__progress">
+          <div class="progress-label">
+            <span>التقدم</span>
+            <span class="progress-value">45%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="التقدم في English">
+            <div class="progress-fill" style="width:45%"></div>
+          </div>
+        </div>
+        <div class="course-card__meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5 V6 A2 2 0 0 1 6 4 H20 V20 H6 A2 2 0 0 1 4 18"/></svg> 9 دروس</span>
+          <span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg> 4.9</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7 V12 L15 14"/></svg> 7.5 س</span>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Keyboard hint -->
+    <div class="kbd-hint" aria-label="اختصارات لوحة المفاتيح">
+      <span>اختصارات: <kbd>/</kbd> للبحث</span>
+      <span><kbd>Tab</kbd> للتنقل</span>
+      <span><kbd>Enter</kbd> للفتح</span>
+      <span><kbd>Esc</kbd> للإغلاق</span>
+    </div>
+
+  </main>
+</div>
+
+<!-- Back to Top -->
+<button type="button" class="back-to-top" id="back-to-top" aria-label="الرجوع للأعلى" title="الرجوع للأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19 V5"/><path d="M5 12 L12 5 L19 12"/>
+  </svg>
+</button>
+
+<!-- Logout Modal -->
+<div class="modal-backdrop" id="logout-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true"
+       aria-labelledby="logout-title" aria-describedby="logout-desc">
+    <div class="modal__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3 H5 A2 2 0 0 0 3 5 V19 A2 2 0 0 0 5 21 H9"/>
+        <path d="M16 17 L21 12 L16 7"/><path d="M21 12 H9"/>
+      </svg>
+    </div>
+    <h2 class="modal__title" id="logout-title">تأكيد تسجيل الخروج</h2>
+    <p class="modal__desc" id="logout-desc">
+      هل أنت متأكد من تسجيل الخروج من حسابك؟ ستحتاج لتسجيل الدخول مرة أخرى للمتابعة.
+    </p>
+    <div class="modal__actions">
+      <button type="button" class="btn btn--ghost" id="modal-cancel" data-autofocus>لا، ابقَ</button>
+      <button type="button" class="btn btn--danger-solid" id="modal-confirm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 3 H5 A2 2 0 0 0 3 5 V19 A2 2 0 0 0 5 21 H9"/>
+          <path d="M16 17 L21 12 L16 7"/><path d="M21 12 H9"/>
+        </svg>
+        نعم، خروج
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     إعدادات Supabase
+     ============================================================ */
+  const SUPABASE_URL      = 'https://khjqgpbyyexbgakvajhj.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoanFncGJ5eWV4Ymdha3ZhamhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODczMTEsImV4cCI6MjEwODE2MzMxMX0.7kd44Ye1dyZZnVq8bcCVj0t1DWhAnkLkhpYA5Ndln6U';
+
+  const $  = (id) => document.getElementById(id);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  let supabaseClient = null;
+  let lastFocusEl   = null;
+  let activeFilter  = 'all';
+  let activeSort    = 'default';
+  let activeQuery   = '';
+  let lastCourseKey = null;
+
+  /* ============================================================
+     Supabase client (singleton)
+     ============================================================ */
+  function getSupabase() {
+    if (supabaseClient) return supabaseClient;
+    if (!window.supabase || typeof window.supabase.createClient !== 'function') return null;
+    try {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      });
+      return supabaseClient;
+    } catch (e) {
+      console.error('[AQDAR] Supabase init failed', e);
+      return null;
+    }
+  }
+
+  /* ============================================================
+     Screen reader announcer
+     ============================================================ */
+  function announce(msg) {
+    const el = $('sr-announcer');
+    if (!el) return;
+    el.textContent = '';
+    setTimeout(() => { el.textContent = msg; }, 80);
+  }
+
+  /* ============================================================
+     Toasts (with close button)
+     ============================================================ */
+  const TOAST_ICONS = {
+    info:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>',
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>',
+    error:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8 V13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>'
+  };
+
+  function showToast(type, title, message, duration) {
+    const stack = $('toast-stack');
+    if (!stack) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'toast toast--' + type;
+    toast.setAttribute('role', 'status');
+    toast.innerHTML =
+      '<div class="toast__icon" aria-hidden="true">' + (TOAST_ICONS[type] || TOAST_ICONS.info) + '</div>' +
+      '<div class="toast__body"><p class="toast__title">' + title + '</p>' +
+      (message ? '<p class="toast__msg">' + message + '</p>' : '') + '</div>' +
+      '<button type="button" class="toast__close" aria-label="إغلاق الإشعار">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6 L18 18"/><path d="M18 6 L6 18"/></svg>' +
+      '</button>';
+
+    const remove = () => {
+      toast.classList.add('is-leaving');
+      setTimeout(() => toast.remove(), 320);
+    };
+    toast.querySelector('.toast__close').addEventListener('click', remove);
+    stack.appendChild(toast);
+    setTimeout(remove, duration || 3500);
+  }
+
+  /* ============================================================
+     Loading / App visibility
+     ============================================================ */
+  function hideLoading() {
+    const overlay = $('loading-overlay');
+    if (overlay) {
+      overlay.classList.add('is-hidden');
+      overlay.setAttribute('aria-busy', 'false');
+    }
+  }
+
+  function showApp() {
+    const app = $('app');
+    if (app) app.hidden = false;
+    hideLoading();
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.progress-fill').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0%';
+        setTimeout(() => { el.style.width = w; }, 150);
+      });
+    });
+    announce('تم تحميل الصفحة. اضغط Tab للتنقل بين المواد.');
+  }
+
+  /* ============================================================
+     Fill user info (header + dropdown)
+     ============================================================ */
+  function formatDate(iso) {
+    if (!iso) return '—';
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+    } catch (e) { return '—'; }
+  }
+
+  function formatRelative(iso) {
+    if (!iso) return '—';
+    try {
+      const d = new Date(iso);
+      const diff = Date.now() - d.getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 1) return 'الآن';
+      if (mins < 60) return 'منذ ' + mins + ' دقيقة';
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return 'منذ ' + hrs + ' ساعة';
+      const days = Math.floor(hrs / 24);
+      if (days < 30) return 'منذ ' + days + ' يوم';
+      return formatDate(iso);
+    } catch (e) { return '—'; }
+  }
+
+  function fillUserInfo(user) {
+    if (!user) return;
+
+    const meta = user.user_metadata || {};
+    const fullName =
+      meta.display_name ||
+      [meta.first_name, meta.last_name].filter(Boolean).join(' ') ||
+      meta.username ||
+      (user.email ? user.email.split('@')[0] : 'طالب');
+
+    const firstName  = meta.first_name || fullName.split(' ')[0] || 'طالب';
+    const initial    = (fullName.trim()[0] || 'ط').toUpperCase();
+    const email      = user.email || '—';
+    const joinedAt   = user.created_at || null;
+    const lastSignIn = user.last_sign_in_at || null;
+    const confirmed  = !!(user.email_confirmed_at || user.confirmed_at);
+
+    // Header
+    const headerName   = $('header-name');
+    const headerAvatar = $('header-avatar');
+    const introName    = $('intro-name');
+
+    if (headerName)   headerName.textContent = firstName;
+    if (headerAvatar) headerAvatar.textContent = initial;
+    if (introName)    introName.textContent = firstName;
+
+    // Dropdown
+    const dAvatar  = $('dropdown-avatar');
+    const dName    = $('dropdown-name');
+    const dEmail   = $('dropdown-email');
+    const dStatus  = $('dropdown-status');
+    const dJoined  = $('dropdown-joined');
+    const dLastIn  = $('dropdown-last-login');
+
+    if (dAvatar) dAvatar.textContent = initial;
+    if (dName)   dName.textContent = fullName;
+    if (dEmail)  dEmail.textContent = email;
+    if (dStatus) {
+      dStatus.textContent = confirmed ? 'مفعّل' : 'بانتظار التفعيل';
+      dStatus.className = 'badge ' + (confirmed ? 'badge--success' : 'badge--warn');
+    }
+    if (dJoined) dJoined.textContent = formatDate(joinedAt);
+    if (dLastIn) dLastIn.textContent = formatRelative(lastSignIn);
+
+    // Store for later reference
+    window.__aqdarUser = { fullName, email, joinedAt, lastSignIn, confirmed };
+  }
+
+  function redirectToLogin() {
+    window.location.replace('index.html#login');
+  }
+
+  /* ============================================================
+     Theme
+     ============================================================ */
+  function initTheme() {
+    const saved = localStorage.getItem('aqdar-theme');
+    let isDark = false;
+    if (saved === 'dark') isDark = true;
+    else if (saved === 'light') isDark = false;
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) isDark = true;
+
+    applyTheme(isDark);
+
+    const btn = $('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const nowDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        applyTheme(!nowDark);
+        localStorage.setItem('aqdar-theme', !nowDark ? 'dark' : 'light');
+        announce(!nowDark ? 'تم تفعيل الوضع الليلي' : 'تم تفعيل الوضع النهاري');
+      });
+    }
+  }
+  function applyTheme(isDark) {
+    if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+    const btn = $('theme-toggle');
+    if (btn) btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  }
+
+  /* ============================================================
+     Bookmarks (localStorage)
+     ============================================================ */
+  function getBookmarks() {
+    try { return JSON.parse(localStorage.getItem('aqdar-bookmarks')) || []; }
+    catch (e) { return []; }
+  }
+  function setBookmarks(list) {
+    try { localStorage.setItem('aqdar-bookmarks', JSON.stringify(list)); } catch (e) {}
+  }
+  function toggleBookmark(key) {
+    const list = getBookmarks();
+    const idx = list.indexOf(key);
+    if (idx >= 0) list.splice(idx, 1);
+    else list.push(key);
+    setBookmarks(list);
+    return list.includes(key);
+  }
+
+  function syncBookmarkButtons() {
+    const list = getBookmarks();
+    $$('.bookmark-btn').forEach(btn => {
+      const key = btn.getAttribute('data-bookmark');
+      const active = list.includes(key);
+      const card = btn.closest('.course-card');
+      const title = card ? (card.getAttribute('data-title') || '') : '';
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      btn.setAttribute('aria-label', (active ? 'إزالة من المفضلة: ' : 'أضف للمفضلة: ') + title);
+    });
+    const bCount = document.querySelector('[data-count="bookmarks"]');
+    if (bCount) bCount.textContent = list.length;
+  }
+
+  /* ============================================================
+     Continue Learning
+     ============================================================ */
+  function getLastCourse() {
+    try { return localStorage.getItem('aqdar-last-course'); } catch (e) { return null; }
+  }
+  function setLastCourse(key) {
+    try { localStorage.setItem('aqdar-last-course', key); } catch (e) {}
+  }
+  function updateContinueBanner() {
+    const banner  = $('continue-banner');
+    const titleEl = $('continue-title');
+    const key     = getLastCourse();
+    if (!banner || !titleEl) return;
+    const card = key ? document.querySelector('.course-card[data-course="' + key + '"]') : null;
+    if (!card) { banner.hidden = true; return; }
+    titleEl.textContent = card.getAttribute('data-title') || '';
+    banner.hidden = false;
+    lastCourseKey = key;
+  }
+
+  /* ============================================================
+     Filters / Sort / Search
+     ============================================================ */
+  function updateFilterCounts() {
+    const cards = document.querySelectorAll('.course-card');
+    const counts = { all: cards.length, math: 0, sci: 0, ar: 0, en: 0 };
+    cards.forEach(c => {
+      const k = c.getAttribute('data-course');
+      if (counts[k] !== undefined) counts[k]++;
+    });
+    counts.bookmarks = getBookmarks().length;
+    Object.keys(counts).forEach(k => {
+      const el = document.querySelector('[data-count="' + k + '"]');
+      if (el) el.textContent = counts[k];
+    });
+  }
+
+  function applyView() {
+    const cards = document.querySelectorAll('.course-card');
+    const grid  = $('courses-grid');
+    const bookmarks = getBookmarks();
+    const q = activeQuery.trim().toLowerCase();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const key   = card.getAttribute('data-course');
+      const title = (card.getAttribute('data-title') || '').toLowerCase();
+      const desc  = (card.querySelector('.course-card__desc')?.textContent || '').toLowerCase();
+      const isBookmarked = bookmarks.includes(key);
+
+      let matchesFilter;
+      if (activeFilter === 'all') matchesFilter = true;
+      else if (activeFilter === 'bookmarks') matchesFilter = isBookmarked;
+      else matchesFilter = key === activeFilter;
+
+      const matchesQuery = !q || title.includes(q) || desc.includes(q);
+      const show = matchesFilter && matchesQuery;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+
+    const countEl = $('results-count');
+    if (countEl) countEl.textContent = visible;
+
+    // Empty state
+    const existing = grid.querySelector('.empty-state');
+    if (existing) existing.remove();
+    if (visible === 0) {
+      const div = document.createElement('div');
+      div.className = 'empty-state';
+      div.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21 L16.5 16.5"/></svg>' +
+        '<p>لا توجد نتائج مطابقة</p>' +
+        '<button type="button" class="empty-state__btn" id="reset-filters-btn">إعادة تعيين الفلاتر</button>';
+      grid.appendChild(div);
+      $('reset-filters-btn')?.addEventListener('click', resetFilters);
+    }
+
+    announce('عدد المواد المعروضة: ' + visible);
+  }
+
+  function applySort() {
+    const grid = $('courses-grid');
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.course-card'));
+    if (activeSort === 'default') return;
+
+    const sorted = cards.slice().sort((a, b) => {
+      if (activeSort === 'rating')   return parseFloat(b.dataset.rating)   - parseFloat(a.dataset.rating);
+      if (activeSort === 'progress') return parseFloat(b.dataset.progress) - parseFloat(a.dataset.progress);
+      if (activeSort === 'lessons')  return parseInt(b.dataset.lessons)    - parseInt(a.dataset.lessons);
+      return 0;
+    });
+    sorted.forEach((c, i) => {
+      c.style.setProperty('--i', i);
+      grid.appendChild(c);
+    });
+  }
+
+  function resetFilters() {
+    activeFilter = 'all';
+    activeQuery = '';
+    activeSort = 'default';
+    localStorage.removeItem('aqdar-filter');
+    localStorage.removeItem('aqdar-sort');
+    const searchInput = $('search-input');
+    if (searchInput) searchInput.value = '';
+    const sortSelect = $('sort-select');
+    if (sortSelect) sortSelect.value = 'default';
+    $$('.chip').forEach(c => c.setAttribute('aria-pressed', c.getAttribute('data-filter') === 'all' ? 'true' : 'false'));
+    applySort();
+    applyView();
+    showToast('info', 'تم إعادة التعيين', 'الفلاتر رجعت للحالة الافتراضية.');
+  }
+
+  function persistFilter(key) { try { localStorage.setItem('aqdar-filter', key); } catch (e) {} }
+  function persistSort(key)   { try { localStorage.setItem('aqdar-sort', key); } catch (e) {} }
+
+  function restorePreferences() {
+    const savedFilter = localStorage.getItem('aqdar-filter');
+    if (savedFilter) {
+      activeFilter = savedFilter;
+      $$('.chip').forEach(c => c.setAttribute('aria-pressed', c.getAttribute('data-filter') === savedFilter ? 'true' : 'false'));
+    }
+    const savedSort = localStorage.getItem('aqdar-sort');
+    if (savedSort) {
+      activeSort = savedSort;
+      const sortSelect = $('sort-select');
+      if (sortSelect) sortSelect.value = savedSort;
+    }
+  }
+
+  function initToolbar() {
+    const searchInput = $('search-input');
+    const sortSelect  = $('sort-select');
+    const chips = $$('.chip');
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+        chip.setAttribute('aria-pressed', 'true');
+        activeFilter = chip.getAttribute('data-filter');
+        persistFilter(activeFilter);
+        applyView();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        activeQuery = e.target.value;
+        applyView();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        activeSort = e.target.value;
+        persistSort(activeSort);
+        applySort();
+        applyView();
+      });
+    }
+  }
+
+  /* ============================================================
+     Back to Top
+     ============================================================ */
+  function initBackToTop() {
+    const btn = $('back-to-top');
+    if (!btn) return;
+    const onScroll = () => {
+      btn.classList.toggle('is-visible', window.scrollY > 320);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ============================================================
+     User Menu (dropdown)
+     ============================================================ */
+  function openUserMenu() {
+    const trigger = $('user-menu-trigger');
+    const panel   = $('user-menu-panel');
+    if (!trigger || !panel) return;
+    panel.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+    // focus first item
+    setTimeout(() => {
+      const first = panel.querySelector('[role="menuitem"], button');
+      if (first) first.focus();
+    }, 50);
+  }
+  function closeUserMenu(returnFocus) {
+    const trigger = $('user-menu-trigger');
+    const panel   = $('user-menu-panel');
+    if (!trigger || !panel || panel.hidden) return;
+    panel.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+    if (returnFocus) trigger.focus();
+  }
+  function initUserMenu() {
+    const trigger = $('user-menu-trigger');
+    const panel   = $('user-menu-panel');
+    const menu    = $('user-menu');
+    if (!trigger || !panel) return;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) closeUserMenu(true); else openUserMenu();
+    });
+
+    // Click outside closes
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target)) closeUserMenu(false);
+    });
+
+    // ESC closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (trigger.getAttribute('aria-expanded') === 'true') {
+          e.preventDefault();
+          closeUserMenu(true);
+        }
+      }
+    });
+  }
+
+  /* ============================================================
+     Logout Modal
+     ============================================================ */
+  function openLogoutModal() {
+    const modal = $('logout-modal');
+    if (!modal) return;
+    closeUserMenu(false);
+    lastFocusEl = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      modal.classList.add('is-open');
+      setTimeout(() => {
+        const auto = modal.querySelector('[data-autofocus]');
+        if (auto) auto.focus();
+      }, 80);
+    });
+  }
+  function closeLogoutModal() {
+    const modal = $('logout-modal');
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    setTimeout(() => {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
+        lastFocusEl.focus();
+      }
+      lastFocusEl = null;
+    }, 250);
+  }
+  function trapFocus(e) {
+    const modal = $('logout-modal');
+    if (!modal || !modal.classList.contains('is-open')) return;
+    if (e.key !== 'Tab') return;
+    const focusables = modal.querySelectorAll(
+      'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last  = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
+  async function performLogout() {
+    const client = getSupabase();
+    const confirmBtn = $('modal-confirm');
+    if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.style.opacity = '.7'; }
+    try {
+      if (client) await client.auth.signOut();
+    } catch (e) {
+      console.error('[AQDAR] Logout error:', e);
+    }
+    closeLogoutModal();
+    showToast('success', 'تم تسجيل الخروج', 'جاري تحويلك لصفحة الدخول...', 1200);
+    setTimeout(redirectToLogin, 350);
+  }
+
+  function initLogout() {
+    const btn     = $('logout-btn');
+    const modal   = $('logout-modal');
+    const cancel  = $('modal-cancel');
+    const confirm = $('modal-confirm');
+
+    if (btn)     btn.addEventListener('click', openLogoutModal);
+    if (cancel)  cancel.addEventListener('click', closeLogoutModal);
+    if (confirm) confirm.addEventListener('click', performLogout);
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeLogoutModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const m = $('logout-modal');
+        if (m && m.classList.contains('is-open')) {
+          closeLogoutModal();
+          return;
+        }
+      }
+      trapFocus(e);
+
+      const tag = (document.activeElement && document.activeElement.tagName || '').toLowerCase();
+      const isTyping = tag === 'input' || tag === 'textarea' || tag === 'select' ||
+                       (document.activeElement && document.activeElement.isContentEditable);
+      const modalOpen = $('logout-modal')?.classList.contains('is-open');
+      const menuOpen  = $('user-menu-trigger')?.getAttribute('aria-expanded') === 'true';
+      if (!isTyping && !modalOpen && !menuOpen && (e.key === '/' || (e.ctrlKey && e.key.toLowerCase() === 'k'))) {
+        const si = $('search-input');
+        if (si) { e.preventDefault(); si.focus(); si.select(); }
+      }
+    });
+  }
+
+  /* ============================================================
+     Course cards (stretched-link pattern)
+     ============================================================ */
+  function initCourseCards() {
+    // Title links handle navigation
+    $$('.course-card__title-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = link.closest('.course-card');
+        const key  = link.getAttribute('data-course-link') || (card && card.getAttribute('data-course'));
+        const title = card ? (card.getAttribute('data-title') || '') : '';
+        if (!key) return;
+        setLastCourse(key);
+        lastCourseKey = key;
+        updateContinueBanner();
+        showToast('info', 'قريبًا', 'محتوى "' + title + '" هيتم إضافته في التحديث الجاي.', 3500);
+        console.log('[AQDAR] Selected course:', key);
+      });
+    });
+
+    // Bookmark buttons
+    $$('.bookmark-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const key = btn.getAttribute('data-bookmark');
+        const nowActive = toggleBookmark(key);
+        const card  = btn.closest('.course-card');
+        const title = card ? (card.getAttribute('data-title') || '') : '';
+        syncBookmarkButtons();
+        updateFilterCounts();
+        applyView();
+        showToast(
+          nowActive ? 'success' : 'info',
+          nowActive ? 'أُضيفت للمفضلة' : 'أُزيلت من المفضلة',
+          '"' + title + '"',
+          2500
+        );
+      });
+    });
+  }
+
+  /* ============================================================
+     Continue banner button
+     ============================================================ */
+  function initContinueBanner() {
+    const btn = $('continue-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (!lastCourseKey) return;
+      const card = document.querySelector('.course-card[data-course="' + lastCourseKey + '"]');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const link = card.querySelector('.course-card__title-link');
+        setTimeout(() => { if (link) link.focus(); }, 400);
+      }
+    });
+  }
+
+  /* ============================================================
+     Dynamic stats
+     ============================================================ */
+  function updateStats() {
+    const cards = $$('.course-card');
+    let totalLessons = 0;
+    cards.forEach(c => totalLessons += parseInt(c.dataset.lessons || '0', 10));
+    const coursesEl = document.querySelector('[data-stat="courses"]');
+    const lessonsEl = document.querySelector('[data-stat="lessons"]');
+    if (coursesEl) coursesEl.textContent = cards.length;
+    if (lessonsEl) lessonsEl.textContent = totalLessons;
+  }
+
+  /* ============================================================
+     Init
+     ============================================================ */
+  async function init() {
+    initTheme();
+    initBackToTop();
+    initUserMenu();
+    initLogout();
+    initContinueBanner();
+
+    const client = getSupabase();
+    if (!client) {
+      console.error('[AQDAR] Supabase not available');
+      redirectToLogin();
+      return;
+    }
+
+    try {
+      const { data, error } = await client.auth.getSession();
+      if (error) throw error;
+
+      if (!data || !data.session || !data.session.user) {
+        redirectToLogin();
+        return;
+      }
+
+      fillUserInfo(data.session.user);
+      showApp();
+
+      restorePreferences();
+      syncBookmarkButtons();
+      updateFilterCounts();
+      updateStats();
+      initToolbar();
+      initCourseCards();
+      applySort();
+      applyView();
+      updateContinueBanner();
+
+      client.auth.onAuthStateChange((event) => {
+        if (event === 'SIGNED_OUT') redirectToLogin();
+        if (event === 'USER_UPDATED' && data?.session?.user) {
+          fillUserInfo(data.session.user);
+        }
+      });
+
+    } catch (err) {
+      console.error('[AQDAR] Session check failed:', err);
+      redirectToLogin();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>
